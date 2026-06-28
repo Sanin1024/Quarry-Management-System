@@ -250,11 +250,11 @@
                     <div
                         class="bg-success/10 text-success px-2 py-1 rounded-full flex items-center gap-1 font-label-sm">
                         <span class="material-symbols-outlined text-[14px]">arrow_upward</span>
-                        12%
+                        <span id="kpi-revenue-pct-text">12%</span>
                     </div>
                 </div>
                 <div>
-                    <div class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-deep">₹4.2M</div>
+                    <div id="kpi-revenue-value" class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-deep">₹4.2M</div>
                     <div class="w-full h-8 mt-2 opacity-60">
                         <canvas id="spark1"></canvas>
                     </div>
@@ -267,11 +267,11 @@
                         Expense</span>
                     <div class="bg-danger/10 text-danger px-2 py-1 rounded-full flex items-center gap-1 font-label-sm">
                         <span class="material-symbols-outlined text-[14px]">arrow_upward</span>
-                        5%
+                        <span id="kpi-expense-pct-text">5%</span>
                     </div>
                 </div>
                 <div>
-                    <div class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-deep">₹1.8M</div>
+                    <div id="kpi-expense-value" class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-deep">₹1.8M</div>
                     <div class="w-full h-8 mt-2 opacity-60">
                         <canvas id="spark2"></canvas>
                     </div>
@@ -284,11 +284,11 @@
                     <div
                         class="bg-success/10 text-success px-2 py-1 rounded-full flex items-center gap-1 font-label-sm">
                         <span class="material-symbols-outlined text-[14px]">arrow_upward</span>
-                        8%
+                        <span id="kpi-netvalue-pct-text">8%</span>
                     </div>
                 </div>
                 <div>
-                    <div class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-deep">₹2.4M</div>
+                    <div id="kpi-netvalue-value" class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-deep">₹2.4M</div>
                     <div class="w-full h-8 mt-2 opacity-60">
                         <canvas id="spark3"></canvas>
                     </div>
@@ -302,11 +302,11 @@
                     <div
                         class="bg-success/10 text-success px-2 py-1 rounded-full flex items-center gap-1 font-label-sm">
                         <span class="material-symbols-outlined text-[14px]">arrow_upward</span>
-                        10%
+                        <span id="kpi-received-pct-text">10%</span>
                     </div>
                 </div>
                 <div>
-                    <div class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-deep">₹2.1M</div>
+                    <div id="kpi-received-value" class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-deep">₹2.1M</div>
                     <div class="w-full h-8 mt-2 opacity-60">
                         <canvas id="spark4"></canvas>
                     </div>
@@ -321,11 +321,11 @@
                     <div
                         class="bg-success/10 text-success px-2 py-1 rounded-full flex items-center gap-1 font-label-sm">
                         <span class="material-symbols-outlined text-[14px]">arrow_upward</span>
-                        2%
+                        <span id="kpi-workingdays-pct-text">2%</span>
                     </div>
                 </div>
                 <div>
-                    <div class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-deep">45<span
+                    <div id="kpi-workingdays-value" class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-ink-deep">45<span
                             class="text-headline-md text-secondary ml-1">d</span></div>
                     <div class="w-full h-8 mt-2 opacity-60">
                         <canvas id="spark5"></canvas>
@@ -373,7 +373,7 @@
                         <span class="material-symbols-outlined text-[80px] text-primary">view_apps</span>
                     </div>
                     <h4 class="font-label-md text-secondary uppercase tracking-wider mb-2">First Quality Bricks</h4>
-                    <div class="font-headline-lg text-ink-deep mb-4">1.75M</div>
+                    <div class="font-headline-lg text-ink-deep mb-4"><span id="prod-fqbricks-q1">1.75M</span> <span id="prod-fqbricks-q2"></span></div>
                     <div class="space-y-2">
                         <div class="flex justify-between items-center text-sm">
                             <span class="text-secondary flex items-center gap-2"><span
@@ -400,7 +400,7 @@
                         <span class="material-symbols-outlined text-[80px] text-tertiary">layers</span>
                     </div>
                     <h4 class="font-label-md text-secondary uppercase tracking-wider mb-2">Second Quality Bricks</h4>
-                    <div class="font-headline-lg text-ink-deep mb-4">450k</div>
+                    <div class="font-headline-lg text-ink-deep mb-4"><span id="prod-sqbricks-q1">450k</span> <span id="prod-sqbricks-q2"></span></div>
                     <div class="space-y-2">
                         <div class="flex justify-between items-center text-sm">
                             <span class="text-secondary flex items-center gap-2"><span
@@ -427,7 +427,7 @@
                         <span class="material-symbols-outlined text-[80px] text-warning">broken_image</span>
                     </div>
                     <h4 class="font-label-md text-secondary uppercase tracking-wider mb-2">Broken Bricks Loads</h4>
-                    <div class="font-headline-lg text-ink-deep mb-4">215</div>
+                    <div class="font-headline-lg text-ink-deep mb-4"><span id="prod-broken-q1">215</span> <span id="prod-broken-q2"></span></div>
                     <div class="space-y-2">
                         <div class="flex justify-between items-center text-sm">
                             <span class="text-secondary flex items-center gap-2"><span
@@ -470,102 +470,7 @@
                             <th class="p-4 font-semibold text-center w-36">Status</th>
                         </tr>
                     </thead>
-                    <tbody class="font-body-md divide-y divide-border">
-                        <!-- Row 1 -->
-                        <tr class="hover:bg-surface-container-lowest transition-colors">
-                            <td class="p-4">
-                                <span
-                                    class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/20">Q1</span>
-                            </td>
-                            <td class="p-4 text-secondary">Oct 01, 2023</td>
-                            <td class="p-4 text-secondary">Oct 15, 2023</td>
-                            <td class="p-4 font-data-mono text-right">15</td>
-                            <td class="p-4 font-data-mono text-right text-secondary">₹450k</td>
-                            <td class="p-4 font-data-mono text-right text-ink-deep">₹980k</td>
-                            <td class="p-4 font-data-mono text-right text-success font-medium">₹530k</td>
-                            <td class="p-4 font-data-mono text-right">₹980k</td>
-                            <td class="p-4 text-center">
-                                <span
-                                    class="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-xs font-medium bg-success/10 text-success w-full">Fully
-                                    Received</span>
-                            </td>
-                        </tr>
-                        <!-- Row 2 -->
-                        <tr class="hover:bg-surface-container-lowest transition-colors">
-                            <td class="p-4">
-                                <span
-                                    class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-secondary/10 text-secondary border border-secondary/20">Q2</span>
-                            </td>
-                            <td class="p-4 text-secondary">Oct 05, 2023</td>
-                            <td class="p-4 text-secondary">Oct 20, 2023</td>
-                            <td class="p-4 font-data-mono text-right">16</td>
-                            <td class="p-4 font-data-mono text-right text-secondary">₹380k</td>
-                            <td class="p-4 font-data-mono text-right text-ink-deep">₹820k</td>
-                            <td class="p-4 font-data-mono text-right text-success font-medium">₹440k</td>
-                            <td class="p-4 font-data-mono text-right">₹500k</td>
-                            <td class="p-4 text-center">
-                                <span
-                                    class="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-xs font-medium bg-warning/10 text-warning w-full">Partially
-                                    Received</span>
-                            </td>
-                        </tr>
-                        <!-- Row 3 -->
-                        <tr class="hover:bg-surface-container-lowest transition-colors">
-                            <td class="p-4">
-                                <span
-                                    class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/20">Q1</span>
-                            </td>
-                            <td class="p-4 text-secondary">Oct 16, 2023</td>
-                            <td class="p-4 text-secondary">Oct 31, 2023</td>
-                            <td class="p-4 font-data-mono text-right">16</td>
-                            <td class="p-4 font-data-mono text-right text-secondary">₹480k</td>
-                            <td class="p-4 font-data-mono text-right text-ink-deep">₹1.1M</td>
-                            <td class="p-4 font-data-mono text-right text-success font-medium">₹620k</td>
-                            <td class="p-4 font-data-mono text-right">₹0</td>
-                            <td class="p-4 text-center">
-                                <span
-                                    class="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-xs font-medium bg-secondary/10 text-secondary w-full">Pending</span>
-                            </td>
-                        </tr>
-                        <!-- Row 4 -->
-                        <tr class="hover:bg-surface-container-lowest transition-colors">
-                            <td class="p-4">
-                                <span
-                                    class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-secondary/10 text-secondary border border-secondary/20">Q2</span>
-                            </td>
-                            <td class="p-4 text-secondary">Oct 21, 2023</td>
-                            <td class="p-4 text-secondary">Nov 05, 2023</td>
-                            <td class="p-4 font-data-mono text-right">16</td>
-                            <td class="p-4 font-data-mono text-right text-secondary">₹410k</td>
-                            <td class="p-4 font-data-mono text-right text-ink-deep">₹890k</td>
-                            <td class="p-4 font-data-mono text-right text-success font-medium">₹480k</td>
-                            <td class="p-4 font-data-mono text-right">₹890k</td>
-                            <td class="p-4 text-center">
-                                <span
-                                    class="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-xs font-medium bg-success/10 text-success w-full">Fully
-                                    Received</span>
-                            </td>
-                        </tr>
-                        <!-- Row 5 -->
-                        <tr class="hover:bg-surface-container-lowest transition-colors">
-                            <td class="p-4">
-                                <span
-                                    class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/20">Q1</span>
-                            </td>
-                            <td class="p-4 text-secondary">Nov 01, 2023</td>
-                            <td class="p-4 text-secondary">Nov 15, 2023</td>
-                            <td class="p-4 font-data-mono text-right">15</td>
-                            <td class="p-4 font-data-mono text-right text-secondary">₹460k</td>
-                            <td class="p-4 font-data-mono text-right text-ink-deep">₹1.05M</td>
-                            <td class="p-4 font-data-mono text-right text-success font-medium">₹590k</td>
-                            <td class="p-4 font-data-mono text-right">₹500k</td>
-                            <td class="p-4 text-center">
-                                <span
-                                    class="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-xs font-medium bg-warning/10 text-warning w-full">Partially
-                                    Received</span>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody id="recent-activity-body" class="font-body-md divide-y divide-border"></tbody>
                 </table>
             </div>
         </section>
@@ -591,153 +496,199 @@
     </footer>
     <!-- Chart Initializations -->
     <script>
-        // Colors from theme
-        const colorPrimary = '#974626'; // Terracotta
-        const colorSecondary = '#515f74'; // Slate
-        const colorSuccess = '#22C55E';
-        const gridColor = '#E5E7EB';
-        const textColor = '#1b1c19';
-        const labelColor = '#515f74';
+    // Async IIFE to fetch data and render UI
+    (async () => { try {
+        // Helper to format numbers as Indian Rupee with millions (e.g., ₹4.2M)
+        const fmtMoney = val => `₹${(val/1e6).toFixed(1)}M`;
+        const fmtNumber = val => `${val}`;
+        const fmtPercent = val => `${val}%`;
 
-        // Shared chart options for main charts
+        // Fetch all three endpoints in parallel
+        const [dashRes, revExpRes, netTrendRes] = await Promise.all([
+            fetch('/api/analytics/dashboard').then(r=>r.json()),
+            fetch('/api/analytics/revenue-expense-by-month').then(r=>r.json()),
+            fetch('/api/analytics/net-value-trend').then(r=>r.json())
+        ]);
+        const dash = dashRes;
+        const revExp = revExpRes;
+        const netTrend = netTrendRes;
+
+        // ---- Update KPI cards ----
+        document.getElementById('kpi-revenue-value').textContent = fmtMoney(dash.kpis.total_revenue.value);
+        document.getElementById('kpi-expense-value').textContent = fmtMoney(dash.kpis.total_expense.value);
+        document.getElementById('kpi-netvalue-value').textContent = fmtMoney(dash.kpis.net_value.value);
+        document.getElementById('kpi-received-value').textContent = fmtMoney(dash.kpis.total_received.value);
+        document.getElementById('kpi-workingdays-value').textContent = `${dash.kpis.total_working_days.value}d`;
+
+        document.getElementById('kpi-revenue-pct-text').textContent = fmtPercent(dash.kpis.total_revenue.pct_change);
+        document.getElementById('kpi-expense-pct-text').textContent = fmtPercent(dash.kpis.total_expense.pct_change);
+        document.getElementById('kpi-netvalue-pct-text').textContent = fmtPercent(dash.kpis.net_value.pct_change);
+        document.getElementById('kpi-received-pct-text').textContent = fmtPercent(dash.kpis.total_received.pct_change);
+        document.getElementById('kpi-workingdays-pct-text').textContent = fmtPercent(dash.kpis.total_working_days.pct_change);
+
+        // ---- Production summary tiles ----
+        document.getElementById('prod-fqbricks-q1').textContent = fmtNumber(dash.production["Quarry 1"].first_quality_bricks);
+        document.getElementById('prod-fqbricks-q2').textContent = fmtNumber(dash.production["Quarry 2"].first_quality_bricks);
+        document.getElementById('prod-sqbricks-q1').textContent = fmtNumber(dash.production["Quarry 1"].second_quality_bricks);
+        document.getElementById('prod-sqbricks-q2').textContent = fmtNumber(dash.production["Quarry 2"].second_quality_bricks);
+        document.getElementById('prod-broken-q1').textContent = fmtNumber(dash.production["Quarry 1"].broken_bricks_loads);
+        document.getElementById('prod-broken-q2').textContent = fmtNumber(dash.production["Quarry 2"].broken_bricks_loads);
+
+        // ---- Recent Activity Table ----
+        const tbody = document.getElementById('recent-activity-body');
+        tbody.innerHTML = '';
+        dash.recent_activity.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.className = 'hover:bg-surface-container-lowest transition-colors';
+            // Quarry badge
+            const quarryTd = document.createElement('td');
+            quarryTd.className = 'p-4';
+            const quarrySpan = document.createElement('span');
+            quarrySpan.className = `inline-flex items-center px-2 py-1 rounded text-xs font-medium ${item.quarry === 'Quarry 1' ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-secondary/10 text-secondary border border-secondary/20'}`;
+            quarrySpan.textContent = item.quarry === 'Quarry 1' ? 'Q1' : 'Q2';
+            quarryTd.appendChild(quarrySpan);
+            // Day From / To
+            const fromTd = document.createElement('td');
+            fromTd.className = 'p-4 text-secondary';
+            fromTd.textContent = item.day_from;
+            const toTd = document.createElement('td');
+            toTd.className = 'p-4 text-secondary';
+            toTd.textContent = item.day_to;
+            // Working Days
+            const wdTd = document.createElement('td');
+            wdTd.className = 'p-4 font-data-mono text-right';
+            wdTd.textContent = item.working_days;
+            // Expense / Revenue / Net Value / Received
+            const expenseTd = document.createElement('td');
+            expenseTd.className = 'p-4 font-data-mono text-right text-secondary';
+            expenseTd.textContent = fmtMoney(item.total_expense);
+            const revenueTd = document.createElement('td');
+            revenueTd.className = 'p-4 font-data-mono text-right text-ink-deep';
+            revenueTd.textContent = fmtMoney(item.total_revenue);
+            const netTd = document.createElement('td');
+            netTd.className = 'p-4 font-data-mono text-right text-success font-medium';
+            netTd.textContent = fmtMoney(item.net_value);
+            const receivedTd = document.createElement('td');
+            receivedTd.className = 'p-4 font-data-mono text-right';
+            receivedTd.textContent = fmtMoney(item.received_amount);
+            // Status badge
+            const statusTd = document.createElement('td');
+            statusTd.className = 'p-4 text-center';
+            const statusSpan = document.createElement('span');
+            statusSpan.className = 'inline-flex items-center justify-center px-2.5 py-1 rounded-full text-xs font-medium w-full';
+            if (item.received_amount >= item.net_value) {
+                statusSpan.classList.add('bg-success/10', 'text-success');
+                statusSpan.textContent = 'Fully Received';
+            } else if (item.received_amount > 0) {
+                statusSpan.classList.add('bg-warning/10', 'text-warning');
+                statusSpan.textContent = 'Partially Received';
+            } else {
+                statusSpan.classList.add('bg-danger/10', 'text-danger');
+                statusSpan.textContent = 'Pending';
+            }
+            statusTd.appendChild(statusSpan);
+
+            // Append cells
+            tr.appendChild(quarryTd);
+            tr.appendChild(fromTd);
+            tr.appendChild(toTd);
+            tr.appendChild(wdTd);
+            tr.appendChild(expenseTd);
+            tr.appendChild(revenueTd);
+            tr.appendChild(netTd);
+            tr.appendChild(receivedTd);
+            tr.appendChild(statusTd);
+            tbody.appendChild(tr);
+        });
+
+        // ---- Chart data helpers ----
+        const colors = { primary: '#974626', secondary: '#515f74', success: '#22C55E' };
+        const gridColor = '#E5E7EB';
+        const labelColor = '#515f74';
         const commonOptions = {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false // Custom legend built in HTML
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(10, 37, 64, 0.9)', // ink-deep with opacity
-                    titleFont: { family: 'Inter', size: 13 },
-                    bodyFont: { family: 'Inter', size: 13 },
-                    padding: 12,
-                    cornerRadius: 8,
-                    displayColors: true
-                }
-            },
-            scales: {
-                x: {
-                    grid: { display: false, drawBorder: false },
-                    ticks: { font: { family: 'Inter', size: 12 }, color: labelColor }
-                },
-                y: {
-                    grid: { color: gridColor, drawBorder: false, borderDash: [4, 4] },
-                    ticks: {
-                        font: { family: 'Inter', size: 12, family: 'Inter' },
-                        color: labelColor,
-                        callback: function (value) { return '₹' + (value / 1000000).toFixed(1) + 'M'; }
-                    },
-                    beginAtZero: true
-                }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index',
-            },
+            plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(10, 37, 64, 0.9)', titleFont: { family: 'Inter', size: 13 }, bodyFont: { family: 'Inter', size: 13 }, padding: 12, cornerRadius: 8, displayColors: true } },
+            scales: { x: { grid: { display: false, drawBorder: false }, ticks: { font: { family: 'Inter', size: 12 }, color: labelColor } }, y: { grid: { color: gridColor, drawBorder: false, borderDash: [4,4] }, ticks: { font: { family: 'Inter', size: 12 }, color: labelColor, callback: v => `₹${(v/1e6).toFixed(1)}M` }, beginAtZero: true } },
+            interaction: { intersect: false, mode: 'index' }
         };
 
-        // --- Bar Chart (Quarry 1 vs 2 Revenue) ---
-        const ctxBar = document.getElementById('barChart').getContext('2d');
-        new Chart(ctxBar, {
+        // ---- Bar Chart (Revenue vs Expense by Month) ----
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        new Chart(barCtx, {
             type: 'bar',
             data: {
-                labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-                datasets: [
-                    {
-                        label: 'Quarry 1',
-                        data: [650000, 720000, 680000, 810000, 850000, 980000],
-                        backgroundColor: colorPrimary,
-                        borderRadius: { topLeft: 4, topRight: 4 },
-                        barPercentage: 0.6,
-                        categoryPercentage: 0.8
-                    },
-                    {
-                        label: 'Quarry 2',
-                        data: [520000, 580000, 610000, 690000, 740000, 820000],
-                        backgroundColor: colorSecondary,
-                        borderRadius: { topLeft: 4, topRight: 4 },
-                        barPercentage: 0.6,
-                        categoryPercentage: 0.8
-                    }
-                ]
+                labels: revExp.labels,
+                datasets: revExp.datasets.map(ds => ({
+                    label: ds.quarry,
+                    data: ds.revenue,
+                    backgroundColor: ds.quarry === 'Quarry 1' ? colors.primary : colors.secondary,
+                    borderRadius: { topLeft: 4, topRight: 4 },
+                    barPercentage: 0.6,
+                    categoryPercentage: 0.8
+                }))
             },
             options: commonOptions
         });
 
-        // --- Line Chart (Net Value Trend) ---
-        const ctxLine = document.getElementById('lineChart').getContext('2d');
-        new Chart(ctxLine, {
+        // ---- Line Chart (Net Value Trend) ----
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        new Chart(lineCtx, {
             type: 'line',
             data: {
-                labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-                datasets: [
-                    {
-                        label: 'Quarry 1',
-                        data: [310000, 360000, 330000, 420000, 480000, 530000],
-                        borderColor: colorPrimary,
-                        backgroundColor: 'transparent',
-                        borderWidth: 2.5,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: colorPrimary,
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6,
-                        tension: 0.4
-                    },
-                    {
-                        label: 'Quarry 2',
-                        data: [250000, 290000, 300000, 340000, 380000, 440000],
-                        borderColor: colorSecondary,
-                        backgroundColor: 'transparent',
-                        borderWidth: 2.5,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: colorSecondary,
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6,
-                        tension: 0.4
-                    }
-                ]
+                labels: netTrend.labels,
+                datasets: netTrend.datasets.map(ds => ({
+                    label: ds.quarry,
+                    data: ds.net_value,
+                    borderColor: ds.quarry === 'Quarry 1' ? colors.primary : colors.secondary,
+                    backgroundColor: 'transparent',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: ds.quarry === 'Quarry 1' ? colors.primary : colors.secondary,
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    tension: 0.4
+                }))
             },
             options: commonOptions
         });
 
-        // --- Sparklines ---
-        const sparkOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false }, tooltip: { enabled: false } },
-            scales: { x: { display: false }, y: { display: false, beginAtZero: false } },
-            layout: { padding: 0 },
-            elements: { point: { radius: 0 } }
-        };
-
-        const createSparkline = (id, data, color) => {
+        // ---- Sparklines for each KPI ----
+        const sparkOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { display: false }, y: { display: false, beginAtZero: false } }, layout: { padding: 0 }, elements: { point: { radius: 0 } } };
+        const createSpark = (id, data, color) => {
             const ctx = document.getElementById(id).getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['1', '2', '3', '4', '5', '6', '7'],
-                    datasets: [{
-                        data: data,
-                        borderColor: color,
-                        borderWidth: 2,
-                        tension: 0.3,
-                        fill: false
-                    }]
-                },
-                options: sparkOptions
-            });
+            new Chart(ctx, { type: 'line', data: { labels: data.map((_,i)=>i+1), datasets: [{ data, borderColor: color, borderWidth: 2, tension: 0.3, fill: false }] }, options: sparkOptions });
         };
-
-        createSparkline('spark1', [10, 15, 12, 18, 24, 22, 28], colorPrimary);
-        createSparkline('spark2', [8, 10, 9, 12, 11, 14, 15], colorSecondary);
-        createSparkline('spark3', [5, 8, 7, 12, 16, 14, 19], colorSuccess);
-        createSparkline('spark4', [4, 6, 8, 10, 14, 16, 20], colorPrimary);
-        createSparkline('spark5', [40, 42, 41, 44, 43, 45, 45], colorSecondary);
-
-    </script>
+        // revenue/expense spark data derived from revExp datasets
+        revExp.datasets.forEach(ds => {
+            const sparkId = ds.quarry === 'Quarry 1' ? 'spark1' : 'spark2';
+            createSpark(sparkId, ds.revenue, ds.quarry === 'Quarry 1' ? colors.primary : colors.secondary);
+        });
+        // net value spark data derived from netTrend datasets
+        netTrend.datasets.forEach(ds => {
+            const sparkId = ds.quarry === 'Quarry 1' ? 'spark3' : 'spark4';
+            createSpark(sparkId, ds.net_value, ds.quarry === 'Quarry 1' ? colors.primary : colors.secondary);
+        });
+        // broken bricks spark (placeholder static data)
+        createSpark('spark5', [40,42,41,44,43,45,45], colors.secondary);
+    } catch (e) {
+        console.error(e);
+        const fallback = "—";
+        document.getElementById('kpi-revenue-value').textContent = fallback;
+        document.getElementById('kpi-expense-value').textContent = fallback;
+        document.getElementById('kpi-netvalue-value').textContent = fallback;
+        document.getElementById('kpi-received-value').textContent = fallback;
+        document.getElementById('kpi-workingdays-value').textContent = fallback;
+        document.getElementById('kpi-revenue-pct-text').textContent = fallback;
+        document.getElementById('kpi-expense-pct-text').textContent = fallback;
+        document.getElementById('kpi-netvalue-pct-text').textContent = fallback;
+        document.getElementById('kpi-received-pct-text').textContent = fallback;
+        document.getElementById('kpi-workingdays-pct-text').textContent = fallback;
+    }
+    })();
+</script>
+    
 <script src="/static/js/shared.js"></script>
 </body>
 
