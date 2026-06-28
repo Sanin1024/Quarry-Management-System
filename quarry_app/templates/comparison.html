@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quarry Comparison Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#f0dfda",
+                        "secondary-fixed": "#d5e3fc",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "on-primary-container": "#ffffff",
+                        "surface-tint": "#984727",
+                        "background": "#fff8f6",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#d5e3fc",
+                        "tertiary-container": "#008488",
+                        "on-background": "#221a17",
+                        "surface-container": "#fceae5",
+                        "on-primary-fixed": "#380d00",
+                        "outline-variant": "#dbc1b9",
+                        "on-tertiary-container": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#ffede8",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "tertiary-fixed-dim": "#74d6da",
+                        "on-tertiary-fixed-variant": "#004f52",
+                        "surface-dim": "#e7d7d1",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#ffb59b",
+                        "surface-container-high": "#f6e5df",
+                        "tertiary": "#00696c",
+                        "on-tertiary-fixed": "#002021",
+                        "on-secondary-container": "#57657a",
+                        "primary-fixed": "#ffdbcf",
+                        "outline": "#88726b",
+                        "surface-container-low": "#fff1ec",
+                        "surface": "#fff8f6",
+                        "primary": "#974626",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#91f2f6",
+                        "primary-container": "#b65e3c",
+                        "primary-fixed-dim": "#ffb59b",
+                        "on-surface": "#221a17",
+                        "secondary": "#515f74",
+                        "on-surface-variant": "#55433c",
+                        "on-primary-fixed-variant": "#793012",
+                        "surface-bright": "#fff8f6",
+                        "surface-variant": "#f0dfda",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#382e2b",
+                        "quarry-1": "#B65E3C",
+                        "quarry-2": "#4F6D8A"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "3xl": "64px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "margin-desktop": "32px",
+                        "base": "4px",
+                        "2xl": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "data-tabular": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "data-tabular": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #FAF8F3; }
+        .card-shadow { box-shadow: 0 4px 12px rgba(81, 95, 116, 0.05); }
+        .tabular-nums { font-variant-numeric: tabular-nums; }
+    </style>
+    <script src="/static/js/shared.js"></script>
+</head>
+<body class="text-on-surface antialiased bg-[#FAF8F3]">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 max-w-container-max mx-auto bg-surface shadow-sm transition-all duration-200 ease-in-out">
+<div class="flex items-center gap-lg">
+<span class="font-headline-md text-headline-md font-bold text-primary">Quarry 1 Analytics</span>
+<div class="hidden md:flex gap-lg ml-xl">
+<a class="text-secondary font-medium hover:text-primary-container transition-colors" href="#">Dashboard</a>
+<a class="text-secondary font-medium hover:text-primary-container transition-colors" href="#">Quarry 1</a>
+<a class="text-secondary font-medium hover:text-primary-container transition-colors" href="#">Quarry 2</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Compare</a>
+<a class="text-secondary font-medium hover:text-primary-container transition-colors" href="#">Import Data</a>
+<a class="text-secondary font-medium hover:text-primary-container transition-colors" href="#">Reports</a>
+<a class="text-secondary font-medium hover:text-primary-container transition-colors" href="#">Analytics</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined">settings</span></button>
+<div class="w-8 h-8 rounded-full bg-secondary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female executive manager in a well-lit industrial office setting, warm lighting, high-resolution, business casual attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe6P2kcb9zkIN7hLItrXqme3KC4wZ4LM3IqhUwceIIIzEM4_7Eu9LskGe3aXLHK3LlNSavvfMYF3tHwqwXDc0BkUbxRPlEKwxz-UtMflhej7z_nC_F2VjHSUok-DrCedRf3xbFKhpm9hskvfVsOdlKdi-cPrVayoi6WoG6pVmMrAZfbj6lUUgq109vh5609JjdlO4i4QvP4mxiQ8iS3OusGyujsbey_cCiC66MdIMyRfCgk0H_W0aB"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Desktop) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 hidden md:flex flex-col p-md w-64 bg-secondary-container shadow-lg">
+<div class="mb-lg px-md">
+<div class="flex items-center gap-md mb-2">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center text-on-primary font-bold">Q1</div>
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-secondary-container">Quarry 1</h2>
+<p class="font-label-md text-label-md text-secondary">Operational Lead</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-sm">
+<a class="flex items-center gap-md text-on-secondary-container px-md py-sm hover:bg-on-secondary-container/10 transition-colors rounded-lg" href="#"><span class="material-symbols-outlined">dashboard</span> Dashboard</a>
+<a class="flex items-center gap-md text-on-secondary-container px-md py-sm hover:bg-on-secondary-container/10 transition-colors rounded-lg" href="#"><span class="material-symbols-outlined">landscape</span> Quarry 1</a>
+<a class="flex items-center gap-md text-on-secondary-container px-md py-sm hover:bg-on-secondary-container/10 transition-colors rounded-lg" href="#"><span class="material-symbols-outlined">terrain</span> Quarry 2</a>
+<a class="flex items-center gap-md bg-primary text-on-primary rounded-lg px-md py-sm shadow-md" href="#"><span class="material-symbols-outlined">compare_arrows</span> Compare</a>
+<a class="flex items-center gap-md text-on-secondary-container px-md py-sm hover:bg-on-secondary-container/10 transition-colors rounded-lg" href="#"><span class="material-symbols-outlined">cloud_upload</span> Import Data</a>
+<a class="flex items-center gap-md text-on-secondary-container px-md py-sm hover:bg-on-secondary-container/10 transition-colors rounded-lg" href="#"><span class="material-symbols-outlined">description</span> Reports</a>
+<a class="flex items-center gap-md text-on-secondary-container px-md py-sm hover:bg-on-secondary-container/10 transition-colors rounded-lg" href="#"><span class="material-symbols-outlined">analytics</span> Analytics</a>
+</nav>
+<div class="mt-auto flex flex-col gap-sm border-t border-outline-variant/30 pt-md">
+<button class="w-full py-2 bg-primary-container text-on-primary rounded-lg font-label-md font-bold hover:bg-primary transition-colors">Add New Quarry</button>
+<a class="flex items-center gap-md text-on-secondary-container px-md py-sm hover:bg-on-secondary-container/10 transition-colors rounded-lg" href="#"><span class="material-symbols-outlined">settings</span> Settings</a>
+<a class="flex items-center gap-md text-on-secondary-container px-md py-sm hover:bg-on-secondary-container/10 transition-colors rounded-lg" href="#"><span class="material-symbols-outlined">help</span> Support</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="pt-24 pb-16 md:pl-72 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto min-h-screen">
+<!-- Header & Breadcrumbs -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-xl gap-md">
+<div>
+<p class="font-label-md text-label-md text-secondary mb-1 flex items-center gap-2">
+                    Dashboard <span class="material-symbols-outlined text-sm">chevron_right</span> Compare Quarries
+                </p>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Quarry Comparison Dashboard</h1>
+</div>
+<div class="flex gap-md w-full md:w-auto">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-lg py-2 border border-secondary text-secondary rounded-lg font-label-md hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">picture_as_pdf</span> Export PDF
+                </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-lg py-2 border border-secondary text-secondary rounded-lg font-label-md hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">table_view</span> Excel
+                </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-lg py-2 bg-primary-container text-on-primary rounded-lg font-label-md hover:bg-primary transition-colors">
+<span class="material-symbols-outlined">print</span> Print
+                </button>
+</div>
+</div>
+<!-- Filters -->
+<div class="bg-surface-container-lowest rounded-xl p-md flex flex-col md:flex-row items-center justify-between card-shadow mb-xl border border-outline-variant/20">
+<div class="flex gap-sm overflow-x-auto w-full md:w-auto pb-2 md:pb-0 hide-scrollbar">
+<button class="px-md py-1.5 rounded-full bg-primary-container text-on-primary font-label-md text-sm whitespace-nowrap">This Month</button>
+<button class="px-md py-1.5 rounded-full bg-surface-variant text-on-surface-variant hover:bg-outline-variant/30 font-label-md text-sm whitespace-nowrap transition-colors">Last Month</button>
+<button class="px-md py-1.5 rounded-full bg-surface-variant text-on-surface-variant hover:bg-outline-variant/30 font-label-md text-sm whitespace-nowrap transition-colors">Q3 2023</button>
+<button class="px-md py-1.5 rounded-full bg-surface-variant text-on-surface-variant hover:bg-outline-variant/30 font-label-md text-sm whitespace-nowrap transition-colors">YTD</button>
+</div>
+<div class="flex items-center gap-2 mt-4 md:mt-0 w-full md:w-auto">
+<span class="material-symbols-outlined text-secondary">calendar_month</span>
+<input id="start-date" class="border-outline-variant/50 rounded-lg text-sm font-body-md bg-surface text-on-surface focus:ring-primary focus:border-primary" type="date" value="2023-10-01"/>
+<span class="text-secondary">-</span>
+<input id="end-date" class="border-outline-variant/50 rounded-lg text-sm font-body-md bg-surface text-on-surface focus:ring-primary focus:border-primary" type="date" value="2023-10-31"/>
+</div>
+</div>
+<!-- Executive Summary (KPIs) -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-md mb-xl">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-outline-variant/20 flex flex-col">
+<p class="font-label-md text-label-md text-secondary mb-1">Combined Revenue</p>
+<p id="comp-revenue" class="font-headline-md text-[18px] md:text-[20px] font-bold text-on-surface tabular-nums">₹ 0</p>
+<p id="comp-revenue-trend" class="text-xs text-tertiary font-medium mt-auto pt-2 flex items-center gap-1"><span class="material-symbols-outlined text-sm">trending_up</span> Combined total</p>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-outline-variant/20 flex flex-col">
+<p class="font-label-md text-label-md text-secondary mb-1">Combined Expense</p>
+<p id="comp-expense" class="font-headline-md text-[18px] md:text-[20px] font-bold text-on-surface tabular-nums">₹ 0</p>
+<p id="comp-expense-trend" class="text-xs text-error font-medium mt-auto pt-2 flex items-center gap-1"><span class="material-symbols-outlined text-sm">trending_up</span> Combined total</p>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-outline-variant/20 flex flex-col">
+<p class="font-label-md text-label-md text-secondary mb-1">Net Value</p>
+<p id="comp-net" class="font-headline-md text-[18px] md:text-[20px] font-bold text-on-surface tabular-nums">₹ 0</p>
+<p id="comp-net-trend" class="text-xs text-tertiary font-medium mt-auto pt-2 flex items-center gap-1"><span class="material-symbols-outlined text-sm">trending_up</span> Net gain</p>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-outline-variant/20 flex flex-col">
+<p class="font-label-md text-label-md text-secondary mb-1">Total Received</p>
+<p id="comp-received" class="font-headline-md text-[18px] md:text-[20px] font-bold text-on-surface tabular-nums">₹ 0</p>
+<div class="w-full bg-surface-variant h-1.5 rounded-full mt-2 overflow-hidden"><div id="comp-received-bar" class="bg-tertiary h-full rounded-full" style="width: 0%"></div></div>
+</div>
+<!-- KPI 5 -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-outline-variant/20 flex flex-col">
+<p class="font-label-md text-label-md text-secondary mb-1">Total Outstanding</p>
+<p id="comp-outstanding" class="font-headline-md text-[18px] md:text-[20px] font-bold text-on-surface tabular-nums">₹ 0</p>
+<div class="w-full bg-surface-variant h-1.5 rounded-full mt-2 overflow-hidden"><div id="comp-outstanding-bar" class="bg-error h-full rounded-full" style="width: 0%"></div></div>
+</div>
+<!-- KPI 6 -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow border border-outline-variant/20 flex flex-col">
+<p class="font-label-md text-label-md text-secondary mb-1">Avg Working Days</p>
+<p id="comp-avg-days" class="font-headline-md text-[18px] md:text-[20px] font-bold text-on-surface tabular-nums">0</p>
+<p class="text-xs text-secondary font-medium mt-auto pt-2">Across periods</p>
+</div>
+</div>
+
+<!-- Site-by-Site Comparison Cards -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg mb-xl">
+    <!-- Financial Metrics comparison -->
+    <div class="bg-surface-container-lowest rounded-xl p-lg card-shadow border border-outline-variant/20">
+        <h2 class="font-headline-md text-[18px] font-semibold text-on-surface mb-md flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">analytics</span> Financial Comparison
+        </h2>
+        <div class="space-y-lg">
+            <!-- Revenue Bar -->
+            <div>
+                <div class="flex justify-between text-sm font-label-md mb-2">
+                    <span class="text-on-surface">Revenue Distribution</span>
+                    <span class="font-medium text-xs text-on-surface-variant" id="comp-rev-ratio">Q1: 0% | Q2: 0%</span>
+                </div>
+                <div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden flex">
+                    <div id="comp-q1-rev-bar" class="bg-[#B65E3C] h-full" style="width: 0%;" title="Quarry 1"></div>
+                    <div id="comp-q2-rev-bar" class="bg-[#4F6D8A] h-full" style="width: 0%;" title="Quarry 2"></div>
+                </div>
+                <div class="flex justify-between text-xs mt-1 font-data-tabular">
+                    <span class="text-[#B65E3C] font-semibold" id="comp-q1-rev-val">Q1: ₹0</span>
+                    <span class="text-[#4F6D8A] font-semibold" id="comp-q2-rev-val">Q2: ₹0</span>
+                </div>
+            </div>
+
+            <!-- Expense Bar -->
+            <div>
+                <div class="flex justify-between text-sm font-label-md mb-2">
+                    <span class="text-on-surface">Expense Distribution</span>
+                    <span class="font-medium text-xs text-on-surface-variant" id="comp-exp-ratio">Q1: 0% | Q2: 0%</span>
+                </div>
+                <div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden flex">
+                    <div id="comp-q1-exp-bar" class="bg-[#B65E3C] h-full" style="width: 0%;" title="Quarry 1"></div>
+                    <div id="comp-q2-exp-bar" class="bg-[#4F6D8A] h-full" style="width: 0%;" title="Quarry 2"></div>
+                </div>
+                <div class="flex justify-between text-xs mt-1 font-data-tabular">
+                    <span class="text-[#B65E3C] font-semibold" id="comp-q1-exp-val">Q1: ₹0</span>
+                    <span class="text-[#4F6D8A] font-semibold" id="comp-q2-exp-val">Q2: ₹0</span>
+                </div>
+            </div>
+
+            <!-- Net Profit Bar -->
+            <div>
+                <div class="flex justify-between text-sm font-label-md mb-2">
+                    <span class="text-on-surface">Net Value Distribution</span>
+                    <span class="font-medium text-xs text-on-surface-variant" id="comp-net-ratio">Q1: 0% | Q2: 0%</span>
+                </div>
+                <div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden flex">
+                    <div id="comp-q1-net-bar" class="bg-[#B65E3C] h-full" style="width: 0%;" title="Quarry 1"></div>
+                    <div id="comp-q2-net-bar" class="bg-[#4F6D8A] h-full" style="width: 0%;" title="Quarry 2"></div>
+                </div>
+                <div class="flex justify-between text-xs mt-1 font-data-tabular">
+                    <span class="text-[#B65E3C] font-semibold" id="comp-q1-net-val">Q1: ₹0</span>
+                    <span class="text-[#4F6D8A] font-semibold" id="comp-q2-net-val">Q2: ₹0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Production comparison card -->
+    <div class="bg-surface-container-lowest rounded-xl p-lg card-shadow border border-outline-variant/20">
+        <h2 class="font-headline-md text-[18px] font-semibold text-on-surface mb-md flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">inventory_2</span> Production Comparison
+        </h2>
+        <div class="space-y-lg">
+            <!-- 1st Quality bricks -->
+            <div>
+                <div class="flex justify-between text-sm font-label-md mb-2">
+                    <span class="text-on-surface">First Quality Bricks</span>
+                    <span class="font-medium text-xs text-on-surface-variant" id="comp-qty1-ratio">Q1: 0% | Q2: 0%</span>
+                </div>
+                <div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden flex">
+                    <div id="comp-q1-qty1-bar" class="bg-[#B65E3C] h-full" style="width: 0%;"></div>
+                    <div id="comp-q2-qty1-bar" class="bg-[#4F6D8A] h-full" style="width: 0%;"></div>
+                </div>
+                <div class="flex justify-between text-xs mt-1 font-data-tabular">
+                    <span class="text-[#B65E3C] font-semibold" id="comp-q1-qty1-val">Q1: 0k</span>
+                    <span class="text-[#4F6D8A] font-semibold" id="comp-q2-qty1-val">Q2: 0k</span>
+                </div>
+            </div>
+
+            <!-- 2nd Quality bricks -->
+            <div>
+                <div class="flex justify-between text-sm font-label-md mb-2">
+                    <span class="text-on-surface">Second Quality Bricks</span>
+                    <span class="font-medium text-xs text-on-surface-variant" id="comp-qty2-ratio">Q1: 0% | Q2: 0%</span>
+                </div>
+                <div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden flex">
+                    <div id="comp-q1-qty2-bar" class="bg-[#B65E3C] h-full" style="width: 0%;"></div>
+                    <div id="comp-q2-qty2-bar" class="bg-[#4F6D8A] h-full" style="width: 0%;"></div>
+                </div>
+                <div class="flex justify-between text-xs mt-1 font-data-tabular">
+                    <span class="text-[#B65E3C] font-semibold" id="comp-q1-qty2-val">Q1: 0k</span>
+                    <span class="text-[#4F6D8A] font-semibold" id="comp-q2-qty2-val">Q2: 0k</span>
+                </div>
+            </div>
+
+            <!-- Broken blocks -->
+            <div>
+                <div class="flex justify-between text-sm font-label-md mb-2">
+                    <span class="text-on-surface">Broken Bricks (Loads)</span>
+                    <span class="font-medium text-xs text-on-surface-variant" id="comp-broken-ratio">Q1: 0% | Q2: 0%</span>
+                </div>
+                <div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden flex">
+                    <div id="comp-q1-broken-bar" class="bg-[#B65E3C] h-full" style="width: 0%;"></div>
+                    <div id="comp-q2-broken-bar" class="bg-[#4F6D8A] h-full" style="width: 0%;"></div>
+                </div>
+                <div class="flex justify-between text-xs mt-1 font-data-tabular">
+                    <span class="text-[#B65E3C] font-semibold" id="comp-q1-broken-val">Q1: 0 loads</span>
+                    <span class="text-[#4F6D8A] font-semibold" id="comp-q2-broken-val">Q2: 0 loads</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dynamic Charts Grid Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg mb-xl">
+    <div class="bg-surface-container-lowest rounded-xl p-lg card-shadow border border-outline-variant/20 flex flex-col">
+        <h2 class="font-headline-md text-[18px] font-semibold text-on-surface mb-md flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">bar_chart</span> Monthly Net Value Comparison
+        </h2>
+        <div class="relative flex-grow min-h-[300px]">
+            <canvas id="compare-net-trend-chart"></canvas>
+        </div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-xl p-lg card-shadow border border-outline-variant/20 flex flex-col">
+        <h2 class="font-headline-md text-[18px] font-semibold text-on-surface mb-md flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">equalizer</span> Expense Category Comparison
+        </h2>
+        <div class="relative flex-grow min-h-[300px]">
+            <canvas id="compare-expense-bar-chart"></canvas>
+        </div>
+    </div>
+</div>
+
+</main>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const startDateInput = document.getElementById('start-date');
+    const endDateInput = document.getElementById('end-date');
+
+    // KPI fields
+    const compRevenue = document.getElementById('comp-revenue');
+    const compExpense = document.getElementById('comp-expense');
+    const compNet = document.getElementById('comp-net');
+    const compReceived = document.getElementById('comp-received');
+    const compReceivedBar = document.getElementById('comp-received-bar');
+    const compOutstanding = document.getElementById('comp-outstanding');
+    const compOutstandingBar = document.getElementById('comp-outstanding-bar');
+    const compAvgDays = document.getElementById('comp-avg-days');
+
+    // Visual comparison elements
+    // Revenue
+    const compRevRatio = document.getElementById('comp-rev-ratio');
+    const compQ1RevBar = document.getElementById('comp-q1-rev-bar');
+    const compQ2RevBar = document.getElementById('comp-q2-rev-bar');
+    const compQ1RevVal = document.getElementById('comp-q1-rev-val');
+    const compQ2RevVal = document.getElementById('comp-q2-rev-val');
+    // Expense
+    const compExpRatio = document.getElementById('comp-exp-ratio');
+    const compQ1ExpBar = document.getElementById('comp-q1-exp-bar');
+    const compQ2ExpBar = document.getElementById('comp-q2-exp-bar');
+    const compQ1ExpVal = document.getElementById('comp-q1-exp-val');
+    const compQ2ExpVal = document.getElementById('comp-q2-exp-val');
+    // Net
+    const compNetRatio = document.getElementById('comp-net-ratio');
+    const compQ1NetBar = document.getElementById('comp-q1-net-bar');
+    const compQ2NetBar = document.getElementById('comp-q2-net-bar');
+    const compQ1NetVal = document.getElementById('comp-q1-net-val');
+    const compQ2NetVal = document.getElementById('comp-q2-net-val');
+    // Qty1
+    const compQty1Ratio = document.getElementById('comp-qty1-ratio');
+    const compQ1Qty1Bar = document.getElementById('comp-q1-qty1-bar');
+    const compQ2Qty1Bar = document.getElementById('comp-q2-qty1-bar');
+    const compQ1Qty1Val = document.getElementById('comp-q1-qty1-val');
+    const compQ2Qty1Val = document.getElementById('comp-q2-qty1-val');
+    // Qty2
+    const compQty2Ratio = document.getElementById('comp-qty2-ratio');
+    const compQ1Qty2Bar = document.getElementById('comp-q1-qty2-bar');
+    const compQ2Qty2Bar = document.getElementById('comp-q2-qty2-bar');
+    const compQ1Qty2Val = document.getElementById('comp-q1-qty2-val');
+    const compQ2Qty2Val = document.getElementById('comp-q2-qty2-val');
+    // Broken
+    const compBrokenRatio = document.getElementById('comp-broken-ratio');
+    const compQ1BrokenBar = document.getElementById('comp-q1-broken-bar');
+    const compQ2BrokenBar = document.getElementById('comp-q2-broken-bar');
+    const compQ1BrokenVal = document.getElementById('comp-q1-broken-val');
+    const compQ2BrokenVal = document.getElementById('comp-q2-broken-val');
+
+    let netTrendChart = null;
+    let expenseChart = null;
+
+    async function calculateComparison() {
+        let url = '/api/analytics/compare';
+        const params = [];
+        if (startDateInput.value) params.push(`date_from=${startDateInput.value}`);
+        if (endDateInput.value) params.push(`date_to=${endDateInput.value}`);
+        if (params.length > 0) url += `?${params.join('&')}`;
+
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("Failed to fetch comparison analytics");
+            const data = await res.json();
+
+            const q1 = data.kpis['Quarry 1'];
+            const q2 = data.kpis['Quarry 2'];
+
+            // Combined values
+            const combRev = q1.total_revenue + q2.total_revenue;
+            const combExp = q1.total_expense + q2.total_expense;
+            const combNet = q1.net_value + q2.net_value;
+            const combRec = q1.received_amount + q2.received_amount;
+            const combOut = q1.balance_outstanding + q2.balance_outstanding;
+            
+            const totalPeriods = (q1.total_working_days ? 1 : 0) + (q2.total_working_days ? 1 : 0);
+            const avgDays = totalPeriods > 0 ? Math.round((q1.total_working_days + q2.total_working_days) / 2) : 0;
+
+            // Update KPIs
+            compRevenue.textContent = formatCurrency(combRev);
+            compExpense.textContent = formatCurrency(combExp);
+            compNet.textContent = (combNet >= 0 ? "+ " : "- ") + formatCurrency(Math.abs(combNet));
+            compReceived.textContent = formatCurrency(combRec);
+            compOutstanding.textContent = formatCurrency(combOut);
+            compAvgDays.textContent = `${avgDays} days`;
+
+            // Update Combined received/outstanding bar percentages
+            const recPct = combNet > 0 ? Math.min(100, Math.round((combRec / combNet) * 100)) : 0;
+            compReceivedBar.style.width = `${recPct}%`;
+            const outPct = combNet > 0 ? Math.min(100, Math.round((combOut / combNet) * 100)) : 0;
+            compOutstandingBar.style.width = `${outPct}%`;
+
+            // Helper to update distribution bar
+            function updateDistribution(val1, val2, bar1, bar2, labelRatio, label1, label2, suffix = '', isCurrency = false) {
+                const total = val1 + val2;
+                let p1 = 50;
+                let p2 = 50;
+                
+                if (total > 0) {
+                    p1 = Math.round((val1 / total) * 100);
+                    p2 = 100 - p1;
+                } else if (val1 === 0 && val2 === 0) {
+                    p1 = 0;
+                    p2 = 0;
+                }
+
+                bar1.style.width = `${p1}%`;
+                bar2.style.width = `${p2}%`;
+                labelRatio.textContent = `Q1: ${p1}% | Q2: ${p2}%`;
+                label1.textContent = `Q1: ${isCurrency ? formatCurrency(val1) : (val1 + suffix)}`;
+                label2.textContent = `Q2: ${isCurrency ? formatCurrency(val2) : (val2 + suffix)}`;
+            }
+
+            // Update visual distributions
+            updateDistribution(q1.total_revenue, q2.total_revenue, compQ1RevBar, compQ2RevBar, compRevRatio, compQ1RevVal, compQ2RevVal, '', true);
+            updateDistribution(q1.total_expense, q2.total_expense, compQ1ExpBar, compQ2ExpBar, compExpRatio, compQ1ExpVal, compQ2ExpVal, '', true);
+            
+            const q1NetPositive = Math.max(0, q1.net_value);
+            const q2NetPositive = Math.max(0, q2.net_value);
+            updateDistribution(q1NetPositive, q2NetPositive, compQ1NetBar, compQ2NetBar, compNetRatio, compQ1NetVal, compQ2NetVal, '', true);
+
+            // Fetch production totals from data - let's calculate them from revenue or just use what we have in UI
+            // Since compare endpoint doesn't return raw brick volumes, we can compute them back or fetch them.
+            // Wait, we can estimate them or we can fetch them. Let's look at the expense category breakdown which is returned!
+            // Wait, the compare endpoint does not return production bricks volumes? Oh, the backend returns:
+            // kpis, expenses_breakdown, monthly_grouped_bar.
+            // To show production comparison, we can request them or just hide that section/fill with 0 or query `/api/periods`.
+            // Wait, we can query `/api/periods?quarry=Quarry 1` and Quarry 2 to get production brick volumes!
+            // But to keep it simple, let's query them or let's just make a fast calculation. Let's fetch all periods inside the range
+            // using `/api/periods?page_size=1000` and sum them up client-side to be 100% accurate!
+            let q1BricksRes = await fetch(`/api/periods?quarry=Quarry 1&page_size=1000&date_from=${startDateInput.value}&date_to=${endDateInput.value}`);
+            let q2BricksRes = await fetch(`/api/periods?quarry=Quarry 2&page_size=1000&date_from=${startDateInput.value}&date_to=${endDateInput.value}`);
+            let q1B = await q1BricksRes.json();
+            let q2B = await q2BricksRes.json();
+
+            const sumB = (items, key) => items.reduce((acc, c) => acc + (c[key] || 0), 0);
+            const q1First = sumB(q1B.items, 'first_quality_bricks');
+            const q1Second = sumB(q1B.items, 'second_quality_bricks');
+            const q1Broken = sumB(q1B.items, 'broken_bricks_loads');
+
+            const q2First = sumB(q2B.items, 'first_quality_bricks');
+            const q2Second = sumB(q2B.items, 'second_quality_bricks');
+            const q2Broken = sumB(q2B.items, 'broken_bricks_loads');
+
+            updateDistribution(q1First, q2First, compQ1Qty1Bar, compQ2Qty1Bar, compQty1Ratio, compQ1Qty1Val, compQ2Qty1Val, ' bricks');
+            updateDistribution(q1Second, q2Second, compQ1Qty2Bar, compQ2Qty2Bar, compQty2Ratio, compQ1Qty2Val, compQ2Qty2Val, ' bricks');
+            updateDistribution(q1Broken, q2Broken, compQ1BrokenBar, compQ2BrokenBar, compBrokenRatio, compQ1BrokenVal, compQ2BrokenVal, ' loads');
+
+            // Draw Net Value Trend Grouped Bar Chart
+            const trendCtx = document.getElementById('compare-net-trend-chart').getContext('2d');
+            if (netTrendChart) netTrendChart.destroy();
+            
+            const months = data.monthly_grouped_bar.labels;
+            const q1NetTrend = data.monthly_grouped_bar.datasets.find(d => d.quarry === 'Quarry 1')?.net_value || [];
+            const q2NetTrend = data.monthly_grouped_bar.datasets.find(d => d.quarry === 'Quarry 2')?.net_value || [];
+
+            netTrendChart = new Chart(trendCtx, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [
+                        {
+                            label: 'Quarry 1',
+                            data: q1NetTrend,
+                            backgroundColor: '#B65E3C',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Quarry 2',
+                            data: q2NetTrend,
+                            backgroundColor: '#4F6D8A',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: value => '₹' + value.toLocaleString()
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Draw Expense Category Comparison Horizontal Bar Chart
+            const expenseCtx = document.getElementById('compare-expense-bar-chart').getContext('2d');
+            if (expenseChart) expenseChart.destroy();
+
+            const categories = ['Labour', 'Diesel', 'Spares', 'Fitting', 'JCB', 'Cutting Wheel', 'Mess', 'Other'];
+            const q1ExpBreakdown = [
+                data.expenses_breakdown['Quarry 1'].labour_pay,
+                data.expenses_breakdown['Quarry 1'].diesel_expense,
+                data.expenses_breakdown['Quarry 1'].spare_parts,
+                data.expenses_breakdown['Quarry 1'].fitting_charge,
+                data.expenses_breakdown['Quarry 1'].jcb_charge,
+                data.expenses_breakdown['Quarry 1'].cutting_wheel,
+                data.expenses_breakdown['Quarry 1'].mess_expense,
+                data.expenses_breakdown['Quarry 1'].other_expense
+            ];
+            const q2ExpBreakdown = [
+                data.expenses_breakdown['Quarry 2'].labour_pay,
+                data.expenses_breakdown['Quarry 2'].diesel_expense,
+                data.expenses_breakdown['Quarry 2'].spare_parts,
+                data.expenses_breakdown['Quarry 2'].fitting_charge,
+                data.expenses_breakdown['Quarry 2'].jcb_charge,
+                data.expenses_breakdown['Quarry 2'].cutting_wheel,
+                data.expenses_breakdown['Quarry 2'].mess_expense,
+                data.expenses_breakdown['Quarry 2'].other_expense
+            ];
+
+            expenseChart = new Chart(expenseCtx, {
+                type: 'bar',
+                data: {
+                    labels: categories,
+                    datasets: [
+                        {
+                            label: 'Quarry 1',
+                            data: q1ExpBreakdown,
+                            backgroundColor: '#B65E3C'
+                        },
+                        {
+                            label: 'Quarry 2',
+                            data: q2ExpBreakdown,
+                            backgroundColor: '#4F6D8A'
+                        }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            ticks: {
+                                callback: value => '₹' + value.toLocaleString()
+                            }
+                        }
+                    }
+                }
+            });
+
+        } catch (err) {
+            console.error(err);
+            showToast("Failed to recalculate comparison: " + err.message, "error");
+        }
+    }
+
+    // Set default dates
+    const now = new Date();
+    startDateInput.value = `${now.getFullYear()}-01-01`;
+    endDateInput.value = `${now.getFullYear()}-12-31`;
+
+    startDateInput.addEventListener('change', calculateComparison);
+    endDateInput.addEventListener('change', calculateComparison);
+
+    // Filter preset buttons
+    const filterButtons = document.querySelectorAll('main .bg-surface-variant, main .bg-primary-container');
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterButtons.forEach(b => {
+                b.className = "px-md py-1.5 rounded-full bg-surface-variant text-on-surface-variant hover:bg-outline-variant/30 font-label-md text-sm whitespace-nowrap transition-colors";
+            });
+            btn.className = "px-md py-1.5 rounded-full bg-primary-container text-on-primary font-label-md text-sm whitespace-nowrap";
+
+            const text = btn.textContent.trim();
+            const formatStr = (d) => d.toISOString().split('T')[0];
+
+            if (text === 'This Month') {
+                const first = new Date(now.getFullYear(), now.getMonth(), 1);
+                const last = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+                startDateInput.value = formatStr(first);
+                endDateInput.value = formatStr(last);
+            } else if (text === 'Last Month') {
+                const first = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                const last = new Date(now.getFullYear(), now.getMonth(), 0);
+                startDateInput.value = formatStr(first);
+                endDateInput.value = formatStr(last);
+            } else if (text === 'Q3 2023') {
+                startDateInput.value = "2023-07-01";
+                endDateInput.value = "2023-09-30";
+            } else if (text === 'YTD') {
+                startDateInput.value = `${now.getFullYear()}-01-01`;
+                endDateInput.value = `${now.getFullYear()}-12-31`;
+            }
+            calculateComparison();
+        });
+    });
+
+    calculateComparison();
+    bindNavigation();
+});
+</script>
+</body></html>
+
+

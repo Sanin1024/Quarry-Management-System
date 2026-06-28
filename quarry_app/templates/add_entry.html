@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quarry Tracker - Add Working Period Entry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#b65e3c",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "inverse-primary": "#ffb59b",
+                        "background": "#fff8f6",
+                        "surface-container": "#fceae5",
+                        "secondary-fixed": "#d5e3fc",
+                        "surface-container-highest": "#f0dfda",
+                        "on-secondary-container": "#57657a",
+                        "tertiary": "#00696c",
+                        "on-tertiary-fixed": "#002021",
+                        "on-surface": "#221a17",
+                        "primary-fixed": "#ffdbcf",
+                        "outline-variant": "#dbc1b9",
+                        "on-tertiary-fixed-variant": "#004f52",
+                        "on-tertiary-container": "#ffffff",
+                        "on-background": "#221a17",
+                        "primary": "#974626",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#f6e5df",
+                        "inverse-surface": "#382e2b",
+                        "secondary": "#515f74",
+                        "primary-fixed-dim": "#ffb59b",
+                        "tertiary-fixed": "#91f2f6",
+                        "on-surface-variant": "#55433c",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#380d00",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#ffffff",
+                        "tertiary-fixed-dim": "#74d6da",
+                        "outline": "#88726b",
+                        "surface-bright": "#fff8f6",
+                        "surface-tint": "#984727",
+                        "secondary-container": "#d5e3fc",
+                        "tertiary-container": "#008488",
+                        "surface-container-low": "#fff1ec",
+                        "on-primary-fixed-variant": "#793012",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#ffede8",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#f0dfda",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "surface-dim": "#e7d7d1",
+                        "surface": "#fff8f6",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "steel-blue": "#4A90E2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.25rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "3xl": "64px",
+                        "sm": "8px",
+                        "container-max": "1440px",
+                        "base": "4px",
+                        "md": "16px",
+                        "margin-desktop": "32px",
+                        "2xl": "48px",
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "xl": "32px",
+                        "margin-mobile": "16px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"],
+                        "data-tabular": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "data-tabular": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #FAF8F3; }
+        .form-input {
+            width: 100%;
+            border-radius: 0.5rem;
+            border: 1px solid #dbc1b9;
+            padding: 12px 16px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #b65e3c;
+            box-shadow: 0 0 0 2px rgba(182, 94, 60, 0.2);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(81, 95, 116, 0.05);
+            border: 1px solid rgba(81, 95, 116, 0.1);
+        }
+    </style>
+    <script src="/static/js/shared.js"></script>
+</head>
+<body class="font-body-md text-on-surface antialiased bg-[#FAF8F3] pb-24">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-lg h-16 bg-surface dark:bg-surface-container-high border-b border-outline-variant/10 shadow-sm transition-all duration-300">
+<div class="flex items-center gap-xl h-full">
+<div class="font-display-lg text-[24px] font-bold text-primary dark:text-primary-fixed-dim leading-none whitespace-nowrap mr-md">
+                Quarry Tracker
+            </div>
+<div class="hidden md:flex gap-md h-full items-end">
+<a class="text-on-surface-variant dark:text-surface-variant pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="/">Dashboard</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 font-bold font-label-md text-label-md opacity-80 scale-95 transition-all" href="/quarry1">Quarry 1</a>
+<a class="text-on-surface-variant dark:text-surface-variant pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="/quarry2">Quarry 2</a>
+<a class="text-on-surface-variant dark:text-surface-variant pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="/compare">Compare</a>
+<a class="text-on-surface-variant dark:text-surface-variant pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="/import">Import Data</a>
+<a class="text-on-surface-variant dark:text-surface-variant pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="/reports">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">search</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-surface-variant/50 transition-colors">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold font-label-md text-label-md">
+                    U
+                </div>
+<span class="hidden md:inline font-label-md text-label-md font-medium text-on-surface">Profile</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-24 px-md md:px-lg max-w-container-max mx-auto w-full grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Form Area -->
+<div class="xl:col-span-8 flex flex-col gap-lg">
+<!-- Header -->
+<div class="mb-sm">
+<h1 class="font-headline-lg text-headline-lg md:text-[32px] text-on-surface mb-xs">Add Working Period Entry</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Log operational details to calculate live revenue and settlement.</p>
+</div>
+<!-- Quarry Selection Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-lg card-shadow">
+<h2 class="font-headline-md text-[20px] font-semibold text-on-surface mb-md">Site Selection</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<label class="relative flex items-center p-md border-2 border-primary rounded-xl cursor-pointer bg-surface-container/20">
+<input checked="" class="sr-only" name="quarry_select" type="radio" value="q1"/>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-data-tabular font-semibold text-on-surface">Quarry 1</span>
+<span class="px-2 py-0.5 rounded text-[12px] font-bold bg-primary text-on-primary">Active</span>
+</div>
+<p class="text-[13px] text-on-surface-variant">Rules: 38 / 28 / 850</p>
+</div>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</label>
+<label class="relative flex items-center p-md border border-outline-variant rounded-xl cursor-pointer hover:bg-surface-variant/20 transition-colors opacity-70">
+<input class="sr-only" name="quarry_select" type="radio" value="q2"/>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-data-tabular font-semibold text-on-surface">Quarry 2</span>
+<span class="px-2 py-0.5 rounded text-[12px] font-bold bg-secondary text-on-secondary">Standby</span>
+</div>
+<p class="text-[13px] text-on-surface-variant">Rules: 40 / 30 / 1000</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Working Details -->
+<div class="bg-surface-container-lowest rounded-2xl p-lg card-shadow">
+<h2 class="font-headline-md text-[20px] font-semibold text-on-surface mb-md">Working Details</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs">Day From</label>
+<input id="day-from" class="form-input font-data-tabular" type="date" value="2024-05-01"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs">Day To</label>
+<input id="day-to" class="form-input font-data-tabular" type="date" value="2024-05-15"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs">Working Days</label>
+<input id="working-days" class="form-input font-data-tabular bg-surface-container/30 text-on-surface-variant" readonly="" type="number" value="12"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs">Number of Labourers</label>
+<input id="labourers" class="form-input font-data-tabular" placeholder="Enter count" type="number" value="24"/>
+</div>
+</div>
+</div>
+<!-- Production Grade Details -->
+<div class="bg-surface-container-lowest rounded-2xl p-lg card-shadow">
+<h2 class="font-headline-md text-[20px] font-semibold text-on-surface mb-md">Production Details</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs">First Quality (Bricks)</label>
+<input id="first-qty" class="form-input font-data-tabular" type="number" value="15000"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs">Second Quality (Bricks)</label>
+<input id="second-qty" class="form-input font-data-tabular" type="number" value="4000"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs">Broken (Loads)</label>
+<input id="broken-qty" class="form-input font-data-tabular" type="number" value="2"/>
+</div>
+</div>
+</div>
+<!-- Expense Details -->
+<div class="bg-surface-container-lowest rounded-2xl p-lg card-shadow">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-headline-md text-[20px] font-semibold text-on-surface">Expense Details</h2>
+<div class="text-right">
+<span class="text-[13px] text-on-surface-variant block">Total Expenses</span>
+<span class="font-data-tabular font-bold text-error text-[18px]">₹ 1,42,500</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div>
+<label class="block font-label-md text-[13px] text-on-surface-variant mb-xs">Labour Pay</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[14px]">₹</span>
+<input id="exp-labour" class="form-input pl-8 font-data-tabular" type="number" value="45000"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-[13px] text-on-surface-variant mb-xs">Diesel</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[14px]">₹</span>
+<input id="exp-diesel" class="form-input pl-8 font-data-tabular" type="number" value="32000"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-[13px] text-on-surface-variant mb-xs">Spare Parts</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[14px]">₹</span>
+<input id="exp-spares" class="form-input pl-8 font-data-tabular" type="number" value="12500"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-[13px] text-on-surface-variant mb-xs">Fitting</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[14px]">₹</span>
+<input id="exp-fitting" class="form-input pl-8 font-data-tabular" type="number" value="8000"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-[13px] text-on-surface-variant mb-xs">JCB</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[14px]">₹</span>
+<input id="exp-jcb" class="form-input pl-8 font-data-tabular" type="number" value="25000"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-[13px] text-on-surface-variant mb-xs">Cutting Wheel</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[14px]">₹</span>
+<input id="exp-cutting" class="form-input pl-8 font-data-tabular" type="number" value="5000"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-[13px] text-on-surface-variant mb-xs">Mess</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[14px]">₹</span>
+<input id="exp-mess" class="form-input pl-8 font-data-tabular" type="number" value="15000"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-[13px] text-on-surface-variant mb-xs">Other</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[14px]">₹</span>
+<input id="exp-other" class="form-input pl-8 font-data-tabular" placeholder="0" type="number" value="0"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Sidebar -->
+<div class="xl:col-span-4 relative">
+<div class="sticky top-24 flex flex-col gap-md">
+<!-- Live Calculations -->
+<div class="bg-surface-container-highest rounded-2xl p-lg card-shadow border border-primary/20">
+<h3 class="font-headline-md text-[18px] font-semibold text-on-surface mb-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+                        Live Settlement
+                    </h3>
+<div class="space-y-sm mb-md border-b border-outline-variant/30 pb-md">
+<div class="flex justify-between items-center">
+<span class="text-[14px] text-on-surface-variant">Est. Revenue</span>
+<span id="calc-revenue" class="font-data-tabular text-[16px] text-on-surface font-medium">₹ 5,85,000</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[14px] text-on-surface-variant">Total Expenses</span>
+<span id="calc-expenses" class="font-data-tabular text-[16px] text-error font-medium">- ₹ 1,42,500</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[14px] text-on-surface-variant">Land Lease Deduct</span>
+<span id="calc-lease" class="font-data-tabular text-[16px] text-error font-medium">- ₹ 84,000</span>
+</div>
+</div>
+<div class="flex justify-between items-center mb-md">
+<span class="text-[16px] font-bold text-on-surface">Net Value</span>
+<span id="calc-net" class="font-data-tabular text-[24px] font-bold text-tertiary">₹ 3,58,500</span>
+</div>
+<!-- Received Input -->
+<div class="bg-surface-container-lowest p-md rounded-xl mt-md">
+<label class="block font-label-md text-[13px] font-semibold text-on-surface mb-xs">Received Amount</label>
+<div class="relative mb-2">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">₹</span>
+<input id="received-amount" class="form-input pl-8 font-data-tabular border-tertiary-container focus:border-tertiary-container focus:ring-tertiary-container/20 text-tertiary-container font-semibold" type="number" value="200000"/>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-2 mb-1">
+<div id="calc-received-bar" class="bg-tertiary h-2 rounded-full" style="width: 55%"></div>
+</div>
+<div class="flex justify-between text-[12px]">
+<span id="calc-received-pct" class="text-tertiary font-medium">55% Received</span>
+<span id="calc-pending-text" class="text-error font-medium">Pending: ₹ 1,58,500</span>
+</div>
+</div>
+</div>
+<!-- Info Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md card-shadow text-[13px] text-on-surface-variant">
+<div class="flex gap-2 items-start">
+<span class="material-symbols-outlined text-[18px] text-secondary mt-0.5" style="font-variation-settings: 'FILL' 0;">info</span>
+<p>Land lease is auto-calculated based on Quarry 1 rules: (First Qty * 20) + (Second Qty * 20) + (Broken * 400).</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Footer Actions -->
+<div class="fixed bottom-0 w-full z-40 bg-surface-container-lowest border-t border-outline-variant/10 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] px-md py-md flex justify-end gap-md items-center">
+<button id="cancel-btn" class="px-6 py-3 rounded-lg border border-outline text-on-surface font-label-md text-[14px] font-semibold hover:bg-surface-variant/50 transition-colors">
+            Cancel
+        </button>
+<button id="save-btn" class="px-6 py-3 rounded-lg bg-primary text-on-primary font-label-md text-[14px] font-semibold shadow-sm hover:shadow-md hover:bg-primary-container transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">save</span>
+            Save Entry
+        </button>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const quarryRadios = document.getElementsByName('quarry_select');
+    const dayFromInput = document.getElementById('day-from');
+    const dayToInput = document.getElementById('day-to');
+    const workingDaysInput = document.getElementById('working-days');
+    const labourersInput = document.getElementById('labourers');
+
+    // Expense Inputs
+    const expLabour = document.getElementById('exp-labour');
+    const expDiesel = document.getElementById('exp-diesel');
+    const expSpares = document.getElementById('exp-spares');
+    const expFitting = document.getElementById('exp-fitting');
+    const expJcb = document.getElementById('exp-jcb');
+    const expCutting = document.getElementById('exp-cutting');
+    const expMess = document.getElementById('exp-mess');
+    const expOther = document.getElementById('exp-other');
+
+    // Production Inputs
+    const firstQtyInput = document.getElementById('first-qty');
+    const secondQtyInput = document.getElementById('second-qty');
+    const brokenQtyInput = document.getElementById('broken-qty');
+
+    // Collection Input
+    const receivedInput = document.getElementById('received-amount');
+
+    // Calculation Spans
+    const calcRevenue = document.getElementById('calc-revenue');
+    const calcExpenses = document.getElementById('calc-expenses');
+    const calcLease = document.getElementById('calc-lease');
+    const calcNet = document.getElementById('calc-net');
+    const calcReceivedBar = document.getElementById('calc-received-bar');
+    const calcReceivedPct = document.getElementById('calc-received-pct');
+    const calcPendingText = document.getElementById('calc-pending-text');
+
+    const saveBtn = document.getElementById('save-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+
+    // Parse URL params
+    const urlParams = new URLSearchParams(window.location.search);
+    const quarryParam = urlParams.get('quarry') || 'q1';
+    const recordIdParam = urlParams.get('id');
+    let isEditMode = false;
+
+    // Pre-select Quarry
+    if (quarryParam === 'q2') {
+        quarryRadios.forEach(radio => {
+            if (radio.value === 'q2') {
+                radio.checked = true;
+                // Update visuals of labels
+                radio.closest('label').classList.remove('opacity-70');
+                radio.closest('label').classList.add('border-primary', 'bg-surface-container/20');
+                // Unhighlight the other
+                quarryRadios[0].closest('label').classList.add('opacity-70');
+                quarryRadios[0].closest('label').classList.remove('border-primary', 'bg-surface-container/20', 'border-2');
+                quarryRadios[0].closest('label').classList.add('border');
+            }
+        });
+    }
+
+    // Toggle styling when quarry radio is clicked
+    quarryRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            quarryRadios.forEach(r => {
+                const label = r.closest('label');
+                if (r.checked) {
+                    label.className = "relative flex items-center p-md border-2 border-primary rounded-xl cursor-pointer bg-surface-container/20";
+                } else {
+                    label.className = "relative flex items-center p-md border border-outline-variant rounded-xl cursor-pointer hover:bg-surface-variant/20 transition-colors opacity-70";
+                }
+            });
+            calculateAll();
+        });
+    });
+
+    // Populate values if in edit mode from Flask API
+    async function loadRecordToEdit() {
+        if (recordIdParam) {
+            isEditMode = true;
+            document.querySelector('h1').textContent = "Edit Working Period Entry";
+            
+            try {
+                const res = await fetch(`/api/periods/${recordIdParam}`);
+                if (!res.ok) throw new Error("Failed to fetch record details for edit");
+                const record = await res.json();
+                
+                dayFromInput.value = record.day_from;
+                dayToInput.value = record.day_to;
+                workingDaysInput.value = record.working_days;
+                labourersInput.value = record.num_labourers;
+
+                // Expenses
+                expLabour.value = record.labour_pay;
+                expDiesel.value = record.diesel_expense;
+                expSpares.value = record.spare_parts;
+                expFitting.value = record.fitting_charge;
+                expJcb.value = record.jcb_charge;
+                expCutting.value = record.cutting_wheel;
+                expMess.value = record.mess_expense;
+                expOther.value = record.other_expense;
+
+                // Production
+                firstQtyInput.value = record.first_quality_bricks;
+                secondQtyInput.value = record.second_quality_bricks;
+                brokenQtyInput.value = record.broken_bricks_loads;
+
+                // Received
+                receivedInput.value = record.received_amount;
+
+                // Quarry select
+                const isQ2 = record.quarry === "Quarry 2";
+                quarryRadios.forEach(radio => {
+                    radio.checked = (radio.value === 'q2' && isQ2) || (radio.value === 'q1' && !isQ2);
+                    const label = radio.closest('label');
+                    if (radio.checked) {
+                        label.className = "relative flex items-center p-md border-2 border-primary rounded-xl cursor-pointer bg-surface-container/20";
+                    } else {
+                        label.className = "relative flex items-center p-md border border-outline-variant rounded-xl cursor-pointer hover:bg-surface-variant/20 transition-colors opacity-70";
+                    }
+                });
+
+                calculateAll();
+            } catch (err) {
+                showToast("Error loading entry: " + err.message, "error");
+            }
+        }
+    }
+
+    // Days calculation
+    function calculateDays() {
+        const fromDate = new Date(dayFromInput.value);
+        const toDate = new Date(dayToInput.value);
+        if (!isNaN(fromDate) && !isNaN(toDate)) {
+            const diffTime = toDate - fromDate;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            workingDaysInput.value = diffDays > 0 ? diffDays : 0;
+        } else {
+            workingDaysInput.value = 0;
+        }
+    }
+
+    dayFromInput.addEventListener('change', () => {
+        calculateDays();
+        calculateAll();
+    });
+    dayToInput.addEventListener('change', () => {
+        calculateDays();
+        calculateAll();
+    });
+
+    // Main calculation function
+    function calculateAll() {
+        const selectedRadio = Array.from(quarryRadios).find(r => r.checked);
+        const selectedQuarry = selectedRadio ? selectedRadio.value : 'q1';
+        
+        // Determine rates based on Quarry rules
+        const rates = selectedQuarry === 'q2' 
+            ? { first: 40, second: 30, broken: 1000 }
+            : { first: 38, second: 28, broken: 850 };
+
+        // Production counts
+        const firstQty = parseFloat(firstQtyInput.value) || 0;
+        const secondQty = parseFloat(secondQtyInput.value) || 0;
+        const brokenQty = parseFloat(brokenQtyInput.value) || 0;
+
+        // Calculate Revenue
+        const estRevenue = (firstQty * rates.first) + (secondQty * rates.second) + (brokenQty * rates.broken);
+
+        // Calculate Expenses
+        const expL = parseFloat(expLabour.value) || 0;
+        const expD = parseFloat(expDiesel.value) || 0;
+        const expS = parseFloat(expSpares.value) || 0;
+        const expF = parseFloat(expFitting.value) || 0;
+        const expJ = parseFloat(expJcb.value) || 0;
+        const expC = parseFloat(expCutting.value) || 0;
+        const expM = parseFloat(expMess.value) || 0;
+        const expO = parseFloat(expOther.value) || 0;
+        const totalExpenses = expL + expD + expS + expF + expJ + expC + expM + expO;
+
+        // Update Total Expense label at the top of expense card
+        const topExpLabel = document.querySelector('.text-error.text-\\[18px\\]');
+        if (topExpLabel) topExpLabel.textContent = formatCurrency(totalExpenses);
+
+        // Calculate Lease
+        const landLease = (firstQty * 20) + (secondQty * 20) + (brokenQty * 400);
+
+        // Net value (total_revenue - total_expense)
+        const netVal = estRevenue - totalExpenses;
+
+        // Received and Outstanding
+        const received = parseFloat(receivedInput.value) || 0;
+        const outstanding = Math.max(0, netVal - received);
+
+        // Update live metrics panel
+        calcRevenue.textContent = formatCurrency(estRevenue);
+        calcExpenses.textContent = "- " + formatCurrency(totalExpenses);
+        calcLease.textContent = "- " + formatCurrency(landLease);
+        calcNet.textContent = (netVal >= 0 ? "+ " : "- ") + formatCurrency(Math.abs(netVal));
+
+        if (netVal < 0) {
+            calcNet.className = calcNet.className.replace('text-tertiary', 'text-error');
+        } else {
+            calcNet.className = calcNet.className.replace('text-error', 'text-tertiary');
+        }
+
+        // Collection progress
+        let pct = 0;
+        if (netVal > 0) {
+            pct = Math.min(100, Math.round((received / netVal) * 100));
+        }
+        calcReceivedBar.style.width = `${pct}%`;
+        calcReceivedPct.textContent = `${pct}% Received`;
+        calcPendingText.textContent = `Pending: ${formatCurrency(outstanding)}`;
+    }
+
+    // Bind event listeners to recalculate on any input
+    const allInputs = [
+        expLabour, expDiesel, expSpares, expFitting, expJcb, expCutting, expMess, expOther,
+        firstQtyInput, secondQtyInput, brokenQtyInput, receivedInput, labourersInput
+    ];
+    allInputs.forEach(input => {
+        if (input) input.addEventListener('input', calculateAll);
+    });
+
+    // Save Entry Handler
+    saveBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        if (!dayFromInput.value || !dayToInput.value) {
+            alert("Please specify 'Day From' and 'Day To' dates.");
+            return;
+        }
+
+        const selectedRadio = Array.from(quarryRadios).find(r => r.checked);
+        const selectedQuarry = selectedRadio ? (selectedRadio.value === 'q2' ? 'Quarry 2' : 'Quarry 1') : 'Quarry 1';
+
+        const payload = {
+            quarry: selectedQuarry,
+            day_from: dayFromInput.value,
+            day_to: dayToInput.value,
+            num_labourers: parseInt(labourersInput.value) || 0,
+            labour_pay: parseFloat(expLabour.value) || 0,
+            diesel_expense: parseFloat(expDiesel.value) || 0,
+            spare_parts: parseFloat(expSpares.value) || 0,
+            fitting_charge: parseFloat(expFitting.value) || 0,
+            jcb_charge: parseFloat(expJcb.value) || 0,
+            cutting_wheel: parseFloat(expCutting.value) || 0,
+            mess_expense: parseFloat(expMess.value) || 0,
+            other_expense: parseFloat(expOther.value) || 0,
+            first_quality_bricks: parseInt(firstQtyInput.value) || 0,
+            second_quality_bricks: parseInt(secondQtyInput.value) || 0,
+            broken_bricks_loads: parseInt(brokenQtyInput.value) || 0,
+            received_amount: parseFloat(receivedInput.value) || 0
+        };
+
+        try {
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = `<span class="material-symbols-outlined animate-spin" style="font-size: 18px;">sync</span> Saving...`;
+
+            const url = isEditMode ? `/api/periods/${recordIdParam}` : `/api/periods`;
+            const method = isEditMode ? 'PUT' : 'POST';
+
+            const response = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.errors ? errData.errors.join(', ') : "Failed to save period");
+            }
+
+            showToast(isEditMode ? "Working period updated successfully!" : "New working period saved successfully!");
+            setTimeout(() => {
+                window.location.href = selectedQuarry === 'Quarry 2' ? 'quarry2.html' : 'quarry1.html';
+            }, 800);
+
+        } catch (err) {
+            saveBtn.disabled = false;
+            saveBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 18px;">save</span> Save Entry`;
+            showToast("Error saving entry: " + err.message, "error");
+        }
+    });
+
+    // Cancel Button Handler
+    cancelBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.history.back();
+    });
+
+    // Initial load and calculation
+    loadRecordToEdit().then(() => {
+        calculateAll();
+    });
+});
+</script>
+</body></html>
+
+

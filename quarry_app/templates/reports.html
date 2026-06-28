@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Operations Reports - Quarry Tracker</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#974626",
+                        "primary-container": "#b65e3c",
+                        "secondary": "#515f74",
+                        "secondary-container": "#d5e3fc",
+                        "tertiary": "#00696c",
+                        "tertiary-fixed": "#91f2f6",
+                        "tertiary-container": "#008488",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "surface": "#fff8f6",
+                        "surface-container": "#fceae5",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#fff1ec",
+                        "surface-container-high": "#f6e5df",
+                        "on-surface": "#221a17",
+                        "on-surface-variant": "#55433c",
+                        "outline-variant": "#dbc1b9"
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body { background-color: #FAF8F3; }
+        .card-shadow { box-shadow: 0 4px 12px rgba(81, 95, 116, 0.05); }
+        .tabular-nums { font-variant-numeric: tabular-nums; }
+
+        /* Print Override Styles */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                font-size: 12px !important;
+            }
+            header, aside, footer, #filters-container, #actions-toolbar, .no-print {
+                display: none !important;
+            }
+            main {
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            .card-shadow {
+                box-shadow: none !important;
+                border: 1px solid #000000 !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid;
+            }
+            table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+            }
+            th, td {
+                border: 1px solid #000000 !important;
+                padding: 6px !important;
+                color: #000000 !important;
+            }
+        }
+    </style>
+    <script src="/static/js/shared.js"></script>
+</head>
+<body class="text-on-surface antialiased bg-[#FAF8F3]">
+
+<!-- TopNavBar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md text-primary docked full-width top-0 sticky z-50 border-b border-outline-variant shadow-sm flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-16 no-print">
+    <div class="flex items-center gap-6">
+        <span class="font-display tracking-tight text-xl font-bold">Quarry Tracker</span>
+        <nav class="hidden md:flex gap-4 ml-8">
+            <a class="text-on-surface-variant hover:text-primary transition-colors px-3 py-1 rounded-md" href="/">Dashboard</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors px-3 py-1 rounded-md" href="/quarry1">Quarry 1</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors px-3 py-1 rounded-md" href="/quarry2">Quarry 2</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors px-3 py-1 rounded-md" href="/compare">Compare</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors px-3 py-1 rounded-md" href="/import">Import Data</a>
+            <a class="text-primary pb-1 font-bold border-b-2 border-primary px-3 py-1 rounded-md" href="/reports">Reports</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-4">
+        <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">search</span></button>
+        <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+        <button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">dark_mode</span></button>
+        <div class="w-8 h-8 rounded-full bg-secondary-container overflow-hidden">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe6P2kcb9zkIN7hLItrXqme3KC4wZ4LM3IqhUwceIIIzEM4_7Eu9LskGe3aXLHK3LlNSavvfMYF3tHwqwXDc0BkUbxRPlEKwxz-UtMflhej7z_nC_F2VjHSUok-DrCedRf3xbFKhpm9hskvfVsOdlKdi-cPrVayoi6WoG6pVmMrAZfbj6lUUgq109vh5609JjdlO4i4QvP4mxiQ8iS3OusGyujsbey_cCiC66MdIMyRfCgk0H_W0aB"/>
+        </div>
+    </div>
+</header>
+
+<!-- SideNavBar -->
+<aside class="hidden xl:flex bg-white/80 dark:bg-surface-container-highest/80 backdrop-blur-xl text-primary docked right-0 h-screen w-20 fixed z-40 border-l border-outline-variant shadow-lg flex-col items-center py-stack-lg gap-stack-md pt-24 no-print">
+        <a class="text-secondary hover:bg-surface-container rounded-xl hover:scale-110 transition-transform duration-200 p-3 flex flex-col items-center gap-1 group" href="/import">
+        <span class="material-symbols-outlined group-hover:text-primary">upload_file</span>
+    </a>
+        <a class="text-primary bg-surface-container rounded-xl p-3 flex flex-col items-center gap-1" href="/reports">
+        <span class="material-symbols-outlined">description</span>
+    </a>
+        <a class="text-secondary hover:bg-surface-container rounded-xl hover:scale-110 transition-transform duration-200 p-3 flex flex-col items-center gap-1 group" href="/compare">
+        <span class="material-symbols-outlined group-hover:text-primary">compare_arrows</span>
+    </a>
+</aside>
+
+<!-- Main Container -->
+<main class="pt-24 pb-16 md:pr-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto min-h-screen">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-xl gap-md">
+        <div>
+            <p class="font-label-md text-label-md text-secondary mb-1 flex items-center gap-2">
+                Dashboard <span class="material-symbols-outlined text-sm">chevron_right</span> Operations Reports
+            </p>
+            <h1 class="font-headline-lg text-[28px] font-bold text-on-surface">Operational Report Builder</h1>
+        </div>
+    </div>
+
+    <!-- Filters Container -->
+    <div id="filters-container" class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 card-shadow mb-xl no-print">
+        <h2 class="font-headline-md text-sm font-semibold text-on-surface mb-4">Report Filter Settings</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <div>
+                <label class="block text-xs font-semibold text-on-surface-variant mb-1">Report Interval</label>
+                <select id="report-type" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm p-2">
+                    <option value="daily">Daily Summary</option>
+                    <option value="weekly">Weekly Summary</option>
+                    <option value="monthly" selected>Monthly Summary</option>
+                    <option value="yearly">Yearly Summary</option>
+                    <option value="custom">Custom Date Range</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-on-surface-variant mb-1">Quarry Scope</label>
+                <select id="report-quarry" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm p-2">
+                    <option value="both" selected>Both Quarries</option>
+                    <option value="Quarry 1">Quarry 1 Only</option>
+                    <option value="Quarry 2">Quarry 2 Only</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-on-surface-variant mb-1">Start Date</label>
+                <input type="date" id="report-from" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm p-2 font-data-tabular"/>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-on-surface-variant mb-1">End Date</label>
+                <input type="date" id="report-to" class="w-full bg-surface border border-outline-variant/50 rounded-lg text-sm p-2 font-data-tabular"/>
+            </div>
+        </div>
+        <div class="mt-4 flex justify-end">
+            <button id="generate-btn" class="px-6 py-2.5 bg-primary text-on-primary font-semibold rounded-lg shadow hover:bg-primary-container transition-colors text-sm flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">sync</span> Generate Report Preview
+            </button>
+        </div>
+    </div>
+
+    <!-- Generated Report View -->
+    <div id="report-content" class="hidden flex flex-col gap-6">
+        <!-- Export / Print Toolbar -->
+        <div id="actions-toolbar" class="flex flex-wrap justify-between items-center bg-surface-container-low/50 border border-outline-variant/20 rounded-xl p-4 no-print gap-md">
+            <span class="text-sm font-semibold text-on-surface-variant flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span> Report generated successfully!
+            </span>
+            <div class="flex flex-wrap gap-2">
+                <a id="export-excel-btn" href="#" target="_blank" class="px-4 py-2 border border-outline-variant/50 hover:bg-surface-variant/30 rounded-lg text-xs font-semibold text-on-surface-variant flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">table_view</span> Excel Export
+                </a>
+                <a id="export-csv-btn" href="#" target="_blank" class="px-4 py-2 border border-outline-variant/50 hover:bg-surface-variant/30 rounded-lg text-xs font-semibold text-on-surface-variant flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">csv</span> CSV Export
+                </a>
+                <a id="export-pdf-btn" href="#" target="_blank" class="px-4 py-2 border border-outline-variant/50 hover:bg-surface-variant/30 rounded-lg text-xs font-semibold text-on-surface-variant flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">picture_as_pdf</span> PDF Report
+                </a>
+                <button id="print-report-btn" class="px-4 py-2 bg-secondary text-white hover:bg-secondary/90 rounded-lg text-xs font-semibold flex items-center gap-1 shadow">
+                    <span class="material-symbols-outlined text-sm">print</span> Print
+                </button>
+            </div>
+        </div>
+
+        <!-- Summary Totals Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+            <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-4 card-shadow flex flex-col">
+                <span class="text-xs text-on-surface-variant font-medium">Days</span>
+                <span id="sum-days" class="text-lg font-bold text-on-surface mt-1 font-data-tabular">0</span>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-4 card-shadow flex flex-col">
+                <span class="text-xs text-on-surface-variant font-medium">Total Expense</span>
+                <span id="sum-expense" class="text-lg font-bold text-error mt-1 font-data-tabular">₹0</span>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-4 card-shadow flex flex-col">
+                <span class="text-xs text-on-surface-variant font-medium">Total Revenue</span>
+                <span id="sum-revenue" class="text-lg font-bold text-on-surface mt-1 font-data-tabular">₹0</span>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-4 card-shadow flex flex-col">
+                <span class="text-xs text-on-surface-variant font-medium">Land Lease</span>
+                <span id="sum-lease" class="text-lg font-bold text-on-surface mt-1 font-data-tabular">₹0</span>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-4 card-shadow flex flex-col">
+                <span class="text-xs text-on-surface-variant font-medium">Net Value</span>
+                <span id="sum-net" class="text-lg font-bold text-tertiary mt-1 font-data-tabular">₹0</span>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-4 card-shadow flex flex-col">
+                <span class="text-xs text-on-surface-variant font-medium">Total Received</span>
+                <span id="sum-received" class="text-lg font-bold text-tertiary mt-1 font-data-tabular">₹0</span>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-4 card-shadow flex flex-col">
+                <span class="text-xs text-on-surface-variant font-medium">Outstanding</span>
+                <span id="sum-outstanding" class="text-lg font-bold text-error mt-1 font-data-tabular">₹0</span>
+            </div>
+        </div>
+
+        <!-- Line Items Table -->
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/10 shadow-[0_4px_12px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col">
+            <div class="p-4 border-b border-outline-variant/10 bg-surface-container-low/30">
+                <h3 id="report-subtitle" class="text-sm font-bold text-on-surface uppercase tracking-wider">Report Line Items</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse whitespace-nowrap">
+                    <thead class="bg-surface-container-high/35 sticky top-0 z-10 border-b border-outline-variant/20">
+                        <tr class="font-label-md text-xs text-on-surface-variant">
+                            <th class="py-2.5 px-4 font-semibold text-center border-r border-outline-variant/10">#</th>
+                            <th class="py-2.5 px-4 font-semibold border-r border-outline-variant/10">Quarry</th>
+                            <th class="py-2.5 px-4 font-semibold border-r border-outline-variant/10">Period Dates</th>
+                            <th class="py-2.5 px-4 font-semibold text-center border-r border-outline-variant/10">Days</th>
+                            <th class="py-2.5 px-4 font-semibold text-right border-r border-outline-variant/10">Expenses</th>
+                            <th class="py-2.5 px-4 font-semibold text-right border-r border-outline-variant/10">Revenue</th>
+                            <th class="py-2.5 px-4 font-semibold text-right border-r border-outline-variant/10">Net Value</th>
+                            <th class="py-2.5 px-4 font-semibold text-right border-r border-outline-variant/10">Received</th>
+                            <th class="py-2.5 px-4 text-right">Outstanding</th>
+                        </tr>
+                    </thead>
+                    <tbody id="report-items-tbody" class="font-data-tabular text-sm text-on-surface divide-y divide-outline-variant/10">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="report-empty" class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-12 flex flex-col items-center justify-center text-center shadow-sm">
+        <span class="material-symbols-outlined text-5xl text-outline mb-4">description</span>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">No Report Generated</h3>
+        <p class="font-body-md text-on-surface-variant max-w-md">Select your interval scope, target quarry, and calendar range above to generate an audit report preview and spreadsheet exports.</p>
+    </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const reportType = document.getElementById('report-type');
+    const reportQuarry = document.getElementById('report-quarry');
+    const reportFrom = document.getElementById('report-from');
+    const reportTo = document.getElementById('report-to');
+    const generateBtn = document.getElementById('generate-btn');
+
+    const reportContent = document.getElementById('report-content');
+    const reportEmpty = document.getElementById('report-empty');
+    const reportItemsTbody = document.getElementById('report-items-tbody');
+
+    // Export Buttons
+    const exportExcelBtn = document.getElementById('export-excel-btn');
+    const exportCsvBtn = document.getElementById('export-csv-btn');
+    const exportPdfBtn = document.getElementById('export-pdf-btn');
+    const printReportBtn = document.getElementById('print-report-btn');
+
+    // Default dates
+    const now = new Date();
+    const formatStr = (d) => d.toISOString().split('T')[0];
+    reportFrom.value = formatStr(new Date(now.getFullYear(), now.getMonth(), 1));
+    reportTo.value = formatStr(new Date(now.getFullYear(), now.getMonth() + 1, 0));
+
+    // Handle interval changes to auto-set dates
+    reportType.addEventListener('change', () => {
+        const val = reportType.value;
+        const curYear = now.getFullYear();
+        const curMonth = now.getMonth();
+
+        if (val === 'daily') {
+            reportFrom.value = formatStr(now);
+            reportTo.value = formatStr(now);
+        } else if (val === 'weekly') {
+            const first = new Date(now.setDate(now.getDate() - now.getDay()));
+            const last = new Date(now.setDate(now.getDate() - now.getDay() + 6));
+            reportFrom.value = formatStr(first);
+            reportTo.value = formatStr(last);
+        } else if (val === 'monthly') {
+            reportFrom.value = formatStr(new Date(curYear, curMonth, 1));
+            reportTo.value = formatStr(new Date(curYear, curMonth + 1, 0));
+        } else if (val === 'yearly') {
+            reportFrom.value = `${curYear}-01-01`;
+            reportTo.value = `${curYear}-12-31`;
+        }
+    });
+
+    async function generateReport() {
+        generateBtn.disabled = true;
+        generateBtn.innerHTML = `<span class="material-symbols-outlined animate-spin" style="font-size: 18px;">sync</span> Generating...`;
+
+        let url = `/api/reports/generate?type=${reportType.value}&quarry=${encodeURIComponent(reportQuarry.value)}&date_from=${reportFrom.value}&date_to=${reportTo.value}`;
+
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("Failed to generate report");
+            const data = await res.json();
+
+            // Set Totals
+            document.getElementById('sum-days').textContent = data.summary.total_working_days;
+            document.getElementById('sum-expense').textContent = formatCurrency(data.summary.total_expense);
+            document.getElementById('sum-revenue').textContent = formatCurrency(data.summary.total_revenue);
+            document.getElementById('sum-lease').textContent = formatCurrency(data.summary.total_land_lease);
+            
+            const netVal = data.summary.net_value;
+            const netLabel = document.getElementById('sum-net');
+            netLabel.textContent = (netVal >= 0 ? "+ " : "- ") + formatCurrency(Math.abs(netVal));
+            if (netVal < 0) {
+                netLabel.className = "text-lg font-bold text-error mt-1 font-data-tabular";
+            } else {
+                netLabel.className = "text-lg font-bold text-tertiary mt-1 font-data-tabular";
+            }
+
+            document.getElementById('sum-received').textContent = formatCurrency(data.summary.total_received);
+            document.getElementById('sum-outstanding').textContent = formatCurrency(data.summary.total_outstanding);
+
+            // Populate rows
+            reportItemsTbody.innerHTML = '';
+            if (data.items.length === 0) {
+                reportItemsTbody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="p-6 text-center text-on-surface-variant/70">
+                            No records found within the selected scope
+                        </td>
+                    </tr>
+                `;
+            } else {
+                data.items.forEach((record, index) => {
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-surface-variant/15 transition-colors cursor-pointer';
+
+                    const netValPrefix = record.net_value >= 0 ? '+ ' : '- ';
+                    const netValClass = record.net_value >= 0 ? 'text-tertiary font-semibold' : 'text-error font-semibold';
+                    const outstanding = Math.max(0, record.net_value - record.received_amount);
+
+                    tr.innerHTML = `
+                        <td class="py-2.5 px-4 text-center text-on-surface-variant/70 border-r border-outline-variant/10">${index + 1}</td>
+                        <td class="py-2.5 px-4 border-r border-outline-variant/10 text-xs font-semibold">${record.quarry}</td>
+                        <td class="py-2.5 px-4 border-r border-outline-variant/10 font-medium">${record.day_from} to ${record.day_to}</td>
+                        <td class="py-2.5 px-4 text-center border-r border-outline-variant/10">${record.working_days}</td>
+                        <td class="py-2.5 px-4 text-right border-r border-outline-variant/10">${formatCurrency(record.total_expense)}</td>
+                        <td class="py-2.5 px-4 text-right border-r border-outline-variant/10">${formatCurrency(record.total_revenue)}</td>
+                        <td class="py-2.5 px-4 text-right ${netValClass} border-r border-outline-variant/10">${netValPrefix}${formatCurrency(Math.abs(record.net_value))}</td>
+                        <td class="py-2.5 px-4 text-right border-r border-outline-variant/10">${formatCurrency(record.received_amount)}</td>
+                        <td class="py-2.5 px-4 text-right font-medium ${outstanding > 0 ? 'text-error' : 'text-on-surface-variant'}">${formatCurrency(outstanding)}</td>
+                    `;
+
+                    // Click row to view detail
+                    tr.addEventListener('click', () => {
+                        window.location.href = `detail1.html?id=${record.id}`;
+                    });
+
+                    reportItemsTbody.appendChild(tr);
+                });
+            }
+
+            // Wire export URLs
+            const exportQueryStr = `type=${reportType.value}&quarry=${encodeURIComponent(reportQuarry.value)}&date_from=${reportFrom.value}&date_to=${reportTo.value}`;
+            exportExcelBtn.href = `/api/reports/export?format=excel&${exportQueryStr}`;
+            exportCsvBtn.href = `/api/reports/export?format=csv&${exportQueryStr}`;
+            exportPdfBtn.href = `/api/reports/export?format=pdf&${exportQueryStr}`;
+
+            // Show content, hide empty state
+            reportEmpty.classList.add('hidden');
+            reportContent.classList.remove('hidden');
+
+            generateBtn.disabled = false;
+            generateBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">sync</span> Generate Report Preview`;
+
+        } catch (err) {
+            generateBtn.disabled = false;
+            generateBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">sync</span> Generate Report Preview`;
+            showToast("Failed to generate report: " + err.message, "error");
+        }
+    }
+
+    generateBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        generateReport();
+    });
+
+    printReportBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.print();
+    });
+
+    bindNavigation();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quarry 2 – Working Period Records | Quarry Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#5e4115",
+                    "surface-dim": "#dadadc",
+                    "on-primary-fixed-variant": "#2b4965",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#d5e3fc",
+                    "primary-fixed": "#cee5ff",
+                    "outline": "#73777e",
+                    "surface-tint": "#43617e",
+                    "primary-container": "#4f6d8a",
+                    "inverse-surface": "#2f3033",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#e3e2e5",
+                    "on-secondary-fixed-variant": "#3a485b",
+                    "surface-container": "#eeedf0",
+                    "on-tertiary-container": "#ffe8ce",
+                    "on-tertiary-fixed": "#291800",
+                    "inverse-on-surface": "#f1f0f3",
+                    "tertiary-fixed": "#ffddb4",
+                    "secondary-container": "#d5e3fc",
+                    "primary": "#365571",
+                    "error": "#ba1a1a",
+                    "surface": "#faf9fb",
+                    "on-secondary-fixed": "#0d1c2e",
+                    "secondary-fixed-dim": "#b9c7df",
+                    "on-surface": "#1a1c1e",
+                    "on-primary-fixed": "#001d33",
+                    "tertiary-fixed-dim": "#eabf88",
+                    "inverse-primary": "#abcaea",
+                    "on-primary-container": "#deedff",
+                    "secondary": "#515f74",
+                    "surface-container-high": "#e8e8ea",
+                    "surface-bright": "#faf9fb",
+                    "tertiary-container": "#866435",
+                    "on-tertiary": "#ffffff",
+                    "background": "#faf9fb",
+                    "surface-container-low": "#f4f3f6",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1a1c1e",
+                    "on-surface-variant": "#43474d",
+                    "primary-fixed-dim": "#abcaea",
+                    "surface-variant": "#e3e2e5",
+                    "on-secondary-container": "#57657a",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#6b4c1f",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c3c7ce",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "container-padding-mobile": "16px",
+                    "element-gap": "8px",
+                    "container-padding-desktop": "32px",
+                    "section-gap": "24px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "display": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["11px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "body-sm": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-sm": ["18px", {"lineHeight": "1.4", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #FAF8F3;
+        }
+        .table-container {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .table-container th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+    </style>
+    <script src="/static/js/shared.js"></script>
+</head>
+<body class="font-body-md text-on-surface antialiased min-h-screen flex flex-col pt-16 pb-8">
+<!-- TopNavBar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md text-primary dark:text-primary-fixed-dim font-body-md text-body-md fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center px-container-desktop h-16 w-full hidden md:flex">
+<div class="flex items-center gap-6">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">Quarry Tracker</span>
+<nav class="flex gap-4">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all px-2 py-1 rounded" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all px-2 py-1 rounded" href="#">Quarry 1</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 font-bold" href="#">Quarry 2</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all px-2 py-1 rounded" href="#">Compare</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all px-2 py-1 rounded" href="#">Import Data</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all px-2 py-1 rounded" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="active:opacity-80 transition-opacity p-2 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg focus:ring-primary focus:border-primary font-body-sm w-48 text-on-surface" placeholder="Search" type="text"/>
+</div>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A small circular user avatar showing a professional portrait of an individual in business casual attire against a clean, bright background, suitable for a corporate enterprise dashboard interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvPjl3ton8KKIYTarcCTz84gyM7_f_1inGUnK-b2DL6Pwg7FHTD4dE1Ubb8Z5CoMdWBsXrcvz9VUoOaDDPGRCwMJDASAQBtv4vMbc4R5drwjK0uwHpx7PklziWscuesb903Oy0iAU1nyOTKxp3aGQxnCTdQa44xeE9FNHgOPaVEEAIySTEV76LcyeTWo4qY6ELma2IJDQD2TcCM6rvwZNdiRmDYt2ZxKsFvIbp6BSQBg-8J01uivif"/>
+</div>
+</header>
+<div class="flex flex-1 mt-6 px-container-padding-mobile md:px-container-padding-desktop gap-section-gap">
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col gap-section-gap w-full max-w-[1400px] mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md mb-2">
+<span>Dashboard</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span>Quarry 2</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="font-semibold text-primary">Working Period Records</span>
+</nav>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Quarry 2 – Working Period Records</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Detailed operational and financial logs for all working periods.</p>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Add Working Period
+                    </button>
+<button class="bg-surface-container-lowest text-on-surface border border-outline-variant font-label-md text-label-md px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">upload_file</span>
+                        Import Excel
+                    </button>
+<button class="bg-surface-container-lowest text-on-surface border border-outline-variant font-label-md text-label-md px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export Excel
+                    </button>
+<button class="bg-surface-container-lowest text-on-surface border border-outline-variant font-label-md text-label-md px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                        Export PDF
+                    </button>
+</div>
+</div>
+<!-- Empty State / Placeholder for Data Table (To be expanded in a full implementation) -->
+<div id="table-parent-container" class="w-full">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 flex flex-col items-center justify-center text-center shadow-sm">
+<span class="material-symbols-outlined text-4xl text-outline mb-4">table_chart</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">No Records Found</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">There are currently no working period records logged for Quarry 2. Add a new record or import data to see analytics.</p>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-dim text-secondary dark:text-secondary-fixed-dim font-label-sm text-label-sm fixed bottom-0 w-full h-8 border-t border-outline-variant dark:border-outline flex justify-between items-center px-4 w-full cursor-default">
+<span class="font-label-sm text-label-sm font-black">v2.4.0-stable</span>
+<div class="flex gap-4">
+<span class="text-on-surface-variant hover:text-primary transition-colors">Database: Connected</span>
+<span class="text-on-surface-variant hover:text-primary transition-colors">Last Backup: 2 mins ago</span>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const parentContainer = document.getElementById('table-parent-container');
+    
+    // Inject dynamic table and toolbar layout
+    parentContainer.innerHTML = `
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/10 shadow-[0_4px_12px_rgba(136,114,107,0.05)] flex flex-col mb-xl overflow-hidden">
+            <!-- Toolbar -->
+            <div class="p-sm md:p-md border-b border-outline-variant/10 flex flex-col sm:flex-row justify-between items-center gap-sm bg-surface-container-low/50">
+                <div class="flex-1 w-full sm:w-auto relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+                    <input id="search-input" class="w-full sm:max-w-md pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant/40 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary font-body-md text-body-md placeholder:text-on-surface-variant/50 transition-all outline-none" placeholder="Search records, statuses..." type="text"/>
+                </div>
+                <div class="flex flex-wrap items-center gap-xs w-full sm:w-auto">
+                    <div class="flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/40 rounded-lg text-xs text-on-surface-variant">
+                        <span class="font-medium">From:</span>
+                        <input type="date" id="date-from-input" class="bg-transparent border-0 p-0 text-xs focus:ring-0 w-24">
+                        <span class="font-medium ml-1">To:</span>
+                        <input type="date" id="date-to-input" class="bg-transparent border-0 p-0 text-xs focus:ring-0 w-24">
+                    </div>
+                    <button id="status-filter-btn" class="flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/40 rounded-lg hover:bg-surface-variant/50 transition-colors font-label-md text-label-md text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[18px]">filter_list</span> Status
+                    </button>
+                </div>
+            </div>
+            <!-- High-Density Data Table -->
+            <div class="overflow-x-auto table-scrollbar relative">
+                <table class="w-full text-left border-collapse whitespace-nowrap min-w-[1500px]">
+                    <thead class="bg-surface-container-high/40 sticky top-0 z-10 shadow-sm border-b border-outline-variant/20">
+                        <tr class="font-label-md text-label-md text-on-surface-variant">
+                            <th class="py-3 px-4 font-semibold w-12 text-center border-r border-outline-variant/10">#</th>
+                            <th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Period</th>
+                            <th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Days</th>
+                            <th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Labor & Pay</th>
+                            <th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Operations Exp.</th>
+                            <th class="py-3 px-4 font-semibold border-r border-outline-variant/10 text-right bg-surface-variant/30">Total Exp.</th>
+                            <th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Production (Bricks)</th>
+                            <th class="py-3 px-4 font-semibold border-r border-outline-variant/10 text-right bg-surface-variant/30">Total Rev.</th>
+                            <th class="py-3 px-4 font-semibold border-r border-outline-variant/10 text-right">Net Value</th>
+                            <th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Status & Balance</th>
+                            <th class="py-3 px-4 font-semibold text-center sticky right-0 bg-surface-container-low shadow-[-4px_0_12px_rgba(0,0,0,0.05)]">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="records-tbody" class="font-data-tabular text-data-tabular text-on-surface divide-y divide-outline-variant/10">
+                    </tbody>
+                </table>
+            </div>
+            <!-- Table Footer / Pagination -->
+            <div class="p-sm border-t border-outline-variant/20 flex justify-between items-center bg-surface-container-lowest font-label-md text-label-md text-on-surface-variant">
+                <span id="pagination-info">Showing 0 entries</span>
+                <div class="flex gap-1" id="pagination-container">
+                </div>
+            </div>
+        </div>
+    `;
+
+    const tbody = document.getElementById('records-tbody');
+    const searchInput = document.getElementById('search-input');
+    const dateFromInput = document.getElementById('date-from-input');
+    const dateToInput = document.getElementById('date-to-input');
+    const statusBtn = document.getElementById('status-filter-btn');
+
+    let currentFilterStatus = 'all';
+    let currentPage = 1;
+    let currentSortBy = 'day_from';
+    let currentSortDir = 'desc';
+
+    // Highlight headers to show they are sortable
+    const headers = document.querySelectorAll('thead th');
+    const sortFieldMap = {
+        1: 'day_from',
+        2: 'working_days',
+        5: 'total_expense',
+        7: 'total_revenue',
+        8: 'net_value'
+    };
+
+    headers.forEach((th, idx) => {
+        if (sortFieldMap[idx]) {
+            th.style.cursor = 'pointer';
+            th.classList.add('hover:bg-surface-container-high/60', 'transition-colors');
+            th.addEventListener('click', () => {
+                const field = sortFieldMap[idx];
+                if (currentSortBy === field) {
+                    currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSortBy = field;
+                    currentSortDir = 'desc';
+                }
+                loadRecords();
+            });
+        }
+    });
+
+    async function loadRecords() {
+        try {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="11" class="py-8 text-center text-on-surface-variant/70">
+                        <div class="flex flex-col items-center gap-2 animate-pulse">
+                            <span class="material-symbols-outlined text-4xl animate-spin">sync</span>
+                            <span class="font-medium">Loading records...</span>
+                        </div>
+                    </td>
+                </tr>
+            `;
+
+            let url = `/api/periods?quarry=Quarry 2&page=${currentPage}&page_size=10&sort_by=${currentSortBy}&sort_dir=${currentSortDir}`;
+            if (searchInput.value.trim()) {
+                url += `&search=${encodeURIComponent(searchInput.value.trim())}`;
+            }
+            if (dateFromInput.value) {
+                url += `&date_from=${dateFromInput.value}`;
+            }
+            if (dateToInput.value) {
+                url += `&date_to=${dateToInput.value}`;
+            }
+
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("Failed to fetch periods");
+            const data = await res.json();
+            
+            let items = data.items;
+            if (currentFilterStatus !== 'all') {
+                items = items.filter(r => {
+                    const status = r.received_amount >= r.net_value ? 'Fully Received' : (r.received_amount > 0 ? 'Partially Received' : 'Pending');
+                    return status.toLowerCase().replace(' ', '') === currentFilterStatus.toLowerCase().replace(' ', '');
+                });
+            }
+
+            const countSpan = document.getElementById('pagination-info');
+            if (countSpan) {
+                countSpan.textContent = `Showing 1 to ${items.length} of ${data.total} entries`;
+            }
+
+            if (items.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="11" class="py-8 text-center text-on-surface-variant/70">
+                            <div class="flex flex-col items-center gap-2">
+                                <span class="material-symbols-outlined text-4xl">table_chart</span>
+                                <span class="font-medium">No records found</span>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = '';
+            items.forEach((record, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-surface-variant/20 transition-colors group cursor-pointer';
+
+                const status = record.received_amount >= record.net_value ? 'Fully Received' : (record.received_amount > 0 ? 'Partially Received' : 'Pending');
+                const outstanding = Math.max(0, record.net_value - record.received_amount);
+
+                const statusClass = status === 'Fully Received' 
+                    ? 'bg-tertiary-fixed/40 text-tertiary-container border border-tertiary/20' 
+                    : status === 'Partially Received' 
+                        ? 'bg-secondary-container text-secondary border border-secondary/20' 
+                        : 'bg-error-container text-error border border-error/20';
+
+                const balanceClass = outstanding > 0 ? 'text-error font-medium' : 'text-on-surface-variant';
+
+                const netValPrefix = record.net_value >= 0 ? '+ ' : '- ';
+                const netValClass = record.net_value >= 0 ? 'text-tertiary-container' : 'text-error';
+
+                tr.innerHTML = `
+                    <td class="py-2 px-4 text-center text-on-surface-variant/70 border-r border-outline-variant/10">${(currentPage - 1) * 10 + index + 1}</td>
+                    <td class="py-2 px-4 border-r border-outline-variant/10">
+                        <div class="flex flex-col text-sm">
+                            <span>${record.day_from}</span>
+                            <span class="text-on-surface-variant text-xs">to ${record.day_to}</span>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 text-center border-r border-outline-variant/10">${record.working_days}</td>
+                    <td class="py-2 px-4 border-r border-outline-variant/10">
+                        <div class="flex flex-col text-sm">
+                            <span>${record.num_labourers} <span class="text-on-surface-variant text-xs">labourers</span></span>
+                            <span class="text-on-surface-variant">${formatCurrency(record.labour_pay)}</span>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 border-r border-outline-variant/10">
+                        <div class="flex gap-4 text-xs text-on-surface-variant">
+                            <div class="flex flex-col">
+                                <span>Diesel: ${formatCurrency(record.diesel_expense)}</span>
+                                <span>Spare: ${formatCurrency(record.spare_parts)}</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span>JCB: ${formatCurrency(record.jcb_charge)}</span>
+                                <span>Mess: ${formatCurrency(record.mess_expense)}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 text-right font-medium border-r border-outline-variant/10 bg-surface-variant/10">${formatCurrency(record.total_expense)}</td>
+                    <td class="py-2 px-4 border-r border-outline-variant/10">
+                        <div class="flex gap-3 text-xs">
+                            <span class="bg-tertiary-fixed/30 text-tertiary-container px-2 py-0.5 rounded">1st: ${record.first_quality_bricks / 1000}k</span>
+                            <span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded">2nd: ${record.second_quality_bricks / 1000}k</span>
+                            <span class="text-error/70 px-1 py-0.5">Brk: ${record.broken_bricks_loads} Lds</span>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 text-right font-medium border-r border-outline-variant/10 bg-surface-variant/10">${formatCurrency(record.total_revenue)}</td>
+                    <td class="py-2 px-4 text-right font-bold ${netValClass} border-r border-outline-variant/10">${netValPrefix}${formatCurrency(Math.abs(record.net_value))}</td>
+                    <td class="py-2 px-4 border-r border-outline-variant/10">
+                        <div class="flex flex-col gap-1 items-start">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${statusClass}">${status}</span>
+                            <span class="text-xs ${balanceClass}">Out: ${formatCurrency(outstanding)}</span>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 text-center sticky right-0 bg-surface-container-lowest group-hover:bg-surface-bright transition-colors shadow-[-4px_0_12px_rgba(0,0,0,0.02)] border-l border-outline-variant/10">
+                        <div class="flex items-center justify-center gap-1 text-on-surface-variant">
+                            <button class="p-1.5 hover:text-primary hover:bg-surface-variant rounded transition-colors view-btn" data-id="${record.id}"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+                            <button class="p-1.5 hover:text-primary hover:bg-surface-variant rounded transition-colors edit-btn" data-id="${record.id}"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+                            <button class="p-1.5 hover:text-error hover:bg-error-container/50 rounded transition-colors delete-btn" data-id="${record.id}"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+                        </div>
+                    </td>
+                `;
+
+                tr.addEventListener('click', (e) => {
+                    if (!e.target.closest('button')) {
+                        window.location.href = `detail1.html?quarry=q2&id=${record.id}`;
+                    }
+                });
+                tbody.appendChild(tr);
+            });
+
+            tbody.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = btn.getAttribute('data-id');
+                    window.location.href = `detail1.html?quarry=q2&id=${id}`;
+                });
+            });
+
+            tbody.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = btn.getAttribute('data-id');
+                    window.location.href = `add_entry.html?quarry=q2&id=${id}`;
+                });
+            });
+
+            tbody.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    const id = btn.getAttribute('data-id');
+                    if (confirm(`Are you sure you want to delete period ID ${id}?`)) {
+                        const delRes = await fetch(`/api/periods/${id}`, { method: 'DELETE' });
+                        if (delRes.ok) {
+                            showToast(`Period ID ${id} deleted successfully!`);
+                            loadRecords();
+                        } else {
+                            const errData = await delRes.json();
+                            showToast(`Deletion failed: ${errData.errors ? errData.errors[0] : 'Server error'}`, 'error');
+                        }
+                    }
+                });
+            });
+
+            renderPagination(data.total);
+
+        } catch (err) {
+            console.error(err);
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="11" class="py-8 text-center text-error">
+                        <div class="flex flex-col items-center gap-2">
+                            <span class="material-symbols-outlined text-4xl">error</span>
+                            <span class="font-medium">Failed to load records: ${err.message}</span>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    function renderPagination(totalCount) {
+        const container = document.getElementById('pagination-container');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        const totalPages = Math.ceil(totalCount / 10);
+        
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'px-3 py-1 border border-outline-variant/40 rounded hover:bg-surface-variant transition-colors disabled:opacity-50';
+        prevBtn.textContent = 'Prev';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                loadRecords();
+            }
+        });
+        container.appendChild(prevBtn);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.className = `px-3 py-1 rounded font-medium border border-outline-variant/40 transition-colors ${i === currentPage ? 'bg-primary text-on-primary' : 'hover:bg-surface-variant'}`;
+            pageBtn.textContent = i;
+            pageBtn.addEventListener('click', () => {
+                currentPage = i;
+                loadRecords();
+            });
+            container.appendChild(pageBtn);
+        }
+
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'px-3 py-1 border border-outline-variant/40 rounded hover:bg-surface-variant transition-colors disabled:opacity-50';
+        nextBtn.textContent = 'Next';
+        nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                loadRecords();
+            }
+        });
+        container.appendChild(nextBtn);
+    }
+
+    let searchTimeout = null;
+    searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            currentPage = 1;
+            loadRecords();
+        }, 300);
+    });
+
+    dateFromInput.addEventListener('change', () => { currentPage = 1; loadRecords(); });
+    dateToInput.addEventListener('change', () => { currentPage = 1; loadRecords(); });
+
+    if (statusBtn) {
+        statusBtn.style.position = 'relative';
+        const dropdown = document.createElement('div');
+        dropdown.className = 'absolute top-full mt-2 right-0 bg-white dark:bg-surface-container-high border border-outline-variant/40 rounded-lg shadow-lg hidden flex-col z-50 py-1 min-w-[150px] text-left';
+        dropdown.innerHTML = `
+            <a href="#" class="px-4 py-2 hover:bg-surface-variant/40 text-sm block font-medium text-on-surface" data-status="all">All Statuses</a>
+            <a href="#" class="px-4 py-2 hover:bg-surface-variant/40 text-sm block font-medium text-on-surface" data-status="Fully Received">Fully Received</a>
+            <a href="#" class="px-4 py-2 hover:bg-surface-variant/40 text-sm block font-medium text-on-surface" data-status="Partially Received">Partially Received</a>
+            <a href="#" class="px-4 py-2 hover:bg-surface-variant/40 text-sm block font-medium text-on-surface" data-status="Pending">Pending</a>
+        `;
+        statusBtn.appendChild(dropdown);
+
+        statusBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', () => {
+            dropdown.classList.add('hidden');
+        });
+
+        dropdown.querySelectorAll('a').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                currentFilterStatus = item.getAttribute('data-status');
+                statusBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">filter_list</span> Status: ${currentFilterStatus === 'all' ? 'All' : currentFilterStatus}`;
+                statusBtn.appendChild(dropdown);
+                dropdown.classList.add('hidden');
+                currentPage = 1;
+                loadRecords();
+            });
+        });
+    }
+
+    loadRecords();
+});
+</script>
+</body></html>
+
+

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Working Period Detail - Quarry 1 Operations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#57657a",
+                        "surface-variant": "#f0dfda",
+                        "on-tertiary-fixed-variant": "#004f52",
+                        "on-primary-fixed": "#380d00",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "primary": "#974626",
+                        "secondary": "#515f74",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "on-surface": "#221a17",
+                        "tertiary-fixed-dim": "#74d6da",
+                        "tertiary": "#00696c",
+                        "surface-dim": "#e7d7d1",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fff1ec",
+                        "surface-container": "#fceae5",
+                        "primary-fixed-dim": "#ffb59b",
+                        "surface-bright": "#fff8f6",
+                        "on-tertiary-fixed": "#002021",
+                        "primary-container": "#b65e3c",
+                        "inverse-on-surface": "#ffede8",
+                        "tertiary-fixed": "#91f2f6",
+                        "outline-variant": "#dbc1b9",
+                        "surface-container-highest": "#f0dfda",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "on-background": "#221a17",
+                        "error": "#ba1a1a",
+                        "surface": "#fff8f6",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#ffffff",
+                        "primary-fixed": "#ffdbcf",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#984727",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#382e2b",
+                        "on-tertiary-container": "#ffffff",
+                        "background": "#FAF8F3", /* Override as requested */
+                        "surface-container-high": "#f6e5df",
+                        "on-surface-variant": "#55433c",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#d5e3fc",
+                        "on-primary-fixed-variant": "#793012",
+                        "tertiary-container": "#008488",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#d5e3fc",
+                        "outline": "#88726b",
+                        "inverse-primary": "#ffb59b",
+                        "success": "#166534",
+                        "success-container": "#dcfce7",
+                        "on-success-container": "#14532d",
+                        "danger": "#dc2626",
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.25rem", /* 20px */
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "xl": "32px",
+                        "margin-desktop": "32px",
+                        "2xl": "48px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "container-max": "1440px",
+                        "3xl": "64px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-tabular": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "data-tabular": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    },
+                    "boxShadow": {
+                        "level-1": "0 4px 12px 0 rgba(87, 101, 122, 0.05)",
+                        "level-2": "0 12px 32px 0 rgba(87, 101, 122, 0.10)",
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAF8F3; }
+        .data-tabular { font-variant-numeric: tabular-nums; }
+        
+        /* Custom scrollbar for sticky areas */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #dbc1b9; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #974626; }
+    </style>
+    <script src="/static/js/shared.js"></script>
+</head>
+<body class="text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface-dim shadow-sm docked full-width top-0 sticky flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-16 z-50 border-b border-outline-variant/10">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Quarry 1 Operations</span>
+</div>
+<div class="hidden md:flex gap-6 h-full items-center">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md h-full flex items-center" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md h-full flex items-center" href="#">Inventory</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md h-full flex items-center" href="#">Logistics</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim font-label-md text-label-md h-full flex items-center opacity-80 duration-150" href="#">Reports</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img alt="Manager Profile" class="w-full h-full object-cover" data-alt="A rugged, professional headshot of a quarry operations manager in a high-visibility vest against an industrial backdrop. High key lighting, modern light-mode aesthetic with earthy, warm undertones. Realistic, corporate SaaS avatar style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZtFRvJalyzUqLxrWPQ7A-MecjiSavYxDlo6RpMymRyQI_zHyuzNeGbIOuyw62rqML_8z-CDKpgg6i04kAj1dRFlUul01ki0kd2WFoN6AYBjMAeN2oClCd7jhgasUNr89Xha-OUYy1Yx5PDZR0py_ULqHQ0udgXNVZfJgIBj6wSWV5wJX5OC5WmNnhq9KzdWTXXxF04FdycDBKn9-RyzpnlNYh7zk-Xz_r6cM6LPT_PabbA1RghawT"/>
+</div>
+</div>
+</nav>
+<!-- Main Layout -->
+<div class="flex max-w-container-max mx-auto w-full relative">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-screen sticky left-0 top-16 z-40 bg-secondary dark:bg-on-secondary-fixed-variant shadow-md w-64 pt-6 pb-20 shrink-0 border-r border-outline-variant/10">
+<!-- Context Header -->
+<div class="px-6 pb-6 mb-6 border-b border-white/10">
+<p class="font-label-md text-label-md text-secondary-fixed-dim uppercase tracking-wider mb-1">Quarry Selector</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center text-primary font-bold shadow-sm">
+                        Q1
+                    </div>
+<div>
+<h2 class="font-headline-md text-[18px] text-white leading-tight">Quarry 1</h2>
+<span class="text-xs text-secondary-fixed-dim flex items-center gap-1 mt-1">
+<span class="w-2 h-2 rounded-full bg-success"></span> Active Site
+                        </span>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-sm text-secondary-fixed-dim hover:text-white px-4 py-3 mx-2 hover:bg-white/10 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Financial Overview</span>
+</a>
+<a class="flex items-center gap-sm text-secondary-fixed-dim hover:text-white px-4 py-3 mx-2 hover:bg-white/10 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="conveyor_belt">conveyor_belt</span>
+<span class="font-label-md text-label-md">Material Flow</span>
+</a>
+<a class="flex items-center gap-sm bg-primary dark:bg-primary-container text-on-primary rounded-lg px-4 py-3 mx-2 scale-95 duration-200 shadow-sm" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Daily Logs</span>
+</a>
+<a class="flex items-center gap-sm text-secondary-fixed-dim hover:text-white px-4 py-3 mx-2 hover:bg-white/10 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-md text-label-md">Fleet Status</span>
+</a>
+<a class="flex items-center gap-sm text-secondary-fixed-dim hover:text-white px-4 py-3 mx-2 hover:bg-white/10 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="health_and_safety">health_and_safety</span>
+<span class="font-label-md text-label-md">Safety Audit</span>
+</a>
+</nav>
+<!-- CTA -->
+<div class="px-6 mt-8 mb-6">
+<button class="w-full bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-colors font-label-md text-label-md py-3 rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Generate Report
+                </button>
+</div>
+<!-- Footer Links -->
+<div class="mt-auto border-t border-white/10 pt-4 space-y-1">
+<a class="flex items-center gap-sm text-secondary-fixed-dim hover:text-white px-4 py-2 mx-2 hover:bg-white/10 transition-all rounded-lg text-sm" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="check_circle">check_circle</span>
+<span class="font-label-md text-[13px]">System Status</span>
+</a>
+<a class="flex items-center gap-sm text-secondary-fixed-dim hover:text-white px-4 py-2 mx-2 hover:bg-white/10 transition-all rounded-lg text-sm" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span>
+<span class="font-label-md text-[13px]">Help Center</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full min-w-0 p-margin-mobile md:p-margin-desktop space-y-xl pb-32">
+<!-- Breadcrumbs & Header -->
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
+<div>
+<nav aria-label="Breadcrumb" class="flex text-sm text-on-surface-variant mb-3 font-label-md">
+<ol class="inline-flex items-center space-x-1 md:space-x-2">
+<li class="inline-flex items-center">
+<a class="hover:text-primary transition-colors" href="#">Dashboard</a>
+</li>
+<li>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Quarry 1</a>
+</div>
+</li>
+<li>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Working Period Records</a>
+</div>
+</li>
+<li aria-current="page">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+<span class="text-on-surface font-medium">Working Period Detail</span>
+</div>
+</li>
+</ol>
+</nav>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">
+                        Working Period Details
+                    </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+                        Complete financial and operational breakdown for the selected working period.
+                    </p>
+</div>
+<!-- Page Actions -->
+<div class="flex flex-wrap items-center gap-3 shrink-0">
+<button class="px-4 py-2 bg-white border border-outline-variant rounded-lg text-on-surface hover:bg-surface-variant transition-colors font-label-md flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">print</span>
+                        Print
+                    </button>
+<div class="flex bg-white border border-outline-variant rounded-lg shadow-sm overflow-hidden">
+<button class="px-4 py-2 text-on-surface hover:bg-surface-variant transition-colors font-label-md flex items-center gap-2 border-r border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                            PDF
+                        </button>
+<button class="px-4 py-2 text-on-surface hover:bg-surface-variant transition-colors font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">table_view</span>
+                            Excel
+                        </button>
+</div>
+<button class="px-4 py-2 bg-white border border-danger text-danger rounded-lg hover:bg-error-container transition-colors font-label-md flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                         Delete
+                    </button>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-lg hover:bg-primary-container transition-colors font-label-md flex items-center gap-2 shadow-sm font-semibold">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                        Edit Entry
+                    </button>
+</div>
+</div>
+<!-- Record Overview Card (Bento Style) -->
+<div class="bg-white rounded-2xl p-6 shadow-level-1 border border-outline-variant/20 relative overflow-hidden">
+<!-- Decorative subtle background pattern -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#974626 1px, transparent 1px); background-size: 24px 24px;"></div>
+<div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 bg-surface-container-high text-primary-container rounded-full font-label-md text-[12px] font-bold border border-primary-container/20">
+                                QUARRY 1
+                            </span>
+<span class="px-3 py-1 bg-success-container text-on-success-container rounded-full font-label-md text-[12px] font-bold border border-success/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                Fully Received
+                            </span>
+<span class="text-sm font-data-tabular text-on-surface-variant ml-auto lg:ml-4">ID: Q1-WP-1024</span>
+</div>
+<div class="flex items-baseline gap-4 mb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface">Oct 01, 2023 <span class="text-outline mx-2 font-normal">→</span> Oct 15, 2023</h2>
+</div>
+<div class="flex gap-6 mt-4 pt-4 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+</div>
+<div>
+<p class="text-[12px] text-on-surface-variant font-label-md uppercase tracking-wide">Duration</p>
+<p class="font-data-tabular font-semibold">14 Working Days</p>
+</div>
+</div>
+<div class="w-px h-10 bg-outline-variant/20"></div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">engineering</span>
+</div>
+<div>
+<p class="text-[12px] text-on-surface-variant font-label-md uppercase tracking-wide">Workforce</p>
+<p class="font-data-tabular font-semibold">12 Labourers</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Financial KPIs (4 Columns) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- KPI 1 -->
+<div class="bg-white rounded-2xl p-5 shadow-level-1 border border-outline-variant/20 flex flex-col justify-between group hover:shadow-level-2 transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<span class="px-2 py-1 bg-surface text-on-surface-variant text-xs rounded font-medium border border-outline-variant/30">Revenue</span>
+</div>
+<div>
+<p class="text-sm font-label-md text-on-surface-variant mb-1">Total Revenue</p>
+<p class="font-display-lg text-[32px] leading-tight text-on-surface data-tabular font-bold">₹4,250,000</p>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-white rounded-2xl p-5 shadow-level-1 border border-outline-variant/20 flex flex-col justify-between group hover:shadow-level-2 transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-error-container/30 flex items-center justify-center text-error">
+<span class="material-symbols-outlined">trending_down</span>
+</div>
+<span class="px-2 py-1 bg-surface text-on-surface-variant text-xs rounded font-medium border border-outline-variant/30">Expense</span>
+</div>
+<div>
+<p class="text-sm font-label-md text-on-surface-variant mb-1">Total Expense</p>
+<p class="font-display-lg text-[32px] leading-tight text-on-surface data-tabular font-bold">₹1,820,500</p>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-white rounded-2xl p-5 shadow-level-1 border border-success/30 flex flex-col justify-between relative overflow-hidden group hover:shadow-level-2 transition-shadow">
+<div class="absolute right-0 top-0 w-24 h-24 bg-success/5 rounded-bl-full pointer-events-none"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div class="w-10 h-10 rounded-lg bg-success-container flex items-center justify-center text-success">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<span class="px-2 py-1 bg-success/10 text-success text-xs rounded font-bold border border-success/20">Profitable</span>
+</div>
+<div class="relative z-10">
+<p class="text-sm font-label-md text-on-surface-variant mb-1">Net Value</p>
+<p class="font-display-lg text-[32px] leading-tight text-success data-tabular font-bold">₹2,429,500</p>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-white rounded-2xl p-5 shadow-level-1 border border-outline-variant/20 flex flex-col justify-between group hover:shadow-level-2 transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">task_alt</span>
+</div>
+<span class="px-2 py-1 bg-success/10 text-success text-xs rounded font-bold border border-success/20">100% Collected</span>
+</div>
+<div>
+<p class="text-sm font-label-md text-on-surface-variant mb-1">Received Amount</p>
+<p class="font-display-lg text-[32px] leading-tight text-on-surface data-tabular font-bold">₹2,429,500</p>
+</div>
+</div>
+</div>
+<!-- Bento Grid Main Content -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Expenses Card -->
+<div class="bg-white rounded-2xl shadow-level-1 border border-outline-variant/20 flex flex-col lg:col-span-1">
+<div class="p-5 border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="font-headline-md text-[18px] text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+                            Expenses Breakdown
+                        </h3>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<!-- Mini Donut Visualization Placeholder (CSS) -->
+<div class="flex justify-center mb-6 pt-2">
+<div class="relative w-32 h-32 rounded-full border-[12px] border-surface-variant flex items-center justify-center" style="border-top-color: #974626; border-right-color: #974626; border-bottom-color: #b65e3c; transform: rotate(-45deg);">
+<div class="absolute inset-0 rounded-full flex items-center justify-center bg-white m-1 shadow-sm" style="transform: rotate(45deg);">
+<span class="font-data-tabular font-bold text-sm text-on-surface">100%</span>
+</div>
+</div>
+</div>
+<div id="detail-expenses-list" class="space-y-3 flex-1">
+<div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+<span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Labour Pay
+                                </span>
+<span class="font-data-tabular text-sm font-medium">₹845,000</span>
+</div>
+<div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+<span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span> Diesel
+                                </span>
+<span class="font-data-tabular text-sm font-medium">₹420,000</span>
+</div>
+<div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+<span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-surface-variant"></span> Maintenance
+                                </span>
+<span class="font-data-tabular text-sm font-medium">₹250,000</span>
+</div>
+<div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+<span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span> Consumables
+                                </span>
+<span class="font-data-tabular text-sm font-medium">₹305,500</span>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t-2 border-primary/20 bg-surface-container rounded-lg p-3 flex justify-between items-center">
+<span class="font-label-md font-bold text-primary">TOTAL EXPENSE</span>
+<span id="detail-total-expense" class="font-data-tabular text-lg font-bold text-primary">₹1,820,500</span>
+</div>
+</div>
+</div>
+<!-- Production & Revenue Card -->
+<div class="bg-white rounded-2xl shadow-level-1 border border-outline-variant/20 flex flex-col lg:col-span-1">
+<div class="p-5 border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="font-headline-md text-[18px] text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+                            Production &amp; Revenue
+                        </h3>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<!-- Stacked Bar Viz -->
+<div class="mb-6">
+<div class="flex justify-between text-xs text-on-surface-variant mb-2 font-label-md">
+<span>Volume Distribution</span>
+</div>
+<div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden flex">
+<div class="bg-primary h-full" style="width: 78%;" title="First Quality"></div>
+<div class="bg-secondary h-full" style="width: 21%;" title="Second Quality"></div>
+<div class="bg-outline h-full" style="width: 1%;" title="Broken"></div>
+</div>
+<div class="flex gap-4 mt-3 text-xs font-label-md text-on-surface-variant">
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> 1st Q (78%)</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span> 2nd Q (21%)</div>
+</div>
+</div>
+<!-- Data Table -->
+<div class="flex-1 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/20">
+<th class="py-2 text-xs font-label-md text-on-surface-variant uppercase">Grade</th>
+<th class="py-2 text-xs font-label-md text-on-surface-variant uppercase text-right">Qty (Tons)</th>
+<th class="py-2 text-xs font-label-md text-on-surface-variant uppercase text-right">Rate</th>
+<th class="py-2 text-xs font-label-md text-on-surface-variant uppercase text-right">Revenue</th>
+</tr>
+</thead>
+<tbody id="detail-production-tbody" class="text-sm font-data-tabular">
+<tr class="border-b border-outline-variant/10">
+<td class="py-3 font-body-md font-medium text-on-surface">First Quality</td>
+<td class="py-3 text-right">900k</td>
+<td class="py-3 text-right text-on-surface-variant">₹38</td>
+<td class="py-3 text-right font-medium">₹34,200,000</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-3 font-body-md font-medium text-on-surface">Second Quality</td>
+<td class="py-3 text-right">240k</td>
+<td class="py-3 text-right text-on-surface-variant">₹28</td>
+<td class="py-3 text-right font-medium">₹6,720,000</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-3 font-body-md font-medium text-on-surface">Broken</td>
+<td class="py-3 text-right">120</td>
+<td class="py-3 text-right text-on-surface-variant">₹850</td>
+<td class="py-3 text-right font-medium">₹102,000</td>
+</tr>
+</tbody>
+</table>
+<p class="text-xs text-on-surface-variant mt-2 italic">*Values illustrative for structure</p>
+</div>
+<div class="mt-6 pt-4 border-t-2 border-success/20 bg-success/5 rounded-lg p-3 flex justify-between items-center">
+<span class="font-label-md font-bold text-success">TOTAL REVENUE</span>
+<span id="detail-total-revenue" class="font-data-tabular text-lg font-bold text-success">₹4,250,000</span>
+</div>
+</div>
+</div>
+<!-- Settlement Card -->
+<div class="bg-white rounded-2xl shadow-level-1 border border-outline-variant/20 flex flex-col lg:col-span-1">
+<div class="p-5 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-low rounded-t-2xl">
+<h3 class="font-headline-md text-[18px] text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">handshake</span>
+                            Settlement Status
+                        </h3>
+<span class="px-2 py-1 bg-success-container text-on-success-container text-xs rounded font-bold border border-success/20">Payment Completed</span>
+</div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div class="space-y-4 mb-6">
+<div class="flex justify-between items-end">
+<div>
+<p class="font-label-md text-xs text-on-surface-variant uppercase tracking-wide">Net Value</p>
+<p class="font-data-tabular text-xl font-bold text-on-surface">₹2,429,500</p>
+</div>
+</div>
+<div class="flex justify-between items-end pt-3 border-t border-outline-variant/10">
+<div>
+<p class="font-label-md text-xs text-on-surface-variant uppercase tracking-wide">Land Lease Deduction</p>
+<p class="font-data-tabular text-lg font-medium text-error">- ₹585,000</p>
+</div>
+<span class="material-symbols-outlined text-error opacity-50">remove_circle</span>
+</div>
+<div class="flex justify-between items-end pt-3 border-t border-outline-variant/10">
+<div>
+<p class="font-label-md text-xs text-on-surface-variant uppercase tracking-wide">Final Settlement Payable</p>
+<p class="font-data-tabular text-lg font-medium text-on-surface">₹1,844,500</p>
+</div>
+<span class="material-symbols-outlined text-primary opacity-50">account_balance</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="bg-surface rounded-xl p-4 border border-outline-variant/20">
+<div class="flex justify-between text-sm font-label-md mb-2">
+<span class="text-on-surface">Received: <span class="font-data-tabular">₹1,844,500</span></span>
+<span class="text-success font-bold">100%</span>
+</div>
+<div class="w-full h-3 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-success h-full transition-all duration-1000 ease-in-out" style="width: 100%;"></div>
+</div>
+<p class="text-xs text-on-surface-variant mt-2 text-right">Outstanding: ₹0</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Visualizations & Insights Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Financial Comparison (Wide Card) -->
+<div class="bg-white rounded-2xl shadow-level-1 border border-outline-variant/20 p-6 lg:col-span-2">
+<h3 class="font-headline-md text-[18px] text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">bar_chart</span>
+                        Period Financial Comparison
+                    </h3>
+<!-- Horizontal Bar Chart (CSS) -->
+<div class="space-y-6">
+<!-- Revenue Bar -->
+<div>
+<div class="flex justify-between text-sm font-label-md mb-1">
+<span class="text-on-surface">Revenue</span>
+<span class="font-data-tabular font-bold">₹4,250,000</span>
+</div>
+<div class="w-full h-6 bg-surface-variant rounded-md overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-md" style="width: 100%;"></div>
+</div>
+</div>
+<!-- Expense Bar -->
+<div>
+<div class="flex justify-between text-sm font-label-md mb-1">
+<span class="text-on-surface">Expense</span>
+<span class="font-data-tabular font-bold">₹1,820,500</span>
+</div>
+<div class="w-full h-6 bg-surface-variant rounded-md overflow-hidden">
+<div class="bg-error/80 h-full rounded-md" style="width: 42.8%;"></div>
+</div>
+</div>
+<!-- Net Value Bar -->
+<div>
+<div class="flex justify-between text-sm font-label-md mb-1">
+<span class="text-on-surface">Net Value</span>
+<span class="font-data-tabular font-bold text-success">₹2,429,500</span>
+</div>
+<div class="w-full h-6 bg-surface-variant rounded-md overflow-hidden">
+<div class="bg-success h-full rounded-md" style="width: 57.2%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/10 text-sm text-on-surface-variant flex items-start gap-2 bg-surface-container-low p-3 rounded-lg">
+<span class="material-symbols-outlined text-[18px] text-primary">lightbulb</span>
+<p>Revenue heavily outweighed expenses during this period, resulting in a healthy 57.2% net profit margin before lease deductions.</p>
+</div>
+</div>
+<!-- Insights Grid -->
+<div class="grid grid-cols-2 gap-4 lg:col-span-1">
+<div class="bg-surface rounded-xl p-4 border border-outline-variant/20 flex flex-col justify-center">
+<p class="font-label-md text-xs text-on-surface-variant mb-1">Expense Ratio</p>
+<p class="font-display-lg text-2xl font-bold text-on-surface data-tabular">42.8%</p>
+</div>
+<div class="bg-surface rounded-xl p-4 border border-outline-variant/20 flex flex-col justify-center">
+<p class="font-label-md text-xs text-on-surface-variant mb-1">Revenue / Day</p>
+<p class="font-display-lg text-lg font-bold text-on-surface data-tabular">₹303,571</p>
+</div>
+<div class="bg-surface rounded-xl p-4 border border-outline-variant/20 flex flex-col justify-center">
+<p class="font-label-md text-xs text-on-surface-variant mb-1">Expense / Day</p>
+<p class="font-display-lg text-lg font-bold text-on-surface data-tabular">₹130,035</p>
+</div>
+<div class="bg-surface rounded-xl p-4 border border-outline-variant/20 flex flex-col justify-center bg-primary-fixed/30 border-primary/20">
+<p class="font-label-md text-xs text-primary-fixed-variant mb-1">Avg Rev / Labourer</p>
+<p class="font-display-lg text-lg font-bold text-primary data-tabular">₹354,166</p>
+</div>
+</div>
+</div>
+<!-- Activity Timeline -->
+<div class="bg-white rounded-2xl shadow-level-1 border border-outline-variant/20 p-6">
+<h3 class="font-headline-md text-[18px] text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                    Record Activity
+                </h3>
+<div class="relative pl-4 space-y-6">
+<!-- Timeline Line -->
+<div class="absolute left-[23px] top-2 bottom-2 w-px bg-outline-variant/30"></div>
+<!-- Event 1 -->
+<div class="flex items-start gap-4 relative">
+<div class="w-4 h-4 rounded-full bg-surface-variant border-2 border-primary z-10 mt-1"></div>
+<div>
+<p class="font-label-md text-sm font-bold text-on-surface">Payment Received</p>
+<p class="text-xs text-on-surface-variant mt-0.5">Final settlement processed.</p>
+<span class="text-[11px] text-outline mt-1 block data-tabular">Oct 16, 2023 - 14:30</span>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="flex items-start gap-4 relative">
+<div class="w-4 h-4 rounded-full bg-surface-variant border-2 border-outline z-10 mt-1"></div>
+<div>
+<p class="font-label-md text-sm font-bold text-on-surface">Excel Imported</p>
+<p class="text-xs text-on-surface-variant mt-0.5">Production logs synced via automated upload.</p>
+<span class="text-[11px] text-outline mt-1 block data-tabular">Oct 15, 2023 - 18:45</span>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="flex items-start gap-4 relative">
+<div class="w-4 h-4 rounded-full bg-surface-variant border-2 border-outline z-10 mt-1"></div>
+<div>
+<p class="font-label-md text-sm font-bold text-on-surface">Record Created</p>
+<p class="text-xs text-on-surface-variant mt-0.5">Working period initialized by System Admin.</p>
+<span class="text-[11px] text-outline mt-1 block data-tabular">Oct 01, 2023 - 06:00</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest full-width bottom-0 mt-auto border-t border-outline-variant/10 z-30 relative w-full ml-auto md:w-[calc(100%-16rem)]">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-gutter py-md max-w-container-max mx-auto gap-4">
+<span class="font-label-md text-label-md font-bold text-on-surface text-center md:text-left">
+                © 2024 QuarryOS Enterprise Management. System Status: <span class="text-success">Operational</span>
+</span>
+<div class="flex gap-6">
+<a class="text-on-secondary-container dark:text-on-secondary-container hover:text-primary transition-colors font-body-md text-sm" href="#">Privacy Policy</a>
+<a class="text-on-secondary-container dark:text-on-secondary-container hover:text-primary transition-colors font-body-md text-sm" href="#">Terms of Service</a>
+<a class="text-on-secondary-container dark:text-on-secondary-container hover:text-primary transition-colors font-body-md text-sm" href="#">API Status</a>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    // Parse URL params
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    if (!id) {
+        window.location.href = 'dashboard.html';
+        return;
+    }
+
+    try {
+        const res = await fetch(`/api/periods/${id}`);
+        if (!res.ok) throw new Error("Failed to fetch period details");
+        const record = await res.json();
+
+        const quarry = record.quarry === 'Quarry 2' ? 'q2' : 'q1';
+        const quarryName = record.quarry;
+        const status = record.received_amount >= record.net_value ? 'Fully Received' : (record.received_amount > 0 ? 'Partially Received' : 'Pending');
+        const outstanding = Math.max(0, record.net_value - record.received_amount);
+
+        // Update Sidebar Context (for visual consistency if we view Q2)
+        const sidebarBadge = document.querySelector('aside .w-10');
+        if (sidebarBadge) sidebarBadge.textContent = quarry.toUpperCase();
+        const sidebarTitle = document.querySelector('aside h2');
+        if (sidebarTitle) sidebarTitle.textContent = quarryName;
+
+        // Update Top navigation title
+        const navTitle = document.querySelector('nav .font-headline-md');
+        if (navTitle) navTitle.textContent = `${quarryName} Operations`;
+
+        // Update Breadcrumbs
+        const breadcrumbLinks = document.querySelectorAll('main ol li a');
+        if (breadcrumbLinks.length >= 2) {
+            breadcrumbLinks[1].textContent = quarryName;
+            breadcrumbLinks[1].href = quarry === 'q1' ? 'quarry1.html' : 'quarry2.html';
+        }
+
+        // Page Title & Subtitle
+        const titleHeader = document.querySelector('main h1');
+        if (titleHeader) titleHeader.textContent = `Working Period Detail - ${record.id}`;
+
+        // Update Header badges
+        const headerQuarryBadge = document.querySelector('main span.bg-surface-container-high');
+        if (headerQuarryBadge) headerQuarryBadge.textContent = quarryName.toUpperCase();
+
+        const statusBadge = document.querySelector('main span.bg-success-container, main span.bg-secondary-container, main span.bg-error-container');
+        if (statusBadge) {
+            statusBadge.textContent = status;
+            if (status === 'Fully Received') {
+                statusBadge.className = "px-3 py-1 bg-success-container text-on-success-container rounded-full font-label-md text-[12px] font-bold border border-success/20 flex items-center gap-1";
+                statusBadge.innerHTML = `<span class="material-symbols-outlined text-[14px]">check_circle</span> Fully Received`;
+            } else if (status === 'Partially Received') {
+                statusBadge.className = "px-3 py-1 bg-secondary-container text-secondary rounded-full font-label-md text-[12px] font-bold border border-secondary/20 flex items-center gap-1";
+                statusBadge.innerHTML = `<span class="material-symbols-outlined text-[14px]">info</span> Partially Received`;
+            } else {
+                statusBadge.className = "px-3 py-1 bg-error-container text-error rounded-full font-label-md text-[12px] font-bold border border-error/20 flex items-center gap-1";
+                statusBadge.innerHTML = `<span class="material-symbols-outlined text-[14px]">error</span> Pending`;
+            }
+        }
+
+        // Record ID
+        const recIdSpan = document.querySelector('main span.ml-auto');
+        if (recIdSpan) recIdSpan.textContent = `ID: ${record.id}`;
+
+        // Period dates
+        const periodH2 = document.querySelector('main h2');
+        if (periodH2) periodH2.innerHTML = `${record.day_from} <span class="text-outline mx-2 font-normal">→</span> ${record.day_to}`;
+
+        // Duration and Workforce
+        const boldTexts = Array.from(document.querySelectorAll('main p.font-semibold, main p.font-data-tabular'));
+        const durationEl = boldTexts.find(el => el.textContent.includes('Days') || el.textContent.includes('Working'));
+        if (durationEl) durationEl.textContent = `${record.working_days} Working Days`;
+        const laborersEl = boldTexts.find(el => el.textContent.includes('Labourers'));
+        if (laborersEl) laborersEl.textContent = `${record.num_labourers} Labourers`;
+
+        // KPI Cards
+        const kpiElements = document.querySelectorAll('main .font-display-lg');
+        if (kpiElements.length >= 4) {
+            kpiElements[0].textContent = formatCurrency(record.total_revenue);
+            kpiElements[1].textContent = formatCurrency(record.total_expense);
+            kpiElements[2].textContent = formatCurrency(record.net_value);
+            
+            // Net Value color
+            if (record.net_value < 0) {
+                kpiElements[2].className = kpiElements[2].className.replace('text-success', 'text-error');
+            } else {
+                kpiElements[2].className = kpiElements[2].className.replace('text-error', 'text-success');
+            }
+            
+            kpiElements[3].textContent = formatCurrency(record.received_amount);
+        }
+
+        // Expenses breakdown list
+        const expList = document.getElementById('detail-expenses-list');
+        if (expList) {
+            expList.innerHTML = `
+                <div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+                    <span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-primary"></span> Labour Pay
+                    </span>
+                    <span class="font-data-tabular text-sm font-medium">${formatCurrency(record.labour_pay)}</span>
+                </div>
+                <div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+                    <span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-primary-container"></span> Diesel
+                    </span>
+                    <span class="font-data-tabular text-sm font-medium">${formatCurrency(record.diesel_expense)}</span>
+                </div>
+                <div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+                    <span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-surface-variant"></span> Spare Parts
+                    </span>
+                    <span class="font-data-tabular text-sm font-medium">${formatCurrency(record.spare_parts)}</span>
+                </div>
+                <div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+                    <span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-surface-variant"></span> Fitting
+                    </span>
+                    <span class="font-data-tabular text-sm font-medium">${formatCurrency(record.fitting_charge)}</span>
+                </div>
+                <div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+                    <span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-outline-variant"></span> JCB
+                    </span>
+                    <span class="font-data-tabular text-sm font-medium">${formatCurrency(record.jcb_charge)}</span>
+                </div>
+                <div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+                    <span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-outline-variant"></span> Cutting Wheel
+                    </span>
+                    <span class="font-data-tabular text-sm font-medium">${formatCurrency(record.cutting_wheel)}</span>
+                </div>
+                <div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+                    <span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-outline-variant"></span> Mess
+                    </span>
+                    <span class="font-data-tabular text-sm font-medium">${formatCurrency(record.mess_expense)}</span>
+                </div>
+                <div class="flex justify-between items-center pb-2 border-b border-outline-variant/10">
+                    <span class="font-body-md text-sm text-on-surface-variant flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-outline-variant"></span> Other
+                    </span>
+                    <span class="font-data-tabular text-sm font-medium">${formatCurrency(record.other_expense)}</span>
+                </div>
+            `;
+        }
+
+        const expTotal = document.getElementById('detail-total-expense');
+        if (expTotal) {
+            expTotal.textContent = formatCurrency(record.total_expense);
+        }
+
+        // Production Breakdown
+        const prodTbody = document.getElementById('detail-production-tbody');
+        const rates = quarry === 'q1' 
+            ? { first: 38, second: 28, broken: 850 }
+            : { first: 40, second: 30, broken: 1000 };
+        
+        if (prodTbody) {
+            prodTbody.innerHTML = `
+                <tr class="border-b border-outline-variant/10">
+                    <td class="py-3 font-body-md font-medium text-on-surface">First Quality</td>
+                    <td class="py-3 text-right">${(record.first_quality_bricks / 1000).toFixed(1)}k</td>
+                    <td class="py-3 text-right text-on-surface-variant">${formatCurrency(rates.first)}</td>
+                    <td class="py-3 text-right font-medium">${formatCurrency(record.first_quality_bricks * rates.first)}</td>
+                </tr>
+                <tr class="border-b border-outline-variant/10">
+                    <td class="py-3 font-body-md font-medium text-on-surface">Second Quality</td>
+                    <td class="py-3 text-right">${(record.second_quality_bricks / 1000).toFixed(1)}k</td>
+                    <td class="py-3 text-right text-on-surface-variant">${formatCurrency(rates.second)}</td>
+                    <td class="py-3 text-right font-medium">${formatCurrency(record.second_quality_bricks * rates.second)}</td>
+                </tr>
+                <tr class="border-b border-outline-variant/10">
+                    <td class="py-3 font-body-md font-medium text-on-surface">Broken</td>
+                    <td class="py-3 text-right">${record.broken_bricks_loads} loads</td>
+                    <td class="py-3 text-right text-on-surface-variant">${formatCurrency(rates.broken)}</td>
+                    <td class="py-3 text-right font-medium">${formatCurrency(record.broken_bricks_loads * rates.broken)}</td>
+                </tr>
+            `;
+        }
+
+        const prodTotal = document.getElementById('detail-total-revenue');
+        if (prodTotal) {
+            prodTotal.textContent = formatCurrency(record.total_revenue);
+        }
+
+        // Settlement Status card
+        const settlementPanel = document.querySelector('.bg-white.rounded-2xl.shadow-level-1.border.border-outline-variant\\/20.flex.flex-col.lg\\:col-span-1');
+        if (settlementPanel) {
+            const sBadge = settlementPanel.querySelector('.p-5 span');
+            if (sBadge) {
+                sBadge.textContent = status;
+                if (status === 'Fully Received') {
+                    sBadge.className = "px-2 py-1 bg-success-container text-on-success-container text-xs rounded font-bold border border-success/20";
+                } else if (status === 'Partially Received') {
+                    sBadge.className = "px-2 py-1 bg-secondary-container text-secondary text-xs rounded font-bold border border-secondary/20";
+                } else {
+                    sBadge.className = "px-2 py-1 bg-error-container text-error text-xs rounded font-bold border border-error/20";
+                }
+            }
+
+            const moneyParagraphs = settlementPanel.querySelectorAll('.font-data-tabular');
+            if (moneyParagraphs.length >= 4) {
+                const leaseDeduct = (record.first_quality_bricks * 20) + (record.second_quality_bricks * 20) + (record.broken_bricks_loads * 400);
+                moneyParagraphs[0].textContent = formatCurrency(record.net_value);
+                moneyParagraphs[1].textContent = "- " + formatCurrency(leaseDeduct);
+                
+                const payable = record.net_value;
+                moneyParagraphs[2].textContent = formatCurrency(payable);
+                moneyParagraphs[3].textContent = formatCurrency(record.received_amount);
+
+                let pct = 0;
+                if (payable > 0) {
+                    pct = Math.min(100, Math.round((record.received_amount / payable) * 100));
+                }
+                const pctSpan = settlementPanel.querySelector('.text-success.font-bold');
+                if (pctSpan) {
+                    pctSpan.textContent = `${pct}%`;
+                    if (pct < 100) pctSpan.className = "text-error font-bold";
+                }
+
+                const progressBar = settlementPanel.querySelector('.bg-success, .bg-tertiary');
+                if (progressBar) {
+                    progressBar.style.width = `${pct}%`;
+                    if (pct < 100) {
+                        progressBar.className = "bg-tertiary h-full transition-all duration-1000 ease-in-out";
+                    } else {
+                        progressBar.className = "bg-success h-full transition-all duration-1000 ease-in-out";
+                    }
+                }
+
+                const outstandingText = settlementPanel.querySelector('p.text-xs.text-on-surface-variant.mt-2');
+                if (outstandingText) {
+                    outstandingText.textContent = `Outstanding: ${formatCurrency(outstanding)}`;
+                    if (outstanding > 0) {
+                        outstandingText.className = "text-xs text-error font-bold mt-2 text-right";
+                    }
+                }
+            }
+        }
+
+        // Action button Edit click
+        let realEditBtn = null;
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.textContent.includes('Edit Entry')) realEditBtn = btn;
+        });
+
+        if (realEditBtn) {
+            realEditBtn.addEventListener('click', () => {
+                window.location.href = `add_entry.html?quarry=${quarry}&id=${record.id}`;
+            });
+        }
+
+        // Action button Delete click
+        let realDeleteBtn = null;
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.textContent.includes('Delete')) realDeleteBtn = btn;
+        });
+
+        if (realDeleteBtn) {
+            realDeleteBtn.addEventListener('click', async () => {
+                if (confirm(`Are you sure you want to delete record ${record.id}?`)) {
+                    const delRes = await fetch(`/api/periods/${record.id}`, { method: 'DELETE' });
+                    if (delRes.ok) {
+                        showToast(`Record ${record.id} deleted successfully!`);
+                        setTimeout(() => {
+                            window.location.href = quarry === 'q1' ? 'quarry1.html' : 'quarry2.html';
+                        }, 800);
+                    } else {
+                        const err = await delRes.json();
+                        showToast(`Deletion failed: ${err.errors ? err.errors[0] : 'Server error'}`, 'error');
+                    }
+                }
+            });
+        }
+
+    } catch (err) {
+        showToast("Error loading entry: " + err.message, "error");
+    }
+
+    bindNavigation();
+});
+</script>
+</body></html>
+
+

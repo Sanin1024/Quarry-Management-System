@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quarry 1 – Working Period Records</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "surface-dim": "#e7d7d1",
+                            "on-tertiary": "#ffffff",
+                            "on-surface": "#221a17",
+                            "primary-fixed-dim": "#ffb59b",
+                            "error-container": "#ffdad6",
+                            "surface-bright": "#fff8f6",
+                            "error": "#ba1a1a",
+                            "surface": "#fff8f6",
+                            "surface-container-low": "#fff1ec",
+                            "on-primary-fixed": "#380d00",
+                            "secondary-fixed-dim": "#b9c7df",
+                            "surface-variant": "#f0dfda",
+                            "surface-container": "#fceae5",
+                            "on-primary-fixed-variant": "#793012",
+                            "surface-container-lowest": "#ffffff",
+                            "surface-container-high": "#f6e5df",
+                            "tertiary-fixed": "#91f2f6",
+                            "tertiary-container": "#008488",
+                            "on-error-container": "#93000a",
+                            "secondary-container": "#d5e3fc",
+                            "on-tertiary-fixed": "#002021",
+                            "on-secondary": "#ffffff",
+                            "primary-fixed": "#ffdbcf",
+                            "tertiary-fixed-dim": "#74d6da",
+                            "on-surface-variant": "#55433c",
+                            "inverse-primary": "#ffb59b",
+                            "on-secondary-container": "#57657a",
+                            "primary-container": "#b65e3c",
+                            "surface-container-highest": "#f0dfda",
+                            "tertiary": "#00696c",
+                            "surface-tint": "#984727",
+                            "on-secondary-fixed-variant": "#3a485b",
+                            "outline": "#88726b",
+                            "on-tertiary-fixed-variant": "#004f52",
+                            "inverse-surface": "#382e2b",
+                            "on-tertiary-container": "#ffffff",
+                            "inverse-on-surface": "#ffede8",
+                            "on-primary": "#ffffff",
+                            "on-primary-container": "#ffffff",
+                            "on-background": "#221a17",
+                            "outline-variant": "#dbc1b9",
+                            "background": "#fff8f6",
+                            "on-error": "#ffffff",
+                            "secondary-fixed": "#d5e3fc",
+                            "on-secondary-fixed": "#0d1c2e",
+                            "secondary": "#515f74",
+                            "primary": "#974626"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "xs": "4px",
+                            "gutter": "24px",
+                            "base": "4px",
+                            "margin-mobile": "16px",
+                            "sm": "8px",
+                            "3xl": "64px",
+                            "lg": "24px",
+                            "2xl": "48px",
+                            "xl": "32px",
+                            "container-max": "1440px",
+                            "margin-desktop": "32px",
+                            "md": "16px"
+                    },
+                    "fontFamily": {
+                            "display-lg": ["Inter"],
+                            "body-md": ["Inter"],
+                            "headline-lg-mobile": ["Inter"],
+                            "label-md": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "headline-md": ["Inter"],
+                            "headline-lg": ["Inter"],
+                            "data-tabular": ["Inter"]
+                    },
+                    "fontSize": {
+                            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                            "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                            "data-tabular": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Custom scrollbar for data tables */
+        .table-scrollbar::-webkit-scrollbar { height: 8px; width: 8px; }
+        .table-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .table-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(136, 114, 107, 0.3); border-radius: 4px; }
+        .table-scrollbar::-webkit-scrollbar-thumb:hover { background-color: rgba(136, 114, 107, 0.5); }
+    </style>
+    <script src="/static/js/shared.js"></script>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-lg h-16 bg-surface dark:bg-surface-container-high border-b border-outline-variant/10 shadow-sm">
+<div class="flex items-center gap-xl">
+<div class="font-display-lg text-display-lg font-bold text-primary dark:text-primary-fixed-dim">
+                Quarry Tracker
+            </div>
+<nav class="hidden md:flex gap-lg h-full items-center">
+<a class="text-on-surface-variant dark:text-surface-variant pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 font-bold font-label-md text-label-md opacity-80 scale-95 transition-all" href="#">Quarry 1</a>
+<a class="text-on-surface-variant dark:text-surface-variant pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Quarry 2</a>
+<a class="text-on-surface-variant dark:text-surface-variant pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Compare</a>
+<a class="text-on-surface-variant dark:text-surface-variant pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Import Data</a>
+<a class="text-on-surface-variant dark:text-surface-variant pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="flex items-center gap-sm ml-sm pl-sm border-l border-outline-variant/30 cursor-pointer group">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors hidden md:block">Profile</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 bottom-0 w-64 z-40 flex flex-col p-md bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant/10">
+<div class="mb-xl px-sm pt-sm flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-lg">Q1</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim m-0">Quarry 1</h2>
+<p class="font-label-md text-label-md text-on-surface-variant m-0">Operational Center</p>
+</div>
+</div>
+<button class="mb-xl w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg flex items-center justify-center gap-sm shadow-sm hover:shadow-md transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">add</span> New Entry
+        </button>
+<nav class="flex-1 flex flex-col gap-xs">
+<a class="flex items-center gap-md px-sm py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant/50 hover:bg-surface-container-high dark:hover:bg-surface-container transition-all font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-md px-sm py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant/50 hover:bg-surface-container-high dark:hover:bg-surface-container transition-all font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span> Inventory
+            </a>
+<a class="flex items-center gap-md px-sm py-3 bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg border-l-4 border-primary translate-x-1 transition-transform font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span> Operations
+            </a>
+<a class="flex items-center gap-md px-sm py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant/50 hover:bg-surface-container-high dark:hover:bg-surface-container transition-all font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span> Logistics
+            </a>
+<a class="flex items-center gap-md px-sm py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant/50 hover:bg-surface-container-high dark:hover:bg-surface-container transition-all font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="health_and_safety">health_and_safety</span> Safety
+            </a>
+<a class="flex items-center gap-md px-sm py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant/50 hover:bg-surface-container-high dark:hover:bg-surface-container transition-all font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span> Analytics
+            </a>
+</nav>
+<div class="mt-auto pt-lg border-t border-outline-variant/20 flex flex-col gap-xs">
+<a class="flex items-center gap-md px-sm py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant/50 hover:bg-surface-container-high dark:hover:bg-surface-container transition-all font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span> Settings
+            </a>
+<a class="flex items-center gap-md px-sm py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant/50 hover:bg-surface-container-high dark:hover:bg-surface-container transition-all font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span> Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-0 md:ml-64 pt-16 pb-20 min-h-screen flex">
+<div class="flex-1 p-margin-mobile md:p-margin-desktop overflow-x-hidden">
+<!-- Breadcrumb & Header Area -->
+<div class="mb-lg">
+<nav aria-label="Breadcrumb" class="flex text-sm text-on-surface-variant mb-sm font-label-md text-label-md">
+<ol class="inline-flex items-center space-x-1 md:space-x-3">
+<li class="inline-flex items-center">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">Dashboard</a>
+</li>
+<li>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Quarry 1</a>
+</div>
+</li>
+<li aria-current="page">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+<span class="text-primary font-medium">Working Period Records</span>
+</div>
+</li>
+</ol>
+</nav>
+<div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-md">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-xs">Quarry 1 – Working Period Records</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage and analyze financial and operational records for active working periods.</p>
+<div class="flex items-center gap-md mt-sm font-label-md text-label-md text-secondary">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">update</span> Last Import: Oct 26, 2023, 08:45 AM</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">database</span> Records: 124</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-sm">
+<button class="bg-surface-container-highest text-on-surface border border-outline-variant hover:bg-surface-variant transition-colors px-4 py-2 rounded-lg font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">upload_file</span> Import Excel
+                        </button>
+<button class="bg-primary text-on-primary hover:bg-primary/90 transition-colors px-6 py-2 rounded-lg shadow-sm font-label-md text-label-md font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span> Add New Entry
+                        </button>
+<button class="p-2 text-on-surface-variant hover:text-primary border border-outline-variant/30 rounded-lg bg-surface hover:bg-surface-container transition-colors ml-sm">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- KPI Row -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md mb-xl">
+<!-- KPI Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant/10 shadow-[0_4px_12px_rgba(136,114,107,0.05)] relative overflow-hidden group hover:shadow-[0_8px_24px_rgba(136,114,107,0.1)] transition-all duration-300">
+<div class="flex justify-between items-start mb-sm">
+<p class="font-label-md text-label-md text-on-surface-variant">Total Revenue</p>
+<span class="material-symbols-outlined text-primary bg-primary-container/20 p-1 rounded-md text-[20px]">account_balance_wallet</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface mb-xs" id="kpi-revenue">₹0</div>
+<div class="flex items-center gap-2 font-label-md text-label-md">
+<span class="text-tertiary-container flex items-center bg-tertiary-fixed/30 px-1 rounded"><span class="material-symbols-outlined text-[14px]">trending_up</span> --%</span>
+<span class="text-on-surface-variant/70 text-xs">vs last period</span>
+</div>
+<!-- Sparkline abstract representation -->
+<div class="absolute bottom-0 left-0 w-full h-8 opacity-20">
+<svg class="w-full h-full text-tertiary" preserveaspectratio="none" viewbox="0 0 100 20">
+<polyline fill="none" points="0,20 20,15 40,18 60,8 80,12 100,2" stroke="currentColor" stroke-width="2"></polyline>
+</svg>
+</div>
+</div>
+<!-- KPI Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant/10 shadow-[0_4px_12px_rgba(136,114,107,0.05)] relative overflow-hidden group hover:shadow-[0_8px_24px_rgba(136,114,107,0.1)] transition-all duration-300">
+<div class="flex justify-between items-start mb-sm">
+<p class="font-label-md text-label-md text-on-surface-variant">Total Expense</p>
+<span class="material-symbols-outlined text-error bg-error-container/30 p-1 rounded-md text-[20px]">payments</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface mb-xs" id="kpi-expense">₹0</div>
+<div class="flex items-center gap-2 font-label-md text-label-md">
+<span class="text-error flex items-center bg-error-container/30 px-1 rounded"><span class="material-symbols-outlined text-[14px]">trending_up</span> --%</span>
+<span class="text-on-surface-variant/70 text-xs">vs last period</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-8 opacity-20">
+<svg class="w-full h-full text-error" preserveaspectratio="none" viewbox="0 0 100 20">
+<polyline fill="none" points="0,15 20,18 40,12 60,16 80,8 100,4" stroke="currentColor" stroke-width="2"></polyline>
+</svg>
+</div>
+</div>
+<!-- KPI Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant/10 shadow-[0_4px_12px_rgba(136,114,107,0.05)] relative overflow-hidden group hover:shadow-[0_8px_24px_rgba(136,114,107,0.1)] transition-all duration-300 ring-1 ring-primary/20">
+<div class="flex justify-between items-start mb-sm">
+<p class="font-label-md text-label-md text-on-surface-variant font-bold text-primary">Net Value</p>
+<span class="material-symbols-outlined text-primary bg-primary-container/20 p-1 rounded-md text-[20px] filled">monitoring</span>
+</div>
+<div class="font-headline-md text-headline-md text-primary font-bold mb-xs" id="kpi-net">₹0</div>
+<div class="flex items-center gap-2 font-label-md text-label-md">
+<span class="text-tertiary-container flex items-center bg-tertiary-fixed/30 px-1 rounded"><span class="material-symbols-outlined text-[14px]">trending_up</span> --%</span>
+<span class="text-on-surface-variant/70 text-xs">vs last period</span>
+</div>
+</div>
+<!-- KPI Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant/10 shadow-[0_4px_12px_rgba(136,114,107,0.05)] relative overflow-hidden group hover:shadow-[0_8px_24px_rgba(136,114,107,0.1)] transition-all duration-300">
+<div class="flex justify-between items-start mb-sm">
+<p class="font-label-md text-label-md text-on-surface-variant">Total Received</p>
+<span class="material-symbols-outlined text-primary bg-primary-container/20 p-1 rounded-md text-[20px]">price_check</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface mb-xs" id="kpi-received">₹0</div>
+<div class="flex items-center gap-2 font-label-md text-label-md">
+<span class="text-on-surface-variant flex items-center"><span class="font-medium mr-1 text-on-surface" id="kpi-collection-rate">0%</span> Collection Rate</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" id="kpi-received-bar" style="width: 0%"></div>
+</div>
+</div>
+</div>
+<!-- Toolbar & Data Table Container -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/10 shadow-[0_4px_12px_rgba(136,114,107,0.05)] flex flex-col mb-xl overflow-hidden">
+<!-- Toolbar -->
+<div class="p-sm md:p-md border-b border-outline-variant/10 flex flex-col sm:flex-row justify-between items-center gap-sm bg-surface-container-low/50">
+<div class="flex-1 w-full sm:w-auto relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input id="search-input" class="w-full sm:max-w-md pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant/40 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary font-body-md text-body-md placeholder:text-on-surface-variant/50 transition-all outline-none" placeholder="Search records, statuses..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-xs w-full sm:w-auto">
+<div class="flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/40 rounded-lg text-xs text-on-surface-variant">
+    <span class="font-medium">From:</span>
+    <input type="date" id="date-from-input" class="bg-transparent border-0 p-0 text-xs focus:ring-0 w-24">
+    <span class="font-medium ml-1">To:</span>
+    <input type="date" id="date-to-input" class="bg-transparent border-0 p-0 text-xs focus:ring-0 w-24">
+</div>
+<button id="status-filter-btn" class="flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant/40 rounded-lg hover:bg-surface-variant/50 transition-colors font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Status
+</button>
+<div class="w-px h-6 bg-outline-variant/30 mx-1 hidden sm:block"></div>
+<button class="p-2 bg-surface-container-lowest border border-outline-variant/40 rounded-lg hover:bg-surface-variant/50 transition-colors text-on-surface-variant tooltip-trigger" title="Toggle Density">
+<span class="material-symbols-outlined text-[20px]">density_medium</span>
+</button>
+</div>
+</div>
+<!-- High-Density Data Table -->
+<div class="overflow-x-auto table-scrollbar relative">
+<table class="w-full text-left border-collapse whitespace-nowrap min-w-[1500px]">
+<thead class="bg-surface-container-high/40 sticky top-0 z-10 shadow-sm border-b border-outline-variant/20">
+<tr class="font-label-md text-label-md text-on-surface-variant">
+<th class="py-3 px-4 font-semibold w-12 text-center border-r border-outline-variant/10">#</th>
+<th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Period</th>
+<th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Days</th>
+<th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Labor &amp; Pay</th>
+<th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Operations Exp.</th>
+<th class="py-3 px-4 font-semibold border-r border-outline-variant/10 text-right bg-surface-variant/30">Total Exp.</th>
+<th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Production (Bricks)</th>
+<th class="py-3 px-4 font-semibold border-r border-outline-variant/10 text-right bg-surface-variant/30">Total Rev.</th>
+<th class="py-3 px-4 font-semibold border-r border-outline-variant/10 text-right">Net Value</th>
+<th class="py-3 px-4 font-semibold border-r border-outline-variant/10">Status &amp; Balance</th>
+<th class="py-3 px-4 font-semibold text-center sticky right-0 bg-surface-container-low shadow-[-4px_0_12px_rgba(0,0,0,0.05)]">Actions</th>
+</tr>
+</thead>
+<tbody id="records-tbody" class="font-data-tabular text-data-tabular text-on-surface divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-variant/20 transition-colors group">
+<td class="py-2 px-4 text-center text-on-surface-variant/70 border-r border-outline-variant/10">1</td>
+<td class="py-2 px-4 border-r border-outline-variant/10">
+<div class="flex flex-col text-sm">
+<span>Oct 01, '23</span>
+<span class="text-on-surface-variant text-xs">to Oct 15, '23</span>
+</div>
+</td>
+<td class="py-2 px-4 text-center border-r border-outline-variant/10">14</td>
+<td class="py-2 px-4 border-r border-outline-variant/10">
+<div class="flex flex-col text-sm">
+<span>12 <span class="text-on-surface-variant text-xs">labourers</span></span>
+<span class="text-on-surface-variant">₹85,000</span>
+</div>
+</td>
+<td class="py-2 px-4 border-r border-outline-variant/10">
+<div class="flex gap-4 text-xs text-on-surface-variant">
+<div class="flex flex-col"><span>Diesel: ₹45k</span><span>Spare: ₹12k</span></div>
+<div class="flex flex-col"><span>JCB: ₹30k</span><span>Mess: ₹15k</span></div>
+</div>
+</td>
+<td class="py-2 px-4 text-right font-medium border-r border-outline-variant/10 bg-surface-variant/10">₹187,000</td>
+<td class="py-2 px-4 border-r border-outline-variant/10">
+<div class="flex gap-3 text-xs">
+<span class="bg-tertiary-fixed/30 text-tertiary-container px-2 py-0.5 rounded">1st: 15k</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded">2nd: 4k</span>
+<span class="text-error/70 px-1 py-0.5">Brk: 2 Lds</span>
+</div>
+</td>
+<td class="py-2 px-4 text-right font-medium border-r border-outline-variant/10 bg-surface-variant/10">₹450,000</td>
+<td class="py-2 px-4 text-right font-bold text-tertiary-container border-r border-outline-variant/10">+ ₹263,000</td>
+<td class="py-2 px-4 border-r border-outline-variant/10">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-tertiary-fixed/40 text-tertiary-container border border-tertiary/20">Fully Received</span>
+<span class="text-xs text-on-surface-variant">Out: ₹0</span>
+</div>
+</td>
+<td class="py-2 px-4 text-center sticky right-0 bg-surface-container-lowest group-hover:bg-surface-bright transition-colors shadow-[-4px_0_12px_rgba(0,0,0,0.02)]">
+<div class="flex items-center justify-center gap-1 text-on-surface-variant">
+<button class="p-1.5 hover:text-primary hover:bg-surface-variant rounded transition-colors"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-1.5 hover:text-primary hover:bg-surface-variant rounded transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1.5 hover:text-error hover:bg-error-container/50 rounded transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-variant/20 transition-colors group">
+<td class="py-2 px-4 text-center text-on-surface-variant/70 border-r border-outline-variant/10">2</td>
+<td class="py-2 px-4 border-r border-outline-variant/10">
+<div class="flex flex-col text-sm">
+<span>Oct 16, '23</span>
+<span class="text-on-surface-variant text-xs">to Oct 31, '23</span>
+</div>
+</td>
+<td class="py-2 px-4 text-center border-r border-outline-variant/10">15</td>
+<td class="py-2 px-4 border-r border-outline-variant/10">
+<div class="flex flex-col text-sm">
+<span>14 <span class="text-on-surface-variant text-xs">labourers</span></span>
+<span class="text-on-surface-variant">₹92,000</span>
+</div>
+</td>
+<td class="py-2 px-4 border-r border-outline-variant/10">
+<div class="flex gap-4 text-xs text-on-surface-variant">
+<div class="flex flex-col"><span>Diesel: ₹48k</span><span>Spare: ₹8k</span></div>
+<div class="flex flex-col"><span>JCB: ₹32k</span><span>Mess: ₹16k</span></div>
+</div>
+</td>
+<td class="py-2 px-4 text-right font-medium border-r border-outline-variant/10 bg-surface-variant/10">₹196,000</td>
+<td class="py-2 px-4 border-r border-outline-variant/10">
+<div class="flex gap-3 text-xs">
+<span class="bg-tertiary-fixed/30 text-tertiary-container px-2 py-0.5 rounded">1st: 16k</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded">2nd: 3.5k</span>
+<span class="text-error/70 px-1 py-0.5">Brk: 1 Lds</span>
+</div>
+</td>
+<td class="py-2 px-4 text-right font-medium border-r border-outline-variant/10 bg-surface-variant/10">₹475,000</td>
+<td class="py-2 px-4 text-right font-bold text-tertiary-container border-r border-outline-variant/10">+ ₹279,000</td>
+<td class="py-2 px-4 border-r border-outline-variant/10">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-secondary-container text-secondary border border-secondary/20">Partially Received</span>
+<span class="text-xs text-error font-medium">Out: ₹125,000</span>
+</div>
+</td>
+<td class="py-2 px-4 text-center sticky right-0 bg-surface-container-lowest group-hover:bg-surface-bright transition-colors shadow-[-4px_0_12px_rgba(0,0,0,0.02)]">
+<div class="flex items-center justify-center gap-1 text-on-surface-variant">
+<button class="p-1.5 hover:text-primary hover:bg-surface-variant rounded transition-colors"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-1.5 hover:text-primary hover:bg-surface-variant rounded transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1.5 hover:text-error hover:bg-error-container/50 rounded transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="p-sm border-t border-outline-variant/20 flex justify-between items-center bg-surface-container-lowest font-label-md text-label-md text-on-surface-variant">
+<span id="pagination-info">Showing 1 to 10 of 124 entries</span>
+<div class="flex gap-1" id="pagination-container">
+<button class="px-3 py-1 border border-outline-variant/40 rounded hover:bg-surface-variant transition-colors disabled:opacity-50">Prev</button>
+<button class="px-3 py-1 bg-primary text-on-primary rounded font-medium">1</button>
+<button class="px-3 py-1 border border-outline-variant/40 rounded hover:bg-surface-variant transition-colors">Next</button>
+</div>
+</div>
+</div>
+<!-- Production Summary -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant/10 shadow-[0_4px_12px_rgba(136,114,107,0.05)]">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md text-lg">Production Summary</h3>
+<div class="flex items-center justify-between mb-4">
+<div class="text-center">
+<div class="text-2xl font-bold text-on-surface" id="summary-total-bricks">0</div>
+<div class="text-xs text-on-surface-variant">Total Bricks</div>
+</div>
+<div class="w-24 h-24 rounded-full border-4 border-surface-variant flex items-center justify-center relative">
+<!-- Donut chart abstraction -->
+<svg class="absolute inset-0 w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<circle class="stroke-primary" cx="18" cy="18" fill="none" r="16" stroke-dasharray="75 100" stroke-width="4"></circle>
+<circle class="stroke-secondary-container" cx="18" cy="18" fill="none" r="16" stroke-dasharray="20 100" stroke-dashoffset="-75" stroke-width="4"></circle>
+<circle class="stroke-error" cx="18" cy="18" fill="none" r="16" stroke-dasharray="5 100" stroke-dashoffset="-95" stroke-width="4"></circle>
+</svg>
+<span class="material-symbols-outlined text-primary">precision_manufacturing</span>
+</div>
+</div>
+<div class="space-y-2 text-sm font-label-md">
+<div class="flex justify-between items-center"><span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-primary"></span>1st Quality</span><span class="font-medium" id="summary-qty1-bricks">0% (0)</span></div>
+<div class="flex justify-between items-center"><span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-secondary-container"></span>2nd Quality</span><span class="font-medium" id="summary-qty2-bricks">0% (0)</span></div>
+<div class="flex justify-between items-center"><span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-error"></span>Broken (Loads)</span><span class="font-medium" id="summary-broken-bricks">0% (0 loads)</span></div>
+</div>
+</div>
+<!-- Expense Breakdown -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-outline-variant/10 shadow-[0_4px_12px_rgba(136,114,107,0.05)] col-span-1 lg:col-span-2">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Expense Breakdown (YTD)</h3>
+<button class="text-primary text-sm font-medium hover:underline" onclick="window.location.href='reports.html'">View Full Report</button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+<div class="p-3 bg-surface-variant/30 rounded-lg border border-outline-variant/20">
+<div class="text-xs text-on-surface-variant mb-1">Labor Pay</div>
+<div class="font-semibold text-on-surface" id="ytd-labor">₹0</div>
+<div class="w-full bg-surface-variant h-1 mt-2 rounded-full"><div class="bg-primary h-1 rounded-full w-[45%]" id="ytd-labor-bar"></div></div>
+</div>
+<div class="p-3 bg-surface-variant/30 rounded-lg border border-outline-variant/20">
+<div class="text-xs text-on-surface-variant mb-1">Diesel</div>
+<div class="font-semibold text-on-surface" id="ytd-diesel">₹0</div>
+<div class="w-full bg-surface-variant h-1 mt-2 rounded-full"><div class="bg-primary h-1 rounded-full w-[25%] opacity-80" id="ytd-diesel-bar"></div></div>
+</div>
+<div class="p-3 bg-surface-variant/30 rounded-lg border border-outline-variant/20">
+<div class="text-xs text-on-surface-variant mb-1">Machinery (JCB)</div>
+<div class="font-semibold text-on-surface" id="ytd-jcb">₹0</div>
+<div class="w-full bg-surface-variant h-1 mt-2 rounded-full"><div class="bg-primary h-1 rounded-full w-[18%] opacity-60" id="ytd-jcb-bar"></div></div>
+</div>
+<div class="p-3 bg-surface-variant/30 rounded-lg border border-outline-variant/20">
+<div class="text-xs text-on-surface-variant mb-1">Other (Spare/Mess)</div>
+<div class="font-semibold text-on-surface" id="ytd-other">₹0</div>
+<div class="w-full bg-surface-variant h-1 mt-2 rounded-full"><div class="bg-primary h-1 rounded-full w-[12%] opacity-40" id="ytd-other-bar"></div></div>
+</div>
+</div>
+<!-- Minimal Bar Chart Representation -->
+<div class="h-24 flex items-end gap-2 mt-4 px-2">
+<div class="w-full bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[40%] relative group"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-1 rounded">Jan</span></div>
+<div class="w-full bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[45%] relative group"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-1 rounded">Feb</span></div>
+<div class="w-full bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[60%] relative group"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-1 rounded">Mar</span></div>
+<div class="w-full bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[55%] relative group"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-1 rounded">Apr</span></div>
+<div class="w-full bg-primary rounded-t-sm h-[80%] relative group shadow-[0_0_8px_rgba(151,70,38,0.4)]"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold opacity-100 bg-inverse-surface text-inverse-on-surface px-1 rounded">May</span></div>
+<div class="w-full bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[30%] relative group"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface px-1 rounded">Jun</span></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating FAB -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-[0_8px_24px_rgba(151,70,38,0.3)] hover:shadow-[0_12px_28px_rgba(151,70,38,0.4)] hover:-translate-y-1 transition-all flex items-center justify-center z-50 group md:hidden">
+<span class="material-symbols-outlined text-[28px] group-hover:rotate-90 transition-transform duration-300">add</span>
+</button>
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 md:left-64 right-0 z-30 flex flex-col sm:flex-row justify-between items-center px-lg py-sm bg-surface-container-lowest dark:bg-on-surface border-t border-outline-variant/10 text-secondary dark:text-secondary-fixed font-body-md text-body-md">
+<div class="font-label-md text-label-md font-bold text-on-surface mb-2 sm:mb-0">
+            © 2024 Quarry Tracker Enterprise. All rights reserved.
+        </div>
+<div class="flex gap-4 text-sm">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary"></span> DB Status: Online</span>
+<span class="hidden sm:inline">|</span>
+<span class="text-on-surface-variant dark:text-surface-variant">Last Backup: 2h ago</span>
+<span class="hidden sm:inline">|</span>
+<span class="text-on-surface-variant dark:text-surface-variant">v2.4.1-stable</span>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tbody = document.getElementById('records-tbody');
+    const searchInput = document.getElementById('search-input');
+    const dateFromInput = document.getElementById('date-from-input');
+    const dateToInput = document.getElementById('date-to-input');
+    const statusBtn = document.getElementById('status-filter-btn');
+
+    let currentFilterStatus = 'all';
+    let currentPage = 1;
+    let currentSortBy = 'day_from';
+    let currentSortDir = 'desc';
+
+    // Highlight headers to show they are sortable
+    const headers = document.querySelectorAll('thead th');
+    const sortFieldMap = {
+        1: 'day_from',
+        2: 'working_days',
+        5: 'total_expense',
+        7: 'total_revenue',
+        8: 'net_value'
+    };
+
+    headers.forEach((th, idx) => {
+        if (sortFieldMap[idx]) {
+            th.style.cursor = 'pointer';
+            th.classList.add('hover:bg-surface-container-high/60', 'transition-colors');
+            th.addEventListener('click', () => {
+                const field = sortFieldMap[idx];
+                if (currentSortBy === field) {
+                    currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSortBy = field;
+                    currentSortDir = 'desc';
+                }
+                loadRecords();
+            });
+        }
+    });
+
+    async function loadRecords() {
+        try {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="11" class="py-8 text-center text-on-surface-variant/70">
+                        <div class="flex flex-col items-center gap-2 animate-pulse">
+                            <span class="material-symbols-outlined text-4xl animate-spin">sync</span>
+                            <span class="font-medium">Loading records...</span>
+                        </div>
+                    </td>
+                </tr>
+            `;
+
+            let url = `/api/periods?quarry=Quarry 1&page=${currentPage}&page_size=10&sort_by=${currentSortBy}&sort_dir=${currentSortDir}`;
+            if (searchInput.value.trim()) {
+                url += `&search=${encodeURIComponent(searchInput.value.trim())}`;
+            }
+            if (dateFromInput.value) {
+                url += `&date_from=${dateFromInput.value}`;
+            }
+            if (dateToInput.value) {
+                url += `&date_to=${dateToInput.value}`;
+            }
+
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("Failed to fetch periods");
+            const data = await res.json();
+            
+            let items = data.items;
+            if (currentFilterStatus !== 'all') {
+                items = items.filter(r => {
+                    const status = r.received_amount >= r.net_value ? 'Fully Received' : (r.received_amount > 0 ? 'Partially Received' : 'Pending');
+                    return status.toLowerCase().replace(' ', '') === currentFilterStatus.toLowerCase().replace(' ', '');
+                });
+            }
+
+            const countSpan = document.getElementById('pagination-info');
+            if (countSpan) {
+                countSpan.textContent = `Showing 1 to ${items.length} of ${data.total} entries`;
+            }
+
+            if (items.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="11" class="py-8 text-center text-on-surface-variant/70">
+                            <div class="flex flex-col items-center gap-2">
+                                <span class="material-symbols-outlined text-4xl">table_chart</span>
+                                <span class="font-medium">No records found</span>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = '';
+            items.forEach((record, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-surface-variant/20 transition-colors group cursor-pointer';
+
+                const status = record.received_amount >= record.net_value ? 'Fully Received' : (record.received_amount > 0 ? 'Partially Received' : 'Pending');
+                const outstanding = Math.max(0, record.net_value - record.received_amount);
+
+                const statusClass = status === 'Fully Received' 
+                    ? 'bg-tertiary-fixed/40 text-tertiary-container border border-tertiary/20' 
+                    : status === 'Partially Received' 
+                        ? 'bg-secondary-container text-secondary border border-secondary/20' 
+                        : 'bg-error-container text-error border border-error/20';
+
+                const balanceClass = outstanding > 0 ? 'text-error font-medium' : 'text-on-surface-variant';
+
+                const netValPrefix = record.net_value >= 0 ? '+ ' : '- ';
+                const netValClass = record.net_value >= 0 ? 'text-tertiary-container' : 'text-error';
+
+                tr.innerHTML = `
+                    <td class="py-2 px-4 text-center text-on-surface-variant/70 border-r border-outline-variant/10">${(currentPage - 1) * 10 + index + 1}</td>
+                    <td class="py-2 px-4 border-r border-outline-variant/10">
+                        <div class="flex flex-col text-sm">
+                            <span>${record.day_from}</span>
+                            <span class="text-on-surface-variant text-xs">to ${record.day_to}</span>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 text-center border-r border-outline-variant/10">${record.working_days}</td>
+                    <td class="py-2 px-4 border-r border-outline-variant/10">
+                        <div class="flex flex-col text-sm">
+                            <span>${record.num_labourers} <span class="text-on-surface-variant text-xs">labourers</span></span>
+                            <span class="text-on-surface-variant">${formatCurrency(record.labour_pay)}</span>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 border-r border-outline-variant/10">
+                        <div class="flex gap-4 text-xs text-on-surface-variant">
+                            <div class="flex flex-col">
+                                <span>Diesel: ${formatCurrency(record.diesel_expense)}</span>
+                                <span>Spare: ${formatCurrency(record.spare_parts)}</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span>JCB: ${formatCurrency(record.jcb_charge)}</span>
+                                <span>Mess: ${formatCurrency(record.mess_expense)}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 text-right font-medium border-r border-outline-variant/10 bg-surface-variant/10">${formatCurrency(record.total_expense)}</td>
+                    <td class="py-2 px-4 border-r border-outline-variant/10">
+                        <div class="flex gap-3 text-xs">
+                            <span class="bg-tertiary-fixed/30 text-tertiary-container px-2 py-0.5 rounded">1st: ${record.first_quality_bricks / 1000}k</span>
+                            <span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded">2nd: ${record.second_quality_bricks / 1000}k</span>
+                            <span class="text-error/70 px-1 py-0.5">Brk: ${record.broken_bricks_loads} Lds</span>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 text-right font-medium border-r border-outline-variant/10 bg-surface-variant/10">${formatCurrency(record.total_revenue)}</td>
+                    <td class="py-2 px-4 text-right font-bold ${netValClass} border-r border-outline-variant/10">${netValPrefix}${formatCurrency(Math.abs(record.net_value))}</td>
+                    <td class="py-2 px-4 border-r border-outline-variant/10">
+                        <div class="flex flex-col gap-1 items-start">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${statusClass}">${status}</span>
+                            <span class="text-xs ${balanceClass}">Out: ${formatCurrency(outstanding)}</span>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 text-center sticky right-0 bg-surface-container-lowest group-hover:bg-surface-bright transition-colors shadow-[-4px_0_12px_rgba(0,0,0,0.02)] border-l border-outline-variant/10">
+                        <div class="flex items-center justify-center gap-1 text-on-surface-variant">
+                            <button class="p-1.5 hover:text-primary hover:bg-surface-variant rounded transition-colors view-btn" data-id="${record.id}"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+                            <button class="p-1.5 hover:text-primary hover:bg-surface-variant rounded transition-colors edit-btn" data-id="${record.id}"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+                            <button class="p-1.5 hover:text-error hover:bg-error-container/50 rounded transition-colors delete-btn" data-id="${record.id}"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+                        </div>
+                    </td>
+                `;
+
+                tr.addEventListener('click', (e) => {
+                    if (!e.target.closest('button')) {
+                        window.location.href = `detail1.html?quarry=q1&id=${record.id}`;
+                    }
+                });
+                tbody.appendChild(tr);
+            });
+
+            tbody.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = btn.getAttribute('data-id');
+                    window.location.href = `detail1.html?quarry=q1&id=${id}`;
+                });
+            });
+
+            tbody.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = btn.getAttribute('data-id');
+                    window.location.href = `add_entry.html?quarry=q1&id=${id}`;
+                });
+            });
+
+            tbody.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    const id = btn.getAttribute('data-id');
+                    if (confirm(`Are you sure you want to delete period ID ${id}?`)) {
+                        const delRes = await fetch(`/api/periods/${id}`, { method: 'DELETE' });
+                        if (delRes.ok) {
+                            showToast(`Period ID ${id} deleted successfully!`);
+                            loadRecords();
+                            loadSummary();
+                        } else {
+                            const errData = await delRes.json();
+                            showToast(`Deletion failed: ${errData.errors ? errData.errors[0] : 'Server error'}`, 'error');
+                        }
+                    }
+                });
+            });
+
+            renderPagination(data.total);
+
+        } catch (err) {
+            console.error(err);
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="11" class="py-8 text-center text-error">
+                        <div class="flex flex-col items-center gap-2">
+                            <span class="material-symbols-outlined text-4xl">error</span>
+                            <span class="font-medium">Failed to load records: ${err.message}</span>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    async function loadSummary() {
+        try {
+            let url = `/api/periods/summary?quarry=Quarry 1`;
+            if (dateFromInput.value) url += `&date_from=${dateFromInput.value}`;
+            if (dateToInput.value) url += `&date_to=${dateToInput.value}`;
+
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("Failed to load summary");
+            const data = await res.json();
+
+            document.getElementById('kpi-revenue').textContent = formatCurrency(data.total_revenue);
+            document.getElementById('kpi-expense').textContent = formatCurrency(data.total_expense);
+            
+            const netValEl = document.getElementById('kpi-net');
+            netValEl.textContent = (data.total_net_value >= 0 ? '+ ' : '- ') + formatCurrency(Math.abs(data.total_net_value));
+            if (data.total_net_value < 0) {
+                netValEl.className = netValEl.className.replace('text-primary', 'text-error');
+            } else {
+                netValEl.className = netValEl.className.replace('text-error', 'text-primary');
+            }
+
+            document.getElementById('kpi-received').textContent = formatCurrency(data.total_received);
+            
+            const rate = data.total_revenue > 0 ? Math.round((data.total_received / data.total_revenue) * 100) : 0;
+            document.getElementById('kpi-collection-rate').textContent = `${rate}%`;
+            document.getElementById('kpi-received-bar').style.width = `${rate}%`;
+
+            // YTD totals and production values
+            const allRes = await fetch(`/api/periods?quarry=Quarry 1&page_size=1000`);
+            if (allRes.ok) {
+                const allData = await allRes.json();
+                const list = allData.items;
+
+                let tot1st = 0, tot2nd = 0, totBroken = 0;
+                let totLabor = 0, totDiesel = 0, totJcb = 0, totOther = 0;
+
+                list.forEach(r => {
+                    tot1st += r.first_quality_bricks;
+                    tot2nd += r.second_quality_bricks;
+                    totBroken += r.broken_bricks_loads;
+
+                    totLabor += r.labour_pay;
+                    totDiesel += r.diesel_expense;
+                    totJcb += r.jcb_charge;
+                    totOther += (r.spare_parts + r.fitting_charge + r.cutting_wheel + r.mess_expense + r.other_expense);
+                });
+
+                const grandTotalBricks = tot1st + tot2nd;
+                document.getElementById('summary-total-bricks').textContent = (grandTotalBricks / 1000000).toFixed(2) + 'M';
+                
+                const pct1st = grandTotalBricks > 0 ? Math.round((tot1st / grandTotalBricks) * 100) : 0;
+                const pct2nd = grandTotalBricks > 0 ? Math.round((tot2nd / grandTotalBricks) * 100) : 0;
+                
+                document.getElementById('summary-qty1-bricks').textContent = `${pct1st}% (${(tot1st/1000).toFixed(0)}k)`;
+                document.getElementById('summary-qty2-bricks').textContent = `${pct2nd}% (${(tot2nd/1000).toFixed(0)}k)`;
+                document.getElementById('summary-broken-bricks').textContent = `${totBroken} Loads`;
+
+                document.getElementById('ytd-labor').textContent = formatCurrency(totLabor);
+                document.getElementById('ytd-diesel').textContent = formatCurrency(totDiesel);
+                document.getElementById('ytd-jcb').textContent = formatCurrency(totJcb);
+                document.getElementById('ytd-other').textContent = formatCurrency(totOther);
+
+                const totalExp = totLabor + totDiesel + totJcb + totOther;
+                if (totalExp > 0) {
+                    document.getElementById('ytd-labor-bar').style.width = `${Math.round((totLabor/totalExp)*100)}%`;
+                    document.getElementById('ytd-diesel-bar').style.width = `${Math.round((totDiesel/totalExp)*100)}%`;
+                    document.getElementById('ytd-jcb-bar').style.width = `${Math.round((totJcb/totalExp)*100)}%`;
+                    document.getElementById('ytd-other-bar').style.width = `${Math.round((totOther/totalExp)*100)}%`;
+                }
+            }
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    function renderPagination(totalCount) {
+        const container = document.getElementById('pagination-container');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        const totalPages = Math.ceil(totalCount / 10);
+        
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'px-3 py-1 border border-outline-variant/40 rounded hover:bg-surface-variant transition-colors disabled:opacity-50';
+        prevBtn.textContent = 'Prev';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                loadRecords();
+            }
+        });
+        container.appendChild(prevBtn);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.className = `px-3 py-1 rounded font-medium border border-outline-variant/40 transition-colors ${i === currentPage ? 'bg-primary text-on-primary' : 'hover:bg-surface-variant'}`;
+            pageBtn.textContent = i;
+            pageBtn.addEventListener('click', () => {
+                currentPage = i;
+                loadRecords();
+            });
+            container.appendChild(pageBtn);
+        }
+
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'px-3 py-1 border border-outline-variant/40 rounded hover:bg-surface-variant transition-colors disabled:opacity-50';
+        nextBtn.textContent = 'Next';
+        nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                loadRecords();
+            }
+        });
+        container.appendChild(nextBtn);
+    }
+
+    let searchTimeout = null;
+    searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            currentPage = 1;
+            loadRecords();
+        }, 300);
+    });
+
+    dateFromInput.addEventListener('change', () => { currentPage = 1; loadRecords(); loadSummary(); });
+    dateToInput.addEventListener('change', () => { currentPage = 1; loadRecords(); loadSummary(); });
+
+    if (statusBtn) {
+        statusBtn.style.position = 'relative';
+        const dropdown = document.createElement('div');
+        dropdown.className = 'absolute top-full mt-2 right-0 bg-white dark:bg-surface-container-high border border-outline-variant/40 rounded-lg shadow-lg hidden flex-col z-50 py-1 min-w-[150px] text-left';
+        dropdown.innerHTML = `
+            <a href="#" class="px-4 py-2 hover:bg-surface-variant/40 text-sm block font-medium text-on-surface" data-status="all">All Statuses</a>
+            <a href="#" class="px-4 py-2 hover:bg-surface-variant/40 text-sm block font-medium text-on-surface" data-status="Fully Received">Fully Received</a>
+            <a href="#" class="px-4 py-2 hover:bg-surface-variant/40 text-sm block font-medium text-on-surface" data-status="Partially Received">Partially Received</a>
+            <a href="#" class="px-4 py-2 hover:bg-surface-variant/40 text-sm block font-medium text-on-surface" data-status="Pending">Pending</a>
+        `;
+        statusBtn.appendChild(dropdown);
+
+        statusBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', () => {
+            dropdown.classList.add('hidden');
+        });
+
+        dropdown.querySelectorAll('a').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                currentFilterStatus = item.getAttribute('data-status');
+                statusBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">filter_list</span> Status: ${currentFilterStatus === 'all' ? 'All' : currentFilterStatus}`;
+                statusBtn.appendChild(dropdown);
+                dropdown.classList.add('hidden');
+                currentPage = 1;
+                loadRecords();
+            });
+        });
+    }
+
+    loadRecords();
+    loadSummary();
+});
+</script>
+</body></html>
+
+

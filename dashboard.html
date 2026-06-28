@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quarry Tracker - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb59b",
+                        "inverse-primary": "#ffb59b",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1b1c19",
+                        "on-tertiary-container": "#ffffff",
+                        "on-tertiary-fixed": "#131f00",
+                        "outline-variant": "#dbc1b9",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#add461",
+                        "inverse-surface": "#30312e",
+                        "tertiary": "#496700",
+                        "border": "#E5E7EB",
+                        "danger": "#EF4444",
+                        "on-background": "#1b1c19",
+                        "secondary-container": "#d5e3fc",
+                        "outline": "#88726b",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "secondary-fixed": "#d5e3fc",
+                        "on-primary-fixed-variant": "#793012",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#55433c",
+                        "on-tertiary-fixed-variant": "#364e00",
+                        "on-primary-fixed": "#380d00",
+                        "surface-container-low": "#f5f3ee",
+                        "surface-container-high": "#eae8e3",
+                        "background": "#fbf9f4",
+                        "ink-deep": "#0A2540",
+                        "surface-container-highest": "#e4e2dd",
+                        "primary": "#974626",
+                        "surface-tint": "#984727",
+                        "surface-variant": "#e4e2dd",
+                        "surface-bright": "#fbf9f4",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#b65e3c",
+                        "tertiary-fixed": "#c8f17a",
+                        "surface": "#FFFFFF",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#5f8115",
+                        "success": "#22C55E",
+                        "on-secondary-container": "#57657a",
+                        "surface-container": "#f0eee9",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#ffffff",
+                        "warning": "#F59E0B",
+                        "inverse-on-surface": "#f2f1ec",
+                        "secondary": "#515f74",
+                        "surface-dim": "#dbdad5",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdbcf",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.25rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "24px",
+                        "margin-tablet": "24px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "32px",
+                        "stack-md": "16px",
+                        "container-max": "1440px",
+                        "stack-xs": "4px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "data-mono": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "display": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    },
+                    boxShadow: {
+                        'soft': '0px 4px 20px rgba(0,0,0,0.04)',
+                        'floating': '0px 8px 32px rgba(71,85,105,0.1)'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #FAF8F3; } /* Level 0 Base */
+        .glass-panel { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+        .card-surface { background: #FFFFFF; border: 1px solid #E5E7EB; box-shadow: 0px 4px 20px rgba(0,0,0,0.04); border-radius: 1.25rem; }
+    </style>
+    <script src="shared.js"></script>
+</head>
+<body class="text-on-background font-body-md antialiased flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md text-primary dark:text-primary-fixed-dim docked full-width top-0 sticky z-50 border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-6">
+<span class="font-display text-display text-primary dark:text-primary-fixed-dim tracking-tight text-xl">Quarry Tracker</span>
+<nav class="hidden md:flex gap-4 ml-8">
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 font-bold" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all duration-200 px-3 py-1 rounded-md" href="#">Quarry 1</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all duration-200 px-3 py-1 rounded-md" href="#">Quarry 2</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all duration-200 px-3 py-1 rounded-md" href="#">Compare</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all duration-200 px-3 py-1 rounded-md" href="#">Import Data</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all duration-200 px-3 py-1 rounded-md" href="#">Reports</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-all duration-200 px-3 py-1 rounded-md" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">search</span></button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">dark_mode</span></button>
+<img alt="User profile" class="w-8 h-8 rounded-full ml-2 object-cover" data-alt="A small, professional user avatar portrait showing a person in high-key lighting, minimalist corporate style, warm terracotta background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1AvjWBG-J-SpGVjm15slaJqU-sJthLWcLBGy-4ApCG0-HQhodgGioaB_EM8oJaUFvYznF9ZVSy6hAQLXcJP1I3C02__GAYAJlMwty2TVWhvFP6Z1x3hoteJOPXRJ0SpXUPcwjfEBmDcoxokZ9eq0cm04z9so8eFreyo46V3Sz7knnM02WkfoNXLk_A6Uvzt_Jvp5U43Z3zKzO2ezJXpkj5vSt-zsV_4D6ZvPH2KgwDqQ7OkcaSOtA"/>
+</div>
+</header>
+<!-- SideNavBar (Floating Quick Actions) -->
+<aside class="hidden xl:flex bg-white/80 dark:bg-surface-container-highest/80 backdrop-blur-xl text-primary dark:text-primary-fixed-dim docked right-0 h-screen w-20 fixed z-40 border-l border-outline-variant dark:border-outline shadow-lg flex-col items-center py-stack-lg gap-stack-md pt-24">
+<div class="text-center mb-4">
+<span class="font-headline-md text-headline-md text-on-surface block text-xs">Actions</span>
+</div>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-dim rounded-xl hover:scale-110 transition-transform duration-200 p-3 flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">upload_file</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-dim rounded-xl hover:scale-110 transition-transform duration-200 p-3 flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">description</span>
+</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-dim rounded-xl hover:scale-110 transition-transform duration-200 p-3 flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">ios_share</span>
+</a>
+<div class="flex-grow"></div>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-dim rounded-xl hover:scale-110 transition-transform duration-200 p-3 flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">settings</span>
+</a>
+</aside>
+<main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-tablet lg:px-margin-desktop py-8 xl:pr-28">
+    <!-- Welcome Section -->
+    <section class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+        <div>
+            <h1 class="font-headline-lg text-3xl font-bold text-ink-deep mb-2">Quarry Enterprise Dashboard</h1>
+            <p class="font-body-md text-body-md text-secondary" id="dashboard-date">October 26, 2023 • Last Excel import: 2 hours ago</p>
+        </div>
+        <div class="flex gap-2">
+            <button id="sync-btn" class="bg-primary text-on-primary px-4 py-2.5 rounded-lg font-label-md text-label-md hover:bg-surface-tint transition-all shadow-sm flex items-center gap-2">
+                <span class="material-symbols-outlined animate-spin-hover" style="font-size: 18px;">sync</span> Sync Data
+            </button>
+        </div>
+    </section>
+
+    <!-- Enterprise Overview Metrics -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- KPI 1: Revenue -->
+        <div class="card-surface p-5 flex flex-col justify-between group hover:shadow-md transition-shadow bg-white dark:bg-surface-container">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-surface-container-high dark:bg-surface-dim flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">payments</span>
+                </div>
+                <span class="px-2 py-0.5 bg-surface-container text-on-surface-variant text-[11px] font-semibold rounded border border-outline-variant/20">Revenue</span>
+            </div>
+            <div>
+                <p class="text-xs text-on-surface-variant mb-1 uppercase tracking-wider font-semibold">Total Revenue</p>
+                <p id="total-revenue" class="font-display text-2xl font-bold text-on-surface font-data-tabular">₹ 0</p>
+            </div>
+        </div>
+        <!-- KPI 2: Expenses -->
+        <div class="card-surface p-5 flex flex-col justify-between group hover:shadow-md transition-shadow bg-white dark:bg-surface-container">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-error-container/30 flex items-center justify-center text-error">
+                    <span class="material-symbols-outlined">trending_down</span>
+                </div>
+                <span class="px-2 py-0.5 bg-error-container/20 text-error text-[11px] font-semibold rounded border border-error/20">Expense</span>
+            </div>
+            <div>
+                <p class="text-xs text-on-surface-variant mb-1 uppercase tracking-wider font-semibold">Total Expense</p>
+                <p id="total-expense" class="font-display text-2xl font-bold text-on-surface font-data-tabular">₹ 0</p>
+            </div>
+        </div>
+        <!-- KPI 3: Net Value -->
+        <div class="card-surface p-5 flex flex-col justify-between group hover:shadow-md transition-shadow border-l-4 border-l-primary bg-white dark:bg-surface-container">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">monitoring</span>
+                </div>
+                <span class="px-2 py-0.5 bg-primary-container/10 text-primary text-[11px] font-semibold rounded border border-primary/20">Profitability</span>
+            </div>
+            <div>
+                <p class="text-xs text-on-surface-variant mb-1 uppercase tracking-wider font-semibold">Net Settlement</p>
+                <p id="net-value" class="font-display text-2xl font-bold text-primary font-data-tabular">₹ 0</p>
+            </div>
+        </div>
+        <!-- KPI 4: Active Sites -->
+        <div class="card-surface p-5 flex flex-col justify-between group hover:shadow-md transition-shadow bg-white dark:bg-surface-container">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-10 h-10 rounded-lg bg-surface-container-high dark:bg-surface-dim flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">location_on</span>
+                </div>
+                <span class="px-2 py-0.5 bg-success/10 text-success text-[11px] font-semibold rounded border border-success/20">Operational</span>
+            </div>
+            <div>
+                <p class="text-xs text-on-surface-variant mb-1 uppercase tracking-wider font-semibold">Active Sites</p>
+                <p id="active-sites-count" class="font-display text-2xl font-bold text-on-surface">1 <span class="text-xs text-on-surface-variant font-normal">/ 2 Active</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quarry Specific Grid -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <!-- Quarry 1 Dashboard Overview -->
+        <div class="card-surface p-6 flex flex-col justify-between border-t-4 border-t-primary bg-white dark:bg-surface-container">
+            <div>
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container font-bold">Q1</div>
+                        <div>
+                            <h2 class="font-headline-md text-lg font-bold text-on-surface">Quarry 1</h2>
+                            <p class="text-xs text-on-surface-variant">Active Operations</p>
+                        </div>
+                    </div>
+                    <span class="px-2.5 py-0.5 bg-tertiary-fixed/40 text-tertiary-container text-xs rounded-full font-bold border border-tertiary/20 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-success animate-ping"></span> Online
+                    </span>
+                </div>
+                <div class="grid grid-cols-3 gap-2 bg-surface-container-low/40 dark:bg-surface-dim/40 p-3 rounded-lg mb-6 text-center">
+                    <div>
+                        <span class="text-[10px] text-on-surface-variant block uppercase font-medium">Revenue</span>
+                        <span id="q1-revenue" class="text-sm font-bold text-on-surface font-data-tabular">₹ 0</span>
+                    </div>
+                    <div class="border-l border-outline-variant/30">
+                        <span class="text-[10px] text-on-surface-variant block uppercase font-medium">Expense</span>
+                        <span id="q1-expense" class="text-sm font-bold text-on-surface font-data-tabular">₹ 0</span>
+                    </div>
+                    <div class="border-l border-outline-variant/30">
+                        <span class="text-[10px] text-on-surface-variant block uppercase font-medium">Net Value</span>
+                        <span id="q1-net" class="text-sm font-bold text-primary font-data-tabular">₹ 0</span>
+                    </div>
+                </div>
+                <h3 class="text-xs font-semibold uppercase text-on-surface-variant tracking-wider mb-2">Latest Period Logs</h3>
+                <div id="q1-latest-logs" class="space-y-2 mb-6">
+                    <!-- Dynamic logs for Q1 -->
+                </div>
+            </div>
+            <div class="flex justify-between items-center border-t border-outline-variant/10 pt-4">
+                <a href="quarry1.html" class="text-primary hover:text-primary-container text-xs font-bold flex items-center gap-1">
+                    Manage Quarry 1 <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </a>
+                <button class="bg-primary/10 hover:bg-primary/20 text-primary px-3 py-1.5 rounded text-xs font-bold transition-colors add-wp-q1">
+                    New Entry
+                </button>
+            </div>
+        </div>
+
+        <!-- Quarry 2 Dashboard Overview -->
+        <div class="card-surface p-6 flex flex-col justify-between border-t-4 border-t-secondary bg-white dark:bg-surface-container">
+            <div>
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold">Q2</div>
+                        <div>
+                            <h2 class="font-headline-md text-lg font-bold text-on-surface">Quarry 2</h2>
+                            <p class="text-xs text-on-surface-variant">Standby Site</p>
+                        </div>
+                    </div>
+                    <span id="q2-badge" class="px-2.5 py-0.5 bg-surface-container text-on-surface-variant text-xs rounded-full font-bold border border-outline-variant/20 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Standby
+                    </span>
+                </div>
+                <div class="grid grid-cols-3 gap-2 bg-surface-container-low/40 dark:bg-surface-dim/40 p-3 rounded-lg mb-6 text-center">
+                    <div>
+                        <span class="text-[10px] text-on-surface-variant block uppercase font-medium">Revenue</span>
+                        <span id="q2-revenue" class="text-sm font-bold text-on-surface font-data-tabular">₹ 0</span>
+                    </div>
+                    <div class="border-l border-outline-variant/30">
+                        <span class="text-[10px] text-on-surface-variant block uppercase font-medium">Expense</span>
+                        <span id="q2-expense" class="text-sm font-bold text-on-surface font-data-tabular">₹ 0</span>
+                    </div>
+                    <div class="border-l border-outline-variant/30">
+                        <span class="text-[10px] text-on-surface-variant block uppercase font-medium">Net Value</span>
+                        <span id="q2-net" class="text-sm font-bold text-primary font-data-tabular">₹ 0</span>
+                    </div>
+                </div>
+                <h3 class="text-xs font-semibold uppercase text-on-surface-variant tracking-wider mb-2">Latest Period Logs</h3>
+                <div id="q2-latest-logs" class="space-y-2 mb-6">
+                    <!-- Dynamic logs for Q2 -->
+                </div>
+            </div>
+            <div class="flex justify-between items-center border-t border-outline-variant/10 pt-4">
+                <a href="quarry2.html" class="text-primary hover:text-primary-container text-xs font-bold flex items-center gap-1">
+                    Manage Quarry 2 <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </a>
+                <button class="bg-primary/10 hover:bg-primary/20 text-primary px-3 py-1.5 rounded text-xs font-bold transition-colors add-wp-q2">
+                    New Entry
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Charts Section -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div class="card-surface p-6 bg-white dark:bg-surface-container">
+            <h3 class="font-headline-md text-lg font-bold text-on-surface mb-4">Monthly Revenue vs Expense</h3>
+            <div class="h-64 relative">
+                <canvas id="revenueExpenseChart"></canvas>
+            </div>
+        </div>
+        <div class="card-surface p-6 bg-white dark:bg-surface-container">
+            <h3 class="font-headline-md text-lg font-bold text-on-surface mb-4">Net Settlement Trend</h3>
+            <div class="h-64 relative">
+                <canvas id="netValueChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent System Timeline Activity -->
+    <section class="card-surface p-6 bg-white dark:bg-surface-container">
+        <h3 class="font-headline-md text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">history</span> Recent System Activity
+        </h3>
+        <div id="timeline-activity-list" class="relative pl-6 border-l border-outline-variant/40 space-y-6">
+            <div class="relative animate-pulse">
+                <span class="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full bg-primary/40 border-4 border-white dark:border-surface"></span>
+                <span class="h-3 w-24 bg-surface-container-highest rounded block mb-2"></span>
+                <span class="h-4 w-64 bg-surface-container-highest rounded block"></span>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let revExpChartInstance = null;
+    let netValChartInstance = null;
+
+    function formatPctChange(val) {
+        if (val === undefined || val === null) return '';
+        const isPos = val >= 0;
+        const color = isPos ? 'text-success' : 'text-error';
+        const icon = isPos ? 'trending_up' : 'trending_down';
+        return `
+            <span class="flex items-center gap-0.5 text-xs font-semibold ${color} mt-1">
+                <span class="material-symbols-outlined text-[14px]">${icon}</span>
+                ${Math.abs(val)}% MoM
+            </span>
+        `;
+    }
+
+    async function loadStats() {
+        try {
+            // 1. Fetch dashboard data
+            const dbRes = await fetch('/api/analytics/dashboard');
+            if (!dbRes.ok) throw new Error("Failed to fetch dashboard data");
+            const dbData = await dbRes.json();
+
+            // Populate Overview Cards
+            document.getElementById('total-revenue').textContent = formatCurrency(dbData.kpis.total_revenue.value);
+            // Append MoM percentage
+            const revMomEl = document.getElementById('total-revenue').parentElement;
+            if (!document.getElementById('total-revenue-mom')) {
+                const momSpan = document.createElement('span');
+                momSpan.id = 'total-revenue-mom';
+                momSpan.innerHTML = formatPctChange(dbData.kpis.total_revenue.pct_change);
+                revMomEl.appendChild(momSpan);
+            } else {
+                document.getElementById('total-revenue-mom').innerHTML = formatPctChange(dbData.kpis.total_revenue.pct_change);
+            }
+
+            document.getElementById('total-expense').textContent = formatCurrency(dbData.kpis.total_expense.value);
+            const expMomEl = document.getElementById('total-expense').parentElement;
+            if (!document.getElementById('total-expense-mom')) {
+                const momSpan = document.createElement('span');
+                momSpan.id = 'total-expense-mom';
+                momSpan.innerHTML = formatPctChange(dbData.kpis.total_expense.pct_change);
+                expMomEl.appendChild(momSpan);
+            } else {
+                document.getElementById('total-expense-mom').innerHTML = formatPctChange(dbData.kpis.total_expense.pct_change);
+            }
+            
+            const netValue = dbData.kpis.net_value.value;
+            const netValEl = document.getElementById('net-value');
+            netValEl.textContent = (netValue >= 0 ? '+ ' : '- ') + formatCurrency(Math.abs(netValue));
+            if (netValue < 0) {
+                netValEl.className = netValEl.className.replace('text-primary', 'text-error');
+            } else {
+                netValEl.className = netValEl.className.replace('text-error', 'text-primary');
+            }
+            const netMomEl = netValEl.parentElement;
+            if (!document.getElementById('net-value-mom')) {
+                const momSpan = document.createElement('span');
+                momSpan.id = 'net-value-mom';
+                momSpan.innerHTML = formatPctChange(dbData.kpis.net_value.pct_change);
+                netMomEl.appendChild(momSpan);
+            } else {
+                document.getElementById('net-value-mom').innerHTML = formatPctChange(dbData.kpis.net_value.pct_change);
+            }
+
+            // Active sites count
+            // Count operating quarries (if any records present)
+            const q1Active = dbData.recent_activity.some(r => r.quarry === 'Quarry 1');
+            const q2Active = dbData.recent_activity.some(r => r.quarry === 'Quarry 2');
+            const sitesCount = (q1Active ? 1 : 0) + (q2Active ? 1 : 0);
+            document.getElementById('active-sites-count').innerHTML = `${sitesCount} <span class="text-xs text-on-surface-variant font-normal">/ 2 Active</span>`;
+
+            // Quarry splits values
+            // We can query compare endpoint to populate quarry splits, or calculate from recent activity
+            // Let's call /api/analytics/compare once to populate Q1 vs Q2 card numbers!
+            const compRes = await fetch('/api/analytics/compare');
+            if (compRes.ok) {
+                const compData = await compRes.json();
+                
+                // Q1 Card
+                document.getElementById('q1-revenue').textContent = formatCurrency(compData.kpis['Quarry 1'].total_revenue);
+                document.getElementById('q1-expense').textContent = formatCurrency(compData.kpis['Quarry 1'].total_expense);
+                document.getElementById('q1-net').textContent = formatCurrency(compData.kpis['Quarry 1'].net_value);
+
+                // Q2 Card
+                document.getElementById('q2-revenue').textContent = formatCurrency(compData.kpis['Quarry 2'].total_revenue);
+                document.getElementById('q2-expense').textContent = formatCurrency(compData.kpis['Quarry 2'].total_expense);
+                document.getElementById('q2-net').textContent = formatCurrency(compData.kpis['Quarry 2'].net_value);
+                
+                const q2Badge = document.getElementById('q2-badge');
+                if (compData.kpis['Quarry 2'].total_working_days > 0 && q2Badge) {
+                    q2Badge.className = "px-2.5 py-0.5 bg-tertiary-fixed/40 text-tertiary-container text-xs rounded-full font-bold border border-tertiary/20 flex items-center gap-1";
+                    q2Badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-success animate-ping"></span> Online`;
+                }
+            }
+
+            // Populate recent logs list per quarry from recent activity list
+            const q1Logs = dbData.recent_activity.filter(r => r.quarry === 'Quarry 1').slice(0, 2);
+            const q1LogsEl = document.getElementById('q1-latest-logs');
+            if (q1Logs.length === 0) {
+                q1LogsEl.innerHTML = `<p class="text-xs text-on-surface-variant/70 italic py-2">No records logged yet.</p>`;
+            } else {
+                q1LogsEl.innerHTML = q1Logs.map(r => `
+                    <div class="flex justify-between items-center p-2.5 rounded-lg border border-outline-variant/20 bg-surface-container-low/30 hover:bg-surface-container-low/60 transition-all cursor-pointer" onclick="window.location.href='detail1.html?quarry=q1&id=${r.id}'">
+                        <div>
+                            <span class="text-xs font-semibold text-on-surface block">${r.day_from} to ${r.day_to}</span>
+                            <span class="text-[10px] text-on-surface-variant">${r.working_days} working days</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-tertiary-container block">+ ${formatCurrency(r.net_value)}</span>
+                            <span class="text-[10px] text-on-surface-variant uppercase">${r.received_amount >= r.net_value ? 'Fully Received' : 'Pending'}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const q2Logs = dbData.recent_activity.filter(r => r.quarry === 'Quarry 2').slice(0, 2);
+            const q2LogsEl = document.getElementById('q2-latest-logs');
+            if (q2Logs.length === 0) {
+                q2LogsEl.innerHTML = `<p class="text-xs text-on-surface-variant/70 italic py-2">No records logged yet. Quarry 2 is currently in standby.</p>`;
+            } else {
+                q2LogsEl.innerHTML = q2Logs.map(r => `
+                    <div class="flex justify-between items-center p-2.5 rounded-lg border border-outline-variant/20 bg-surface-container-low/30 hover:bg-surface-container-low/60 transition-all cursor-pointer" onclick="window.location.href='detail1.html?quarry=q2&id=${r.id}'">
+                        <div>
+                            <span class="text-xs font-semibold text-on-surface block">${r.day_from} to ${r.day_to}</span>
+                            <span class="text-[10px] text-on-surface-variant">${r.working_days} working days</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-tertiary-container block">+ ${formatCurrency(r.net_value)}</span>
+                            <span class="text-[10px] text-on-surface-variant uppercase">${r.received_amount >= r.net_value ? 'Fully Received' : 'Pending'}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // 2. Fetch recent admin activity logs
+            const timelineRes = await fetch('/api/admin/activity-log?limit=5');
+            if (timelineRes.ok) {
+                const timeline = await timelineRes.json();
+                const timelineEl = document.getElementById('timeline-activity-list');
+                if (timeline.length === 0) {
+                    timelineEl.innerHTML = `<p class="text-xs text-on-surface-variant/70 italic py-2">No system activity logged yet.</p>`;
+                } else {
+                    timelineEl.innerHTML = timeline.map(log => {
+                        const dt = new Date(log.timestamp);
+                        const timeStr = dt.toLocaleString('en-IN');
+                        let iconBg = 'bg-primary';
+                        if (log.action === 'DELETE') iconBg = 'bg-error';
+                        else if (log.action === 'IMPORT') iconBg = 'bg-tertiary';
+                        else if (log.action === 'UPDATE') iconBg = 'bg-warning';
+                        
+                        return `
+                            <div class="relative">
+                                <span class="absolute -left-[31px] top-1 w-3.5 h-3.5 rounded-full ${iconBg} border-4 border-white dark:border-surface"></span>
+                                <span class="text-xs font-data-mono text-on-surface-variant/70 block">${timeStr}</span>
+                                <p class="text-sm font-medium text-on-surface">${log.details}</p>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+
+            // 3. Render Bar Chart: Monthly Revenue vs Expense
+            const chart1Res = await fetch('/api/analytics/revenue-expense-by-month');
+            if (chart1Res.ok) {
+                const chart1Data = await chart1Res.json();
+                const ctx1 = document.getElementById('revenueExpenseChart').getContext('2d');
+                
+                if (revExpChartInstance) revExpChartInstance.destroy();
+                
+                const datasets1 = chart1Data.datasets.map(d => {
+                    const isQ1 = d.quarry === 'Quarry 1';
+                    return [
+                        {
+                            label: `${d.quarry} Revenue`,
+                            data: d.revenue,
+                            backgroundColor: isQ1 ? 'rgba(151, 70, 38, 0.8)' : 'rgba(81, 95, 116, 0.8)',
+                            borderColor: isQ1 ? 'rgb(151, 70, 38)' : 'rgb(81, 95, 116)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: `${d.quarry} Expense`,
+                            data: d.expense,
+                            backgroundColor: isQ1 ? 'rgba(186, 26, 26, 0.6)' : 'rgba(186, 26, 26, 0.8)',
+                            borderColor: 'rgb(186, 26, 26)',
+                            borderWidth: 1
+                        }
+                    ];
+                }).flat();
+
+                revExpChartInstance = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: chart1Data.labels,
+                        datasets: datasets1
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top', labels: { boxWidth: 12, font: { family: 'Inter', size: 10 } } }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    font: { family: 'Inter', size: 9 },
+                                    callback: function(val) { return '₹' + val.toLocaleString('en-IN'); }
+                                }
+                            },
+                            x: { ticks: { font: { family: 'Inter', size: 9 } } }
+                        }
+                    }
+                });
+            }
+
+            // 4. Render Line Chart: Net Value Trend
+            const chart2Res = await fetch('/api/analytics/net-value-trend');
+            if (chart2Res.ok) {
+                const chart2Data = await chart2Res.json();
+                const ctx2 = document.getElementById('netValueChart').getContext('2d');
+                
+                if (netValChartInstance) netValChartInstance.destroy();
+                
+                const datasets2 = chart2Data.datasets.map(d => {
+                    const isQ1 = d.quarry === 'Quarry 1';
+                    return {
+                        label: d.quarry,
+                        data: d.net_value,
+                        fill: false,
+                        borderColor: isQ1 ? 'rgb(151, 70, 38)' : 'rgb(81, 95, 116)',
+                        backgroundColor: isQ1 ? 'rgb(151, 70, 38)' : 'rgb(81, 95, 116)',
+                        tension: 0.2,
+                        borderWidth: 2,
+                        pointRadius: 3
+                    };
+                });
+
+                netValChartInstance = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: chart2Data.labels,
+                        datasets: datasets2
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top', labels: { boxWidth: 12, font: { family: 'Inter', size: 10 } } }
+                        },
+                        scales: {
+                            y: {
+                                ticks: {
+                                    font: { family: 'Inter', size: 9 },
+                                    callback: function(val) { return '₹' + val.toLocaleString('en-IN'); }
+                                }
+                            },
+                            x: { ticks: { font: { family: 'Inter', size: 9 } } }
+                        }
+                    }
+                });
+            }
+
+        } catch (err) {
+            console.error(err);
+            showToast("Failed to load dashboard data: " + err.message, "error");
+        }
+    }
+
+    loadStats();
+
+    // Bind sync button
+    const syncBtn = document.getElementById('sync-btn');
+    if (syncBtn) {
+        syncBtn.addEventListener('click', async () => {
+            syncBtn.disabled = true;
+            syncBtn.innerHTML = `<span class="material-symbols-outlined animate-spin" style="font-size: 18px;">sync</span> Syncing...`;
+            await loadStats();
+            syncBtn.disabled = false;
+            syncBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size: 18px;">sync</span> Sync Data`;
+            showToast("Dashboard synchronized successfully!");
+        });
+    }
+
+    // Bind add entries quick actions
+    document.querySelectorAll('.add-wp-q1').forEach(btn => {
+        btn.addEventListener('click', () => window.location.href = 'add_entry.html?quarry=q1');
+    });
+    document.querySelectorAll('.add-wp-q2').forEach(btn => {
+        btn.addEventListener('click', () => window.location.href = 'add_entry.html?quarry=q2');
+    });
+});
+</script>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest text-secondary dark:text-secondary-fixed-dim docked full-width bottom-0 border-t border-outline-variant dark:border-outline flex justify-between items-center px-margin-desktop py-4 w-full mt-auto relative z-50 xl:pr-28">
+<span class="font-label-md text-label-md text-ink-deep">Quarry Tracker v2.4.0 • Database: Active • Last Backup: 2 mins ago</span>
+<div class="flex gap-4">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-sm text-label-sm" href="#">Status</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-sm text-label-sm" href="#">Documentation</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-sm text-label-sm" href="#">Support</a>
+</div>
+</footer>
+</body></html>
+
+

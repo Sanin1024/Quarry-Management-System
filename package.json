@@ -1,0 +1,12 @@
+{
+  "name": "quarry-finance-dashboard",
+  "version": "1.0.0",
+  "description": "Quarry Finance Dashboard integrated web application",
+  "main": "dashboard.html",
+  "scripts": {
+    "start": "lite-server"
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}

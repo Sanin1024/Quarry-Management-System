@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Import Excel Data - Quarry Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#0b1c30",
+                      "secondary-container": "#c4d4fd",
+                      "on-secondary-container": "#4b5b7e",
+                      "surface-container": "#e5eeff",
+                      "on-tertiary": "#ffffff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-container-low": "#eff4ff",
+                      "on-tertiary-fixed-variant": "#2f2ebe",
+                      "on-primary-fixed": "#001f25",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#bfeaf4",
+                      "on-primary": "#ffffff",
+                      "surface-dim": "#cbdbf5",
+                      "secondary": "#4e5e81",
+                      "on-surface-variant": "#41484a",
+                      "on-secondary-fixed": "#081b3a",
+                      "outline": "#71787a",
+                      "on-primary-container": "#7ca5ae",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed-variant": "#364768",
+                      "secondary-fixed": "#d8e2ff",
+                      "on-primary-fixed-variant": "#234c55",
+                      "surface-variant": "#d3e4fe",
+                      "surface-bright": "#f8f9ff",
+                      "surface-tint": "#3c646d",
+                      "on-tertiary-container": "#9194ff",
+                      "on-tertiary-fixed": "#07006c",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#a3ced7",
+                      "on-error": "#ffffff",
+                      "inverse-primary": "#a3ced7",
+                      "surface-container-high": "#dce9ff",
+                      "background": "#f8f9ff",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-surface": "#0b1c30",
+                      "primary": "#00242b",
+                      "tertiary": "#09007a",
+                      "inverse-surface": "#213145",
+                      "tertiary-fixed-dim": "#c0c1ff",
+                      "secondary-fixed-dim": "#b6c6ef",
+                      "tertiary-container": "#180faf",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#e1e0ff",
+                      "primary-container": "#0d3b43",
+                      "outline-variant": "#c0c8ca",
+                      "surface": "#f8f9ff",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "1rem",
+                      "margin-page": "2rem",
+                      "card-padding": "1.5rem",
+                      "stack-sm": "0.5rem",
+                      "container-max": "1440px",
+                      "gutter": "1.5rem",
+                      "stack-lg": "2rem"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "data-mono": ["JetBrains Mono"],
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Subtle shadow for cards */
+        .card-shadow {
+            box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.05), 0px 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+        .card-shadow:hover {
+            box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.05), 0px 4px 6px -4px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    <script src="/static/js/shared.js"></script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md antialiased pb-24">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-low docked full-width top-0 sticky border-b border-outline-variant shadow-sm z-40">
+<div class="flex justify-between items-center px-margin-page py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-stack-lg">
+<div class="font-headline-lg text-headline-lg font-bold text-primary">Quarry Tracker</div>
+<nav class="hidden md:flex gap-stack-md font-headline-md text-headline-md for headers, font-body-md text-body-md for links items-center mt-1">
+<a class="text-on-surface-variant hover:text-primary transition-colors py-2 px-1" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors py-2 px-1" href="#">Quarry 1</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors py-2 px-1" href="#">Quarry 2</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors py-2 px-1" href="#">Compare</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 py-2 px-1" href="#">Import Data</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors py-2 px-1" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="bg-primary text-on-primary px-4 py-2 rounded font-headline-md text-headline-md text-sm hover:bg-primary-container transition-colors">Analytics</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-page py-stack-lg flex flex-col gap-stack-lg">
+<!-- Breadcrumb & Metadata -->
+<div class="flex flex-col gap-stack-sm">
+<div class="flex items-center text-on-surface-variant font-label-sm text-label-sm gap-2">
+<span>Dashboard</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary">Import Data</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-background">Import Excel Data</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1 max-w-2xl">Upload and validate daily production and financial workbooks for your quarry sites.</p>
+</div>
+<div class="flex flex-wrap items-center gap-stack-md">
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-full border border-outline-variant">
+<div class="w-2 h-2 rounded-full bg-primary-fixed"></div>
+<span class="font-data-mono text-data-mono text-xs text-on-surface">SQLite: Online</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">history</span>
+<span class="font-data-mono text-data-mono text-xs text-on-surface">Last: 2h ago</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">database</span>
+<span class="font-data-mono text-data-mono text-xs text-on-surface">Records: 1,240</span>
+</div>
+</div>
+</div>
+<div class="flex gap-stack-md mt-2">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline rounded-lg text-primary hover:bg-surface-container-low transition-colors font-headline-md text-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                    Download Excel Template
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors font-headline-md text-sm">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                    Import Guide
+                </button>
+</div>
+</div>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mt-stack-md">
+<!-- Left Column: Core Actions & Preview -->
+<div class="lg:col-span-8 flex flex-col gap-stack-lg">
+<!-- Quarry Selection & Upload Bento -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Target Selection -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-card-padding card-shadow flex flex-col gap-stack-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">Target Database</h2>
+<div class="relative">
+<select id="import-target" class="w-full appearance-none bg-surface border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg px-4 py-3 pr-10 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+<option value="q1">Quarry 1 Operations</option>
+<option value="q2">Quarry 2 Operations</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 text-on-surface-variant pointer-events-none">arrow_drop_down</span>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant flex items-center gap-2">
+<span id="import-target-badge" class="px-2.5 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm">Q1 Selected</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Ready for upload</span>
+</div>
+</div>
+<!-- Upload Zone -->
+<div id="upload-zone" class="md:col-span-2 bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl p-card-padding flex flex-col items-center justify-center text-center hover:bg-surface-container transition-colors cursor-pointer group">
+<input type="file" id="file-input" class="hidden" accept=".xlsx,.xls"/>
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[32px] text-primary">cloud_upload</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-surface mb-1">Drag and drop your Excel file here</p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">or <span class="text-primary font-medium hover:underline">Click to browse</span></p>
+<p class="font-label-sm text-label-sm text-outline">Supported formats: .xlsx, .xls (Max 25MB)</p>
+</div>
+</div>
+<!-- Active State: Preview & Validation KPIs -->
+<!-- Active State: Preview & Validation KPIs -->
+<div id="preview-stats" class="flex flex-col gap-stack-md mt-stack-md hidden">
+<h2 class="font-headline-lg text-headline-lg text-on-surface border-b border-outline-variant pb-2">Validation Preview</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 card-shadow flex flex-col gap-1 border-l-4 border-l-secondary-fixed">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Rows Found</span>
+<div id="stats-total-rows" class="font-headline-xl text-headline-xl text-on-background">0</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 card-shadow flex flex-col gap-1 border-l-4 border-l-surface-tint">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Rows Valid</span>
+<div id="stats-valid-rows" class="font-headline-xl text-headline-xl text-on-background">0</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 card-shadow flex flex-col gap-1 border-l-4 border-l-tertiary-container">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Warnings</span>
+<div id="stats-warning-rows" class="font-headline-xl text-headline-xl text-on-background">0</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 card-shadow flex flex-col gap-1 border-l-4 border-l-error">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Errors</span>
+<div id="stats-error-rows" class="font-headline-xl text-headline-xl text-error">0</div>
+</div>
+</div>
+</div>
+<!-- Data Preview Table -->
+<div id="preview-table" class="bg-surface-container-lowest rounded-xl border border-outline-variant card-shadow overflow-hidden flex flex-col hidden">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<h3 class="font-headline-md text-headline-md text-on-surface">Data Excerpt (First 5 Rows)</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant font-label-sm text-label-sm text-on-surface-variant">
+<th class="p-3 font-medium w-12 text-center">Status</th>
+<th class="p-3 font-medium">Day From</th>
+<th class="p-3 font-medium">Day To</th>
+<th class="p-3 font-medium text-right">Labourers</th>
+<th class="p-3 font-medium text-right">Total Exp.</th>
+<th class="p-3 font-medium text-right">1st Qual.</th>
+<th class="p-3 font-medium text-right">Revenue</th>
+<th class="p-3 font-medium">Remarks</th>
+</tr>
+</thead>
+<tbody id="preview-tbody" class="font-data-mono text-data-mono text-on-surface divide-y divide-outline-variant">
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Validation Details Panel -->
+<div class="lg:col-span-4 flex flex-col gap-stack-lg">
+<div id="preview-summary" class="bg-surface-container-lowest rounded-xl border border-outline-variant p-card-padding card-shadow h-full flex flex-col hidden">
+<h3 class="font-headline-md text-headline-md text-on-surface border-b border-outline-variant pb-4 mb-4">Validation Summary</h3>
+<!-- Pass Rate visual circle -->
+<div class="relative w-48 h-48 mx-auto mb-6">
+<div class="absolute inset-0 rounded-full border-[16px] border-surface-container"></div>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span id="pass-rate-pct" class="font-headline-xl text-headline-xl text-on-surface">100%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Pass Rate</span>
+</div>
+</div>
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-3">Issues Found</h4>
+<div class="flex-grow overflow-y-auto pr-2 space-y-3" id="issues-list">
+</div>
+</div>
+<!-- Bottom: Import History -->
+<div class="lg:col-span-12 mt-stack-md flex flex-col gap-stack-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Imports</h3>
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant font-label-sm text-label-sm text-on-surface-variant">
+<th class="p-3 font-medium">Date &amp; Time</th>
+<th class="p-3 font-medium">Filename</th>
+<th class="p-3 font-medium">Target</th>
+<th class="p-3 font-medium">Records</th>
+<th class="p-3 font-medium">Status</th>
+<th class="p-3 font-medium text-right">Action</th>
+</tr>
+</thead>
+<tbody id="history-tbody" class="font-body-md text-body-md text-on-surface divide-y divide-outline-variant">
+<tr>
+<td class="p-3 font-data-mono text-sm text-on-surface-variant">Oct 24, 09:12 AM</td>
+<td class="p-3 font-medium">Q1_Production_W42.xlsx</td>
+<td class="p-3">Quarry 1</td>
+<td class="p-3">350</td>
+<td class="p-3"><span class="px-2 py-1 rounded-full bg-surface-variant text-surface-tint font-label-sm text-[10px] uppercase">Success</span></td>
+<td class="p-3 text-right"><button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[20px]">visibility</span></button></td>
+</tr>
+<tr>
+<td class="p-3 font-data-mono text-sm text-on-surface-variant">Oct 23, 16:45 PM</td>
+<td class="p-3 font-medium">Q2_Financials_Oct.xls</td>
+<td class="p-3">Quarry 2</td>
+<td class="p-3">120</td>
+<td class="p-3"><span class="px-2 py-1 rounded-full bg-error-container text-error font-label-sm text-[10px] uppercase">Failed</span></td>
+<td class="p-3 text-right"><button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[20px]">visibility</span></button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-outline-variant shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-50 px-margin-page py-4">
+<div class="max-w-container-max mx-auto flex justify-between items-center">
+<button class="text-error font-headline-md text-sm hover:underline flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                Download Error Report
+            </button>
+<div class="flex gap-4">
+<button id="cancel-import-btn" class="px-6 py-2 border border-outline rounded-lg text-on-surface hover:bg-surface-container-low transition-colors font-headline-md text-sm">Cancel</button>
+<button id="confirm-import-btn" disabled class="opacity-50 pointer-events-none px-6 py-2 bg-primary text-on-primary rounded-lg hover:bg-primary-container transition-colors font-headline-md text-sm shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">database</span>
+                    Confirm Import
+                </button>
+</div>
+</div>
+</div>
+<!-- Padding for sticky bar -->
+<div class="h-20 w-full"></div>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-surface-container-highest full-width bottom border-t border-outline-variant bg-surface-container-low flat no shadows flex justify-between items-center px-margin-page py-stack-md w-full relative z-40">
+<div class="font-label-sm text-label-sm font-black text-on-surface dark:text-on-surface-variant">
+            Quarry Tracker v2.4.1 | Database: Online | Last Backup: 12 mins ago
+        </div>
+<nav class="flex gap-stack-md font-label-sm text-label-sm">
+<a class="text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary transition-colors" href="#">System Status</a>
+<a class="text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const importTargetSelect = document.getElementById('import-target');
+    const importTargetBadge = document.getElementById('import-target-badge');
+    const uploadZone = document.getElementById('upload-zone');
+    const fileInput = document.getElementById('file-input');
+
+    const previewStats = document.getElementById('preview-stats');
+    const previewTable = document.getElementById('preview-table');
+    const previewSummary = document.getElementById('preview-summary');
+
+    const confirmImportBtn = document.getElementById('confirm-import-btn');
+    const cancelImportBtn = document.getElementById('cancel-import-btn');
+    const historyTbody = document.getElementById('history-tbody');
+
+    // Keep track of the current uploaded preview file
+    let currentPreviewFile = null;
+
+    // Update selection badge on load and change
+    function updateTargetBadge() {
+        const value = importTargetSelect.value;
+        if (value === 'q1') {
+            importTargetBadge.textContent = "Q1 Selected";
+            importTargetBadge.className = "px-2.5 py-1 rounded bg-[#B65E3C] text-white font-label-sm text-[12px] font-bold";
+        } else {
+            importTargetBadge.textContent = "Q2 Selected";
+            importTargetBadge.className = "px-2.5 py-1 rounded bg-[#4F6D8A] text-white font-label-sm text-[12px] font-bold";
+        }
+    }
+    importTargetSelect.addEventListener('change', updateTargetBadge);
+    updateTargetBadge();
+
+    // Click upload zone
+    uploadZone.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // File input change
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            handleFileUpload(e.target.files[0]);
+        }
+    });
+
+    // Drag & Drop
+    uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.classList.add('bg-surface-container');
+    });
+
+    uploadZone.addEventListener('dragleave', () => {
+        uploadZone.classList.remove('bg-surface-container');
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('bg-surface-container');
+        if (e.dataTransfer.files.length > 0) {
+            handleFileUpload(e.dataTransfer.files[0]);
+        }
+    });
+
+    async function handleFileUpload(file) {
+        uploadZone.style.pointerEvents = "none";
+        uploadZone.innerHTML = `
+            <div class="flex flex-col items-center justify-center py-4">
+                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-primary mb-3"></div>
+                <p class="font-headline-md text-on-surface mb-1">Uploading and validating file...</p>
+                <p class="text-xs text-on-surface-variant">Running business rules validation</p>
+            </div>
+        `;
+
+        const targetQuarry = importTargetSelect.value === 'q1' ? 'Quarry 1' : 'Quarry 2';
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('quarry', targetQuarry);
+
+        try {
+            const res = await fetch('/api/import/preview', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!res.ok) {
+                const errData = await res.json();
+                throw new Error(errData.errors ? errData.errors.join(', ') : 'Upload validation failed');
+            }
+
+            const data = await res.json();
+            currentPreviewFile = data.filename;
+
+            // Success visuals
+            uploadZone.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-4 text-success">
+                    <span class="material-symbols-outlined text-[40px] mb-2 icon-fill">check_circle</span>
+                    <p class="font-headline-md text-on-surface mb-1">File verified successfully!</p>
+                    <p class="text-xs text-on-surface-variant">${file.name} (${data.total_rows} rows found)</p>
+                </div>
+            `;
+
+            showToast(`File verified: ${data.total_rows} rows parsed.`);
+
+            // Populate KPIs
+            document.getElementById('stats-total-rows').textContent = data.total_rows;
+            document.getElementById('stats-valid-rows').textContent = data.valid_rows;
+            document.getElementById('stats-error-rows').textContent = data.invalid_rows;
+            
+            // Render pass rate
+            const passRate = data.total_rows > 0 ? Math.round((data.valid_rows / data.total_rows) * 100) : 0;
+            document.getElementById('pass-rate-pct').textContent = `${passRate}%`;
+
+            // Populate preview excerpt table (first 5 rows)
+            const previewTbody = document.getElementById('preview-tbody');
+            previewTbody.innerHTML = '';
+            
+            const first5 = data.rows.slice(0, 5);
+            first5.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = row._valid ? 'hover:bg-surface-container-low transition-colors' : 'bg-error-container/20 hover:bg-error-container/30 transition-colors';
+
+                const statusIcon = row._valid 
+                    ? `<span class="material-symbols-outlined text-surface-tint icon-fill text-[18px]">check_circle</span>`
+                    : `<span class="material-symbols-outlined text-error icon-fill text-[18px]">error</span>`;
+
+                const remarks = row._issues && row._issues.length > 0 ? row._issues.join('; ') : 'Valid record';
+
+                tr.innerHTML = `
+                    <td class="p-3 text-center">${statusIcon}</td>
+                    <td class="p-3">${row.day_from || '-'}</td>
+                    <td class="p-3">${row.day_to || '-'}</td>
+                    <td class="p-3 text-right">${row.num_labourers}</td>
+                    <td class="p-3 text-right">${formatCurrency(row.total_expense || 0)}</td>
+                    <td class="p-3 text-right">${row.first_quality_bricks || 0}</td>
+                    <td class="p-3 text-right">${formatCurrency(row.total_revenue || 0)}</td>
+                    <td class="p-3 text-on-surface-variant text-xs truncate max-w-[200px]" title="${remarks}">${remarks}</td>
+                `;
+                previewTbody.appendChild(tr);
+            });
+
+            // Populate Issues Panel
+            const issuesList = document.getElementById('issues-list');
+            issuesList.innerHTML = '';
+
+            // Extract issues across all rows
+            let hasIssues = false;
+            data.rows.forEach(row => {
+                if (row._issues && row._issues.length > 0) {
+                    hasIssues = true;
+                    row._issues.forEach(issue => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'flex gap-3 p-3 rounded-lg bg-error-container/30 border border-error-container';
+                        itemDiv.innerHTML = `
+                            <span class="material-symbols-outlined text-error mt-0.5 text-[20px]">error</span>
+                            <div>
+                                <p class="font-headline-md text-sm text-on-background">Row ${row.index + 1} Issue</p>
+                                <p class="font-body-md text-xs text-on-surface-variant mt-1">${issue}</p>
+                            </div>
+                        `;
+                        issuesList.appendChild(itemDiv);
+                    });
+                }
+            });
+
+            if (!hasIssues) {
+                issuesList.innerHTML = `
+                    <div class="text-center py-6 text-on-surface-variant/70">
+                        <span class="material-symbols-outlined text-4xl mb-2 text-surface-tint">check_circle</span>
+                        <p class="font-medium">No validation issues found!</p>
+                    </div>
+                `;
+            }
+
+            // Unhide preview sections
+            previewStats.classList.remove('hidden');
+            previewTable.classList.remove('hidden');
+            previewSummary.classList.remove('hidden');
+
+            // Enable confirm button only if there are valid rows
+            if (data.valid_rows > 0) {
+                confirmImportBtn.removeAttribute('disabled');
+                confirmImportBtn.classList.remove('opacity-50', 'pointer-events-none');
+            } else {
+                confirmImportBtn.setAttribute('disabled', 'true');
+                confirmImportBtn.classList.add('opacity-50', 'pointer-events-none');
+            }
+
+            uploadZone.style.pointerEvents = "auto";
+
+        } catch (err) {
+            uploadZone.style.pointerEvents = "auto";
+            uploadZone.innerHTML = `
+                <div class="w-16 h-16 rounded-full bg-error-container flex items-center justify-center mb-4 text-error">
+                    <span class="material-symbols-outlined text-[32px]">cloud_upload</span>
+                </div>
+                <p class="font-headline-md text-headline-md text-on-surface mb-1">Failed to validate file</p>
+                <p class="font-body-md text-body-md text-error mb-4">${err.message}</p>
+                <p class="font-label-sm text-label-sm text-outline">Click to try again</p>
+            `;
+            showToast(err.message, "error");
+        }
+    }
+
+    // Confirm Import Clicked
+    confirmImportBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        if (!currentPreviewFile) return;
+
+        confirmImportBtn.disabled = true;
+        confirmImportBtn.innerHTML = `<span class="material-symbols-outlined animate-spin" style="font-size: 18px;">sync</span> Importing...`;
+
+        const targetQuarry = importTargetSelect.value === 'q1' ? 'Quarry 1' : 'Quarry 2';
+
+        try {
+            const res = await fetch('/api/import/confirm', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    filename: currentPreviewFile,
+                    quarry: targetQuarry
+                })
+            });
+
+            if (!res.ok) {
+                const errData = await res.json();
+                throw new Error(errData.errors ? errData.errors.join(', ') : 'Failed to confirm import');
+            }
+
+            const data = await res.json();
+            showToast(`Import completed: ${data.imported_count} rows imported, ${data.skipped_count} skipped.`);
+            
+            // Redirect to the active records list
+            setTimeout(() => {
+                window.location.href = importTargetSelect.value === 'q1' ? 'quarry1.html' : 'quarry2.html';
+            }, 800);
+
+        } catch (err) {
+            confirmImportBtn.disabled = false;
+            confirmImportBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">database</span> Confirm Import`;
+            showToast(err.message, 'error');
+        }
+    });
+
+    // Load recent imports history
+    async function loadRecentImports() {
+        try {
+            const res = await fetch('/api/import/history');
+            if (!res.ok) throw new Error("Failed to fetch import history");
+            const data = await res.json();
+
+            historyTbody.innerHTML = '';
+            if (data.length === 0) {
+                historyTbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="p-6 text-center text-on-surface-variant/70">
+                            No imports logged recently
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            data.forEach(item => {
+                const dateObj = new Date(item.imported_at);
+                const formattedDate = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-3 font-data-mono text-sm text-on-surface-variant">${formattedDate}</td>
+                    <td class="p-3 font-medium text-sm truncate max-w-[200px]" title="${item.filename}">${item.filename.split('_').slice(1).join('_') || item.filename}</td>
+                    <td class="p-3 text-sm">${item.quarry}</td>
+                    <td class="p-3 text-sm font-medium">${item.rows_imported} rows</td>
+                    <td class="p-3 text-xs">
+                        <span class="px-2 py-0.5 rounded-full ${item.rows_imported > 0 ? 'bg-tertiary-fixed/30 text-tertiary-container' : 'bg-error-container text-error'} font-semibold text-[10px]">
+                            ${item.rows_imported > 0 ? 'SUCCESS' : 'SKIPPED'}
+                        </span>
+                    </td>
+                    <td class="p-3 text-right">
+                        <button class="text-on-surface-variant hover:text-primary transition-colors text-xs font-semibold hover:underline" onclick="showToast('${item.notes.replace(/'/g, "\\'")}')">View Details</button>
+                    </td>
+                `;
+                historyTbody.appendChild(tr);
+            });
+
+        } catch (err) {
+            historyTbody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="p-6 text-center text-error font-medium">
+                        Failed to load history: ${err.message}
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    // Cancel Button Handler
+    cancelImportBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'dashboard.html';
+    });
+
+    loadRecentImports();
+    bindNavigation();
+});
+</script>
+</body></html>
+
+
