@@ -1,0 +1,40 @@
+﻿# Dependencies
+node_modules/
+package-lock.json
+
+# Local Database & SQLite WAL files
+data/*.db
+data/*.db-wal
+data/*.db-shm
+!data/.gitkeep
+
+# Automated exports, backups & logs
+exports/
+backups/
+logs/
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# SECRETS & ENVIRONMENT VARIABLES
+# ==========================================
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Private Keys & Certificates
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Secret Config Files
+secrets.json
+config/secrets.json
+credentials.json

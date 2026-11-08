@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weekly Report</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; color: #000; }
+    .header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
+    .section { margin-bottom: 20px; }
+    .section h3 { background: #eee; padding: 5px; margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #f9f9f9; }
+    .text-right { text-align: right; }
+    .summary { font-weight: bold; margin-top: 20px; border-top: 2px solid #000; padding-top: 10px; }
+    .footer { margin-top: 50px; display: flex; justify-content: space-between; }
+    @media print { body { margin: 0; } }
+  </style>
+</head>
+<body>
+  <div id="print-content">Loading report...</div>
+  <script>
+    const fmtRupees = (p) => '₹' + Number(p / 100).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const fmtDate = (iso) => iso ? iso.split('-').reverse().join('-') : '';
+    
+    async function loadReport() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      const res = await fetch(`/api/reports/${id}`);
+      const r = await res.json();
+      
+      document.getElementById('print-content').innerHTML = `
+        <div class="header">
+          <h2>Quarry Weekly Report</h2>
+          <p>Period: ${fmtDate(r.week_from)} to ${fmtDate(r.week_to)}</p>
+        </div>
+        
+        <div class="section">
+          <h3>Workforce</h3>
+          <table>
+            <tr><th>Working Days</th><td>${r.working_days}</td><th>No. of Labourers</th><td>${r.labourers_count}</td></tr>
+            <tr><th>Labour Payment</th><td colspan="3">${fmtRupees(r.labour_payment_paise)}</td></tr>
+          </table>
+        </div>
+
+        <div class="section">
+          <h3>Expenses</h3>
+          <table>
+            <tr><th>Diesel</th><td class="text-right">${fmtRupees(r.diesel_paise)}</td><th>Spare Parts</th><td class="text-right">${fmtRupees(r.spare_parts_paise)}</td></tr>
+            <tr><th>Fitting</th><td class="text-right">${fmtRupees(r.fitting_paise)}</td><th>JCB</th><td class="text-right">${fmtRupees(r.jcb_paise)}</td></tr>
+            <tr><th>Cutting Wheel</th><td class="text-right">${fmtRupees(r.cutting_wheel_paise)}</td><th>Mess</th><td class="text-right">${fmtRupees(r.mess_paise)}</td></tr>
+            <tr><th>Other</th><td class="text-right">${fmtRupees(r.other_paise)}</td><th>Total Expenses</th><td class="text-right"><strong>${fmtRupees(r.total_expenses_paise)}</strong></td></tr>
+          </table>
+        </div>
+
+        <div class="section">
+          <h3>Production & Revenue</h3>
+          <table>
+            <tr><th>Product</th><th>Qty</th><th>Rate</th><th>Amount</th></tr>
+            <tr><td>First Quality</td><td>${r.first_qty}</td><td class="text-right">${fmtRupees(r.first_rate_paise)}</td><td class="text-right">${fmtRupees(r.first_revenue_paise)}</td></tr>
+            <tr><td>Second Quality</td><td>${r.second_qty}</td><td class="text-right">${fmtRupees(r.second_rate_paise)}</td><td class="text-right">${fmtRupees(r.second_revenue_paise)}</td></tr>
+            <tr><td>Broken Loads</td><td>${r.broken_loads}</td><td class="text-right">${fmtRupees(r.broken_rate_paise)}</td><td class="text-right">${fmtRupees(r.broken_revenue_paise)}</td></tr>
+            <tr><td colspan="3"><strong>Total Revenue</strong></td><td class="text-right"><strong>${fmtRupees(r.total_revenue_paise)}</strong></td></tr>
+          </table>
+        </div>
+
+        <div class="section summary">
+          <table>
+            <tr><th>Net Value</th><td class="text-right">${fmtRupees(r.net_value_paise)}</td><th>Amount Received</th><td class="text-right">${fmtRupees(r.received_paise)}</td></tr>
+            <tr><th>Short Amount</th><td class="text-right" colspan="3">${fmtRupees(r.short_amount_paise)}</td></tr>
+            ${r.remarks ? `<tr><th>Remarks</th><td colspan="3">${r.remarks.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</td></tr>` : ''}
+          </table>
+        </div>
+
+        <div class="footer">
+          <div>Prepared by: _______________</div>
+          <div>Approved by: _______________</div>
+        </div>
+      `;
+      window.print();
+    }
+    loadReport();
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quarry Report Manager</title>
+  <!-- P2 FIX: Inline SVG Favicon to eliminate 404 lookups -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%232563eb%22/><text y=%2275%22 x=%2250%22 font-size=%2280%22 text-anchor=%22middle%22 fill=%22white%22>Q</text></svg>">
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- P3 FIX: Sentry Browser SDK -->
+  <script src="https://browser.sentry-cdn.com/8.0.0/bundle.tracing.replay.min.js" crossorigin="anonymous"></script>
+  <script>
+    if (window.Sentry && process.env.SENTRY_DSN) {
+      Sentry.init({
+        dsn: process.env.SENTRY_DSN,
+        integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration({ maskAllText: false, blockAllMedia: false })],
+        tracesSampleRate: 1.0, replaysSessionSampleRate: 0.1, replaysOnErrorSampleRate: 1.0,
+      });
+    }
+  </script>
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <h1 class="brand">Quarry Reports</h1>
+      <nav>
+        <a href="#" class="nav-link active" data-view="dashboard">Dashboard</a>
+        <a href="#" class="nav-link" data-view="reports">Reports</a>
+        <a href="#" class="nav-link" data-view="form">Add Report</a>
+        <a href="#" class="nav-link" data-view="daily">Daily Logs</a>
+        <a href="#" class="nav-link" data-view="rates">Rates</a>
+        <a href="#" class="nav-link" data-view="outstanding">Outstanding</a>
+        <a href="#" class="nav-link" data-view="recycle">Recycle Bin</a>
+        <a href="#" class="nav-link" data-view="quarries">Manage Quarries</a>
+        <a href="#" class="nav-link" data-view="export">Export</a>
+        <a href="#" class="nav-link" data-view="settings">Settings</a>
+      </nav>
+      <button id="dark-mode-toggle" class="btn btn-secondary" style="margin-top: 2rem; width: 100%;">Toggle Dark Mode</button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <h2 id="page-title">Dashboard</h2>
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+          <select id="quarry-selector" style="padding: 0.5rem; border-radius: 4px; border: 1px solid var(--border); font-weight: bold; background: var(--primary); color: white;"></select>
+          <input type="text" id="search-remarks" placeholder="Search remarks..." style="padding: 0.5rem; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text);">
+        </div>
+      </header>
+      <div class="quick-filters" style="margin-bottom: 1.5rem;">
+        <button data-range="all" class="active">All Time</button>
+        <button data-range="month">This Month</button>
+        <button data-range="3months">Last 3 Months</button>
+        <button data-range="fy">This Fin. Year</button>
+        <input type="date" id="filter-from" style="padding: 0.25rem; background: var(--card-bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+        <input type="date" id="filter-to" style="padding: 0.25rem; background: var(--card-bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+        <button id="btn-apply-filter" class="btn btn-primary" style="padding: 0.25rem 1rem;">Apply</button>
+        <button id="btn-reset-filter" class="btn btn-link" style="padding: 0.25rem 1rem;">Reset</button>
+      </div>
+      <div id="view-container"><div class="loader">Loading...</div></div>
+    </main>
+  </div>
+
+  <script src="/vendor/chart.umd.min.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

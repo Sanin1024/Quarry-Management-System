@@ -1,0 +1,24 @@
+{
+  "name": "quarry-report-manager",
+  "version": "1.0.0",
+  "description": "Local weekly report manager for a brick-making mining quarry (India).",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node --test",
+    "backup": "node server/scripts/backup.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.19.2",
+    "exceljs": "^4.4.0"
+  },
+  "allowScripts": {
+    "better-sqlite3@11.10.0": true
+  }
+}
+
